@@ -1,0 +1,34 @@
+.form-floating>.error{
+    margin-top: 5px;
+    height: 10px;
+}
+.form-floating{
+    height: calc(3.5rem + 15px);
+    position: relative;
+}
+#error1,#error2,#error3,#error4,#error5,#error6,#error7,#error8,#error9,#error10{
+    display: none;
+    color: rgb(221, 86, 86);
+}
+.errorborder{
+    border-color: red;
+    transition: all 0.2 ease;
+}
+
+.form-control {
+    position: relative;
+  }
+  
+  .erroruname {
+    position: absolute;
+    left: 73%;
+    top: 43%;
+    transform: translateY(-50%);
+  }
+  
+  .erroremail {
+    position: absolute;
+    left: 77%;
+    top: 43%;
+    transform: translateY(-50%);
+  }
