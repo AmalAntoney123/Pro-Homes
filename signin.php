@@ -85,11 +85,11 @@
                     session_start();
                     if (isset($_SESSION['Check_login'])) {
                       if ($_SESSION['Check_login'] == "REGISTERED")
-                        echo "Successfully registered login here<br>";
+                        echo "Successfully registered login here";
                       if ($_SESSION['Check_login'] == "INVALID")
-                        echo "Incorrect Username or Password, Try Again<br>";
+                        echo "Incorrect Username or Password, Try Again";
                       if ($_SESSION['Check_login'] == "ADMIN_INVALID")
-                        echo "You need to login<br>";
+                        echo "You need to login";
                       unset($_SESSION['Check_login']);
                     }
                     ?>
