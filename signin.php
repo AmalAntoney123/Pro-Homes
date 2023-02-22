@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -82,10 +83,11 @@
             </div>
             <div><span class="text-danger text-left">
                     <?php
-                    session_start();
                     if (isset($_SESSION['Check_login'])) {
                       if ($_SESSION['Check_login'] == "REGISTERED")
                         echo "Successfully registered login here";
+                      if ($_SESSION['Check_login'] == "VERIFIED")
+                        echo "Account not verified";
                       if ($_SESSION['Check_login'] == "INVALID")
                         echo "Incorrect Username or Password, Try Again";
                       if ($_SESSION['Check_login'] == "ADMIN_INVALID")
