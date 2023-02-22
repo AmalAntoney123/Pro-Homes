@@ -1,7 +1,10 @@
 <?php
 session_start();
+$i=0;
+try_again:
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
 include("connection.php");
 
 
@@ -17,12 +20,13 @@ $pass = trim($_POST["pass"]);
 $phone = $_POST["phone"];
 $pic = $_FILES["p_pic"]["name"];
 $city = $_POST["city"];
-$code= rand(10000,99999);
+$code = rand(10000, 99999);
 
 //mailer start
 $mail = new PHPMailer;
 
 // Set up SMTP configuration
+$mail->isHTML(true);
 $mail->isSMTP();
 $mail->Host = 'smtp.gmail.com';
 $mail->SMTPAuth = true;
@@ -31,10 +35,10 @@ $mail->Password = 'soxizaywlhblgsqu';
 $mail->SMTPSecure = 'tls';
 $mail->Port = 587;
 
-$ffname=ucfirst($fname);
-$llname=ucfirst($lname);
+$ffname = ucfirst($fname);
+$llname = ucfirst($lname);
 
-$fullname= "$ffname $llname";
+$fullname = "$ffname $llname";
 
 // Set up email details
 $mail->setFrom('mail.prohomes@gmail.com', 'Pro Homes');
@@ -111,7 +115,7 @@ $mail->Body = '<!doctype html>
         <p>Your verification code is:</p>
       </div>
       <div class="code">
-        <h2>'.$code.'</h2>
+        <h2>' . $code . '</h2>
         <p>Enter this code to verify your email address.</p>
       </div>
       <div class="message">
@@ -123,24 +127,22 @@ $mail->Body = '<!doctype html>
     </div>
   </body>
 </html>';
-
-if (!$mail->send()) {
-  $query = "INSERT INTO `tbl_user`(`First_Name`, `Last_Name`, `Username`, `Email`, `Password`, `Phone_Number`, `Profile_Picture`, `City`, `User_Type`, `Verification_status`) 
+if($i==0){
+$query = "INSERT INTO `tbl_user`(`First_Name`, `Last_Name`, `Username`, `Email`, `Password`, `Phone_Number`, `Profile_Picture`, `City`, `User_Type`, `Verification_status`) 
                     VALUES ('$fname','$lname','$uname','$mail1','$pass','$phone','$pic','$city','Customer','$code')";
 $result = mysqli_query($con, $query);
 
 if ($result) {
-    $target = "uploads/" . $pic;
-    move_uploaded_file($_FILES["p_pic"]["tmp_name"], $target);
+  $target = "uploads/" . $pic;
+  move_uploaded_file($_FILES["p_pic"]["tmp_name"], $target);
 }
-
-if ($result) {
-    $_SESSION['uname'] = $uname;
-    header("Location: validate_email.php");
+$i+=1;
 }
-
+if (!$mail->send()) {
+  goto try_again;
 } else {
-  header("Refresh:1");
+  $_SESSION['uname'] = $uname;
+  header("Location: validate_email.php");
 }
 
 ?>
