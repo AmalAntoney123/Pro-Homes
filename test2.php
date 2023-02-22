@@ -1,31 +1,19 @@
-<?php
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-require 'PHPMailer/src/Exception.php';
-require 'PHPMailer/src/PHPMailer.php';
-require 'PHPMailer/src/SMTP.php';
-$mail = new PHPMailer;
-
-// Set up SMTP configuration
-$mail->isSMTP();
-$mail->Host = 'smtp.gmail.com';
-$mail->SMTPAuth = true;
-$mail->Username='mail.prohomes@gmail.com';
-$mail->Password='soxizaywlhblgsqu';
-$mail->SMTPSecure = 'tls';
-$mail->Port = 587;
-
-// Set up email details
-$mail->setFrom('mail.prohomes@gmail.com', 'Pro Homes');
-$mail->addAddress('recipient@example.com', 'Recipient Name');
-$mail->Subject = 'Test email';
-$mail->Body = 'This is a test email sent via PHPMailer using Gmail.';
-
-// Send the email
-if(!$mail->send()) {
-    echo 'Mailer Error: ' . $mail->ErrorInfo;
-} else {
-    echo 'Message sent!';
-}
-?>
+<!doctype html>
+                <html lang="en">
+                  <head>
+                    <meta charset="utf-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+                    <title>Verification Code</title>
+                  </head>
+                  <body>
+                    <div class="container">
+                      <h1 class="text-center">Verification Code</h1>
+                      <p class="text-center">Your verification code is:</p>
+                      <div class="text-center my-5">
+                        <h2 class="display-4">'.$verificationCode.'</h2>
+                      </div>
+                      <p class="text-center">Enter this code to verify your email address.</p>
+                    </div>
+                  </body>
+                </html>';
