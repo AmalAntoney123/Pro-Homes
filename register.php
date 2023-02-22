@@ -124,8 +124,8 @@ $mail->Body = '<!doctype html>
   </body>
 </html>';
 
-
-$query = "INSERT INTO `tbl_user`(`First_Name`, `Last_Name`, `Username`, `Email`, `Password`, `Phone_Number`, `Profile_Picture`, `City`, `User_Type`, `Verification_status`) 
+if (!$mail->send()) {
+  $query = "INSERT INTO `tbl_user`(`First_Name`, `Last_Name`, `Username`, `Email`, `Password`, `Phone_Number`, `Profile_Picture`, `City`, `User_Type`, `Verification_status`) 
                     VALUES ('$fname','$lname','$uname','$mail1','$pass','$phone','$pic','$city','Customer','$code')";
 $result = mysqli_query($con, $query);
 
@@ -137,6 +137,10 @@ if ($result) {
 if ($result) {
     $_SESSION['uname'] = $uname;
     header("Location: validate_email.php");
+}
+
+} else {
+  header("Refresh:1");
 }
 
 ?>

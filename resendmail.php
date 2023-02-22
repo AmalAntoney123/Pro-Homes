@@ -129,19 +129,19 @@ $mail->Body = '<!doctype html>
 
 // Send the email
 if (!$mail->send()) {
-    echo 'Mailer Error: ' . $mail->ErrorInfo;
+  header("Refresh:1");
 } else {
-    echo 'Message sent!';
+  $query = "UPDATE `tbl_user` SET `Verification_status`='$code' WHERE `Username` = '$uname'";
+  $result = mysqli_query($con, $query);
+  
+  if ($result) {
+      $_SESSION['uname'] = $uname;
+      header("Location: validate_email.php");
+  }
 }
 
 //mailer end
 
-$query = "UPDATE `tbl_user` SET `Verification_status`='$code' WHERE `Username` = '$uname'";
-$result = mysqli_query($con, $query);
 
-if ($result) {
-    $_SESSION['uname'] = $uname;
-    header("Location: validate_email.php");
-}
 
 ?>

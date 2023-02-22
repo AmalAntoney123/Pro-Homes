@@ -406,7 +406,7 @@
 
 
     <!-- Ollie js -->
-    <script src="assets/js/Ollie.js"></script>
+    <script src="assets/js/ollie.js"></script>
 
 </body>
 
