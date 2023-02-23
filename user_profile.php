@@ -130,7 +130,7 @@
             <div class="ps-md-4 shadow-sm pt-5 pb-5 mb-5 my-2 bg-white" style="border-radius:20px;">
               <div class="d-flex flex-column align-items-center">
                 <div class="row px-5">
-                  <img class="photo" src="uploads/<?php echo $target; ?>" alt="" class="img-fluid ">
+                  <img class="photo" src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt="" class="img-fluid ">
                 </div>
                 <p class="fw-bold h4 mt-3">
                   <?php echo "$fname $lname"; ?>
