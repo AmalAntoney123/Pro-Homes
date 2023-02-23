@@ -133,7 +133,7 @@ $query = "INSERT INTO `tbl_user`(`First_Name`, `Last_Name`, `Username`, `Email`,
 $result = mysqli_query($con, $query);
 
 if ($result) {
-  $target = "uploads/" . $pic;
+  $target = "uploaded files/Profile Pictures/" . $pic;
   move_uploaded_file($_FILES["p_pic"]["tmp_name"], $target);
 }
 $i+=1;

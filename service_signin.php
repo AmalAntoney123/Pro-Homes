@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,6 +22,58 @@
 
     <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
     <script src="assets/vendors/bootstrap/bootstrap.bundle.js"></script>
+    <script>
+        $(document).ready(function () {
+            // When a file is selected, show the name of the file in the label
+            $('.custom-file-input').on('change', function () {
+                var fileName = $(this).val().split('\\').pop();
+                $(this).siblings('.custom-file-label').addClass('selected').html(fileName);
+            });
+
+            // Before form submission, check that each file is a PDF
+            $('form').submit(function (event) {
+                var qualifications = $('#qualification');
+                var certificate = $('#certificate');
+                var insurance = $('#insurance');
+
+                var isValid = true;
+
+                // Check qualifications file
+                if (qualifications[0].files.length > 0) {
+                    var file = qualifications[0].files[0];
+                    var fileType = file.type.toLowerCase();
+                    if (fileType != 'application/pdf') {
+                        isValid = false;
+                        $('#qualification-error').text('Please upload a PDF file.');
+                    }
+                }
+
+                // Check certificate file
+                if (certificate[0].files.length > 0) {
+                    var file = certificate[0].files[0];
+                    var fileType = file.type.toLowerCase();
+                    if (fileType != 'application/pdf') {
+                        isValid = false;
+                        $('#certificate-error').text('Please upload a PDF file.');
+                    }
+                }
+
+                // Check insurance file
+                if (insurance[0].files.length > 0) {
+                    var file = insurance[0].files[0];
+                    var fileType = file.type.toLowerCase();
+                    if (fileType != 'application/pdf') {
+                        isValid = false;
+                        $('#insurance-error').text('Please upload a PDF file.');
+                    }
+                }
+
+                if (!isValid) {
+                    event.preventDefault(); // Prevent form submission
+                }
+            });
+        });
+    </script>
     <style>
         textarea {
             resize: none;
@@ -31,23 +84,18 @@
             position: relative;
         }
     </style>
-    <script>
-        // Add the following code if you want the name of the file appear on select
-        $(".custom-file-input").on("change", function () {
-            var fileName = $(this).val().split("\\").pop();
-            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-        });
-        function validateFileType() {
-            var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
-            var fileInput = document.getElementById('file');
-            var filePath = fileInput.value;
-            if (!allowedExtensions.exec(filePath)) {
-                alert('Invalid file type. Only JPG, JPEG, PNG and GIF files are allowed.');
-                fileInput.value = '';
-                return false;
-            }
-        }
-    </script>
+
+    <?php
+    if (isset($_SESSION["l_id"])) {
+        include("connection.php");
+        $lid = $_SESSION["l_id"];
+
+        $lid = $_SESSION["l_id"];
+        $query = "SELECT * FROM `tbl_services`";
+        $result = mysqli_query($con, $query);
+    }
+
+    ?>
 
 </head>
 
@@ -71,9 +119,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="services.php">Find Service</a>
                     </li>
-                    <li class="nav-item ml-0 ml-lg-4">
-                        <a class="nav-link btn btn-primary" href="signin.php">Login</a>
-                    </li>
+       
                 </ul>
             </div>
         </div>
@@ -88,10 +134,7 @@
                     <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                         <div class="card-body p-4 p-md-5">
                             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Service Provider Details</h3>
-                            <form>
-
-
-
+                            <form action="service_register.php" method="POST" enctype="multipart/form-data">
                                 <div class="form-floating form-floating">
                                     <textarea type="text" required name="address" class="form-control" id="address"
                                         placeholder=" "></textarea>
@@ -99,51 +142,62 @@
                                     <label for="address">Address</label>
                                 </div>
                                 <div class="form-floating form-outline">
-                                    <select type="text" required name="city" id="city" class="form-control"
+                                    <select type="text" required name="service" id="service" class="form-control"
                                         placeholder=" ">
-                                        <option>Electrician</option>
-                                        <option>PLumber</option>
-                                        <option>House Cleaning</option>
+                                        <?php while ($tbl_service = mysqli_fetch_array($result)) { ?>
+                                            <option>
+                                                <?php echo $tbl_service['Service_Name']; ?>
+                                            </option>
+                                        <?php } ?>
                                     </select>
-                                    <label class="form-label" for="city">Type of Service</label>
+                                    <label class="form-label" for="service">Type of Service</label>
                                     <span id="error9"></span>
                                 </div>
                                 <div class="form-floating form-floating">
-                                    <textarea type="text" required name="address" class="form-control" id="address"
+                                    <textarea type="text" required name="description" class="form-control" id="address"
                                         placeholder=" "></textarea>
                                     <span class="erroraddress" id="erroraddress"></span>
-                                    <label for="address">Service Description</label>
+                                    <label for="address">Provide Description of service you offer</label>
+                                    <span class="error" id="error3"></span>
+                                </div>
+                                <div class="form-floating form-floating">
+                                    <input type="number" required name="price" class="form-control" id="price"
+                                        placeholder=" ">
+                                    <span class="errorrate" id="errorrate"></span>
+                                    <label for="price">Hourly Rate in Rupees</label>
                                     <span class="error" id="error3"></span>
                                 </div>
                                 <div class="form-floating form-outline">
                                     <div class="custom-file mb-3">
-                                        <input type="file" required class="custom-file-input" id="customFile"
-                                            name="filename">
-                                        <label class="custom-file-label" for="customFile">Upload Qualification
+                                        <input type="file" required accept="application/pdf" class="custom-file-input"
+                                            id="qualification" name="qualification">
+                                        <label class="custom-file-label" for="qualification">Upload Qualification
                                             Documents</label>
                                     </div>
-                                    <span id="error8"> </span>
+                                    <span id="qualification-error" class="text-danger"></span>
                                 </div>
+
                                 <div class="form-floating form-outline">
                                     <div class="custom-file mb-3">
-                                        <input type="file" required class="custom-file-input" id="customFile"
-                                            name="filename">
-                                        <label class="custom-file-label" for="customFile">Upload Certificate
+                                        <input type="file" required accept="application/pdf" class="custom-file-input"
+                                            id="certificate" name="certificate">
+                                        <label class="custom-file-label" for="certificate">Upload Certificate
                                             Documents</label>
                                     </div>
-                                    <span id="error8"></span>
+                                    <span id="certificate-error" class="text-danger"></span>
                                 </div>
+
                                 <div class="form-floating form-outline">
                                     <div class="custom-file mb-3">
-                                        <input type="file" required class="custom-file-input" id="customFile"
-                                            name="filename">
-                                        <label class="custom-file-label" for="customFile">Upload Insurance
+                                        <input type="file" required accept="application/pdf" class="custom-file-input"
+                                            id="insurance" name="insurance">
+                                        <label class="custom-file-label" for="insurance">Upload Insurance
                                             Documents</label>
                                     </div>
-                                    <span id="error8"></span>
+                                    <span id="insurance-error" class="text-danger"></span>
                                 </div>
                                 <button type="submit" id="sub" class="btn btn-primary btn-block mb-4" width="">
-                                    Sign up
+                                    Apply
                                 </button>
                             </form>
                         </div>

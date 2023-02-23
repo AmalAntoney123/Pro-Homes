@@ -72,7 +72,7 @@
             <div class="nav-item dropdown ">
               <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                 <span class="d-none d-lg-inline-flex"><?php echo "$fname $lname";  ?></span>
-                <img class="rounded-circle ml-2 me-lg-2" src="uploads/<?php echo $target; ?>" alt="" style="width: 40px; height: 40px;">
+                <img class="rounded-circle ml-2 me-lg-2" src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt="" style="width: 40px; height: 40px;">
 
               </a>
               <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">

@@ -9,7 +9,7 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="icon" href="assets/imgs/Logo.png" type="image/icon type">
+  <link rel="icon" href="assets/imgs/Logo.png" type="image/icon type">
 
   <!-- font icons -->
   <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
@@ -21,7 +21,7 @@
 
   <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
   <script src="assets/vendors/bootstrap/bootstrap.bundle.js"></script>
-  
+
   <script src="assets/js/validationprofile.js"></script>
 
   <style>
@@ -34,10 +34,11 @@
     .nav-link:hover {
       color: #ee2424;
     }
+
     .form-floating {
-    height: calc(4.5rem + 15px);
-    position: relative;
-}
+      height: calc(4.5rem + 15px);
+      position: relative;
+    }
   </style>
   <?php
   if (isset($_SESSION["l_id"])) {
@@ -90,7 +91,7 @@
                 <span class="d-none d-lg-inline-flex">
                   <?php echo "$fname $lname"; ?>
                 </span>
-                <img class="rounded-circle ml-2 me-lg-2" src="uploads/<?php echo $target; ?>" alt=""
+                <img class="rounded-circle ml-2 me-lg-2" src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt=""
                   style="width: 40px; height: 40px;">
 
               </a>
@@ -155,7 +156,7 @@
                     Password</a>
                 </li>
                 <li class="nav-item border-top border-bottom">
-                  <a href="service_signin.php" class="nav-link" >Become A Service Provider</a>
+                  <a href="service_signin.php" class="nav-link">Become A Service Provider</a>
                 </li>
 
               </ul>
@@ -169,6 +170,7 @@
                   <div class="tab-content pt-2">
 
                     <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                      <h1 class="mb-5">Overview</h1>
                       <div class="d-flex align-items-center justify-content-between border-bottom">
                         <p class="py-2">First Name</p>
                         <p class="py-2 text-muted">
@@ -209,8 +211,8 @@
                     </div>
 
                     <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-                      
-                    <h1 class="mb-5">Edit Profile</h1>
+
+                      <h1 class="mb-5">Edit Profile</h1>
                       <form action="update_profile.php" method="POST" enctype="multipart/form-data">
                         <!-- 2 column grid layout with text inputs for the first and last names -->
 
@@ -290,7 +292,7 @@
                     </div>
 
                     <div class="tab-pane fade pt-3 mb-4" id="profile-change-password">
-                    <h1 class="mb-5">Change Password</h1>
+                      <h1 class="mb-5">Change Password</h1>
                       <!-- Change Password Form -->
                       <form action="change_password.php" method="POST">
 
@@ -307,14 +309,14 @@
                           <div class="col-md-8 col-lg-9">
                             <input name="newpassword" type="password" class="form-control" id="newPassword">
                             <span id="error6" class="error"> * Password needs uppercase, special &
-                                            numbers.</span>
+                              numbers.</span>
                           </div>
                         </div>
 
                         <div class="row mb-3">
                           <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New
                             Password</label>
-                            
+
                           <div class="col-md-8 col-lg-9">
                             <input name="renewpassword" type="password" class="form-control" id="renewPassword">
                             <span id="error7" class="error"> * Password doesnot match</span>
@@ -368,45 +370,66 @@
         </div>
       </div>
     </section>
-<!-- Password Modal -->
+    <!-- Modals -->
     <section>
-    <div class="modal" id="myModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Pro Homes</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
+      <div class="modal" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Pro Homes</h4>
+              <button type="button" class="close close-modal" data-dismiss="modal">&times;</button>
+            </div>
 
-          <div class="modal-body">
-            <p>Password Changed</p>
-          </div>
+            <div class="modal-body">
+              <p>Password Changed</p>
+            </div>
 
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary close-modal" data-dismiss="modal">Close</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="modal" id="myModal1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Pro Homes</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
+      <div class="modal" id="myModal1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Pro Homes</h4>
+              <button type="button" class="close close-modal" data-dismiss="modal">&times;</button>
+            </div>
 
-          <div class="modal-body">
-            <p>Check Current Password</p>
-          </div>
+            <div class="modal-body">
+              <p>Check Current Password</p>
+            </div>
 
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary close-modal" data-dismiss="modal">Close</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-      
+      <div class="modal" id="Service_Pending">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Pro Homes</h4>
+              <button type="button" class="close close-modal" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+              <p>
+              <h5>Your request has been submitted.</h5><br> You will receive an email notification once you have been
+              accepted.</p>
+
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary close-modal" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <?php
       if (isset($_SESSION["pass_status"])) {
 
@@ -427,12 +450,29 @@
         }
         unset($_SESSION["pass_status"]);
       }
+      if (isset($_SESSION["Requested"])) {
+        $MSG = $_SESSION["Requested"];
+        if ($MSG == "VALID") {
+          echo '<script>
+            $(document).ready(function(){
+              $("#Service_Pending").modal("show");
+            });
+          </script>';
+        }
+        unset($_SESSION["Requested"]);
+
+      }
 
       ?>
 
     </section>
     <!-- JavaScript Libraries -->
-
+    <script>
+      $(document).ready(function () {
+        $('.close-modal').click(function () {
+          $('#Service_Pending,#myModal,#myModal1').modal('hide');
+        });
+      });</script>
     <!-- bootstrap 3 affix -->
     <script src="assets/vendors/bootstrap/bootstrap.affix.js"></script>
     <script src="lib/chart/chart.min.js"></script>
