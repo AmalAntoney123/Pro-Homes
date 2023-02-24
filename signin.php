@@ -8,6 +8,9 @@
   <meta name="description" content="Start your development with Ollie landing page.">
   <meta name="author" content="Devcrud">
   <title>ProHomes - House services</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+ 
   <link rel="icon" href="assets/imgs/Logo.png" type="image/icon type">
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -20,6 +23,8 @@
   <link rel="stylesheet" href="assets/vendors/owl-carousel/css/owl.theme.default.css">
 
   <!-- Bootstrap + Ollie main styles -->
+  <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
+
   <link rel="stylesheet" href="assets/css/ollie.css">
 
 
@@ -88,11 +93,12 @@
                         echo "Successfully registered login here";
                       if ($_SESSION['Check_login'] == "VERIFIED")
                         echo "Account not verified";
-                      if ($_SESSION['Check_login'] == "INVALID")
+                      if ($_SESSION['Check_login'] == "INVALID"){
                         echo "Incorrect Username or Password, Try Again";
+                      }
                       if ($_SESSION['Check_login'] == "ADMIN_INVALID")
                         echo "You need to login";
-                      unset($_SESSION['Check_login']);
+                      
                     }
                     ?>
 
@@ -117,6 +123,14 @@
                 <button type="submit" class="btn btn-primary btn-block mb-4">
                   Sign in
                 </button>
+                <span class="text-danger"><?php
+                  if(isset($_SESSION['Check_login'])){
+                    if ($_SESSION['Check_login'] == "INVALID"){
+                      echo "Forgot Password?<a href='forget_password.php '> click here</a><br>";
+                    }
+                    unset($_SESSION['Check_login']);
+                  }
+                ?></span>
                 <span>Don't have an account?<a href="signup.html"> Register here</a></span>
 
               </form>
@@ -158,7 +172,76 @@
       </div>
     </div>
   </section>
+<!-- Modals -->
+<section>
+      <div class="modal" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Pro Homes</h4>
+              <button type="button" class="close close-modal" data-dismiss="modal">&times;</button>
+            </div>
 
+            <div class="modal-body">
+              <p>Password Successfully Changed</p>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary close-modal" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal" id="myModal1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Pro Homes</h4>
+              <button type="button" class="close close-modal" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+              <p>Check Email to Change Password</p>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary close-modal" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <?php
+      if (isset($_SESSION["pass_status"])) {
+
+        $MSG = $_SESSION["pass_status"];
+
+        if ($MSG) {
+          echo '<script>
+            $(document).ready(function(){
+              $("#myModal").modal("show");
+            });
+          </script>';
+        } 
+        if (!$MSG) {
+          echo '<script>
+            $(document).ready(function(){
+              $("#myModal1").modal("show");
+            });
+          </script>';
+        } 
+        unset($_SESSION["pass_status"]);
+      }
+      
+      ?>
+
+    </section>
+    <script>
+      $(document).ready(function () {
+        $('.close-modal').click(function () {
+          $('#myModal,#myModal1').modal('hide');
+        });
+      });</script>
 
 
 

@@ -1,16 +1,14 @@
 <?php
-session_start();
-$i=0;
-try_again:
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
-include("connection.php");
-
-
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
+
+session_start();
+$i=0;
+try_again:
+include("connection.php");
 
 $fname = trim($_POST["fname"]);
 $lname = trim($_POST["lname"]);
