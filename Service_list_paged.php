@@ -45,26 +45,25 @@ $totalRecords = mysqli_num_rows(mysqli_query($con, "SELECT * FROM tbl_service_pr
 $totalPages = ceil($totalRecords / $recordsPerPage);
 
 // generate HTML output
-$output = '<div class="container">';
+$output = '<div class="">';
 
 if (mysqli_num_rows($result) > 0) {
   while ($row = mysqli_fetch_assoc($result)) {
     $output .= '<div class="row p-2 mt-3 bg-white border rounded">';
-$output .= '<div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" style="width: 100%; height: 200px;object-fit: cover;" src="uploaded files/Profile Pictures/' . $row['Profile_Picture'] . '"></div>';
-$output .= '<div class="col-md-6 mt-1">';
-$output .= '<h5>' . $row['First_Name'] . ' ' . $row['Last_Name'] . '</h5>';
-$output .= '<div class="d-flex flex-row"><div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>310</span></div>';
-$output .= '<div class="mt-1 mb-1 spec-1"><span>' . $row['Service_Name'] . '</span><span class="dot"></span><span></span><span class="dot"></span><span> ✓<br></span></div>';
-$output .= '<div class="mt-1 mb-1 spec-1"><span class="text-info"><h5>City: '.$row['City'].'</h5></span></div>';
-$output .= '<p class="text-justify text-truncate para mb-0">' . $row['Service_Desc'] . '<br><br></p>';
-$output .= '</div>';
-$output .= '<div class="align-items-center align-content-center col-md-3 border-left mt-1">';
-$output .= '<div class="d-flex flex-row align-items-center"><h4 class="mr-1">' . $row['Price'] . '</h4><span class="strike-text">/ hr</span></div><h6 class="text-success">Blank</h6>';
-$output .= '<div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button">Details</button><button class="btn btn-outline-primary btn-sm mt-2" type="button">Book Now</button></div>';
-$output .= '</div>';
+    $output .= '<div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" style="width: 100%; height: 200px;object-fit: cover;" src="uploaded files/Profile Pictures/' . $row['Profile_Picture'] . '"></div>';
+    $output .= '<div class="col-md-6 mt-1">';
+    $output .= '<h5>' . $row['First_Name'] . ' ' . $row['Last_Name'] . '</h5>';
+    $output .= '<div class="d-flex flex-row"><div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>310</span></div>';
+    $output .= '<div class="mt-1 mb-1 spec-1"><span>' . $row['Service_Name'] . '</span><span class="dot"></span><span></span><span class="dot"></span><span> ✓<br></span></div>';
+    $output .= '<div class="mt-1 mb-1 spec-1"><span class="text-info"><h5>City: ' . $row['City'] . '</h5></span></div>';
+    $output .= '<p class="text-justify text-truncate para mb-0">' . $row['Service_Desc'] . '<br><br></p>';
+    $output .= '</div>';
+    $output .= '<div class="align-items-center align-content-center col-md-3 border-left mt-1">';
+    $output .= '<div class="d-flex flex-row align-items-center"><h4 class="mr-1">' . $row['Price'] . '</h4><span class="strike-text">/ hr</span></div><h6 class="text-success">Blank</h6>';
+    $output .= '<div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button">Details</button><button class="btn btn-outline-primary btn-sm mt-2" type="button">Book Now</button></div>';
+    $output .= '</div></div>';
 
-// Add a container div to wrap the above code
-$output = '<div class="container-fluid">' . $output . '</div>';
+    // Add a container div to wrap the above code
   }
 } else {
   $output .= '<div class="col-md-12">';
