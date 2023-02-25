@@ -6,12 +6,17 @@
     <style>
       body {
         background-color: #f8f9fa;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
       }
 
       .container {
         padding: 1rem;
         box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
         background-color: #fff;
+        max-width: 600px;
+        margin: 0 auto;
       }
 
       .header {
@@ -22,6 +27,8 @@
       .header h1 {
         text-align: center;
         color: #fff;
+        font-size: 2rem;
+        margin: 0;
       }
 
       .title {
@@ -30,24 +37,16 @@
         margin-top: 2rem;
       }
 
-      .link {
+      .code {
         text-align: center;
         margin-top: 5rem;
       }
 
-      .link a {
-        display: inline-block;
-        padding: 1rem 2rem;
-        background-color: #f06161;
-        color: #fff;
-        text-decoration: none;
-        font-size: 2rem;
+      .code h2 {
+        color: #f06161;
+        font-size: 5rem;
         font-weight: bold;
-        border-radius: 0.5rem;
-      }
-
-      .link a:hover {
-        background-color: #e74c3c;
+        margin-bottom: 2rem;
       }
 
       .message {
@@ -63,9 +62,24 @@
       .footer p {
         text-align: center;
         color: #fff;
+        margin: 0;
+      }
+
+      .button {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background-color: #f06161;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 0.25rem;
+        transition: background-color 0.2s ease-in-out;
+      }
+
+      .button:hover {
+        background-color: #d54d4d;
       }
     </style>
-    <title>Forgot Password Link</title>
+    <title>Service Provider Access Granted</title>
   </head>
   <body>
     <div class="container">
@@ -73,12 +87,11 @@
         <h1>Pro Homes</h1>
       </div>
       <div class="title">
-        <h2>Forgot Password Link</h2>
-        <p>Click on the link below to reset your password:</p>
+        <h2>Service Provider Access Granted</h2>
+        <p>Congratulations! You have been accepted as a service provider and can now access the service provider page from your profile.</p>
       </div>
-      <div class="link">
-        <a href="[forgot_password_link]">Reset Password</a>
-        <p>Clicking on the link will take you to the password reset page.</p>
+      <div class="code">
+        <a href="http://localhost/prohomes/signin.php" class="button">Go to Login</a>
       </div>
       <div class="message">
         <p>This email was sent by Pro Homes</p>

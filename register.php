@@ -1,12 +1,13 @@
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
 
 session_start();
-$i=0;
+$i = 0;
 try_again:
 include("connection.php");
 
@@ -100,6 +101,19 @@ $mail->Body = '<!doctype html>
         text-align: center;
         color: #fff;
       }
+      .button {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background-color: #f06161;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 0.25rem;
+        transition: background-color 0.2s ease-in-out;
+      }
+
+      .button:hover {
+        background-color: #d54d4d;
+      }
     </style>
     <title>Verification Code</title>
   </head>
@@ -115,6 +129,8 @@ $mail->Body = '<!doctype html>
       <div class="code">
         <h2>' . $code . '</h2>
         <p>Enter this code to verify your email address.</p>
+        <a href="http://localhost/prohomes/signin.php" class="button">Go to Login</a>
+     
       </div>
       <div class="message">
         <p>This email was sent by Pro Homes</p>
@@ -125,16 +141,16 @@ $mail->Body = '<!doctype html>
     </div>
   </body>
 </html>';
-if($i==0){
-$query = "INSERT INTO `tbl_user`(`First_Name`, `Last_Name`, `Username`, `Email`, `Password`, `Phone_Number`, `Profile_Picture`, `City`, `User_Type`, `Verification_status`) 
+if ($i == 0) {
+  $query = "INSERT INTO `tbl_user`(`First_Name`, `Last_Name`, `Username`, `Email`, `Password`, `Phone_Number`, `Profile_Picture`, `City`, `User_Type`, `Verification_status`) 
                     VALUES ('$fname','$lname','$uname','$mail1','$pass','$phone','$pic','$city','Customer','$code')";
-$result = mysqli_query($con, $query);
+  $result = mysqli_query($con, $query);
 
-if ($result) {
-  $target = "uploaded files/Profile Pictures/" . $pic;
-  move_uploaded_file($_FILES["p_pic"]["tmp_name"], $target);
-}
-$i+=1;
+  if ($result) {
+    $target = "uploaded files/Profile Pictures/" . $pic;
+    move_uploaded_file($_FILES["p_pic"]["tmp_name"], $target);
+  }
+  $i += 1;
 }
 if (!$mail->send()) {
   goto try_again;

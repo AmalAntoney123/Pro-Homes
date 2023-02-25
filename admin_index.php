@@ -98,7 +98,7 @@ if (isset($_SESSION["l_id"])) {
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                     class="fa fa-briefcase me-2"></i>Services</a>
                             <div class="dropdown-menu bg-transparent border-0">
-                                <a href="verify_request.php" class="dropdown-item">Verify Providers</a>
+                                <a href="admin_verify_request.php" class="dropdown-item">Verify Providers</a>
                                 <a href="typography.html" class="dropdown-item">Recent Appoinments</a>
                                 <a href="element.html" class="dropdown-item">List Providers</a>
                             </div>
@@ -216,8 +216,8 @@ if (isset($_SESSION["l_id"])) {
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                                <a href="#" class="dropdown-item">My Profile</a>
-                                <a href="#" class="dropdown-item">Settings</a>
+                                <a href="user_profile.php" class="dropdown-item">My Profile</a>
+                                <a href="user_profile.php" class="dropdown-item">Settings</a>
                                 <a href="logout.php" class="dropdown-item">Log Out</a>
                             </div>
                         </div>
