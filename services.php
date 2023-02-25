@@ -55,7 +55,9 @@
   <nav id="scrollspy" class="navbar navbar-black bg-light navbar-expand-lg ">
     <div class="container">
       <a class="navbar-brand" href="#"><img src="assets/imgs/logo.png" alt="" class="brand-img"></a>
-      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse"
+        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
         <span class="navbar-toggler-icon navbar-light"></span>
       </button>
 
@@ -63,7 +65,7 @@
         <ul class="navbar-nav ml-auto">
           <?php
           if (isset($_SESSION["l_id"])) {
-          ?>
+            ?>
             <li class="nav-item">
               <a class="nav-link mt-2" href="index.php">Home</a>
             </li>
@@ -71,8 +73,11 @@
 
             <div class="nav-item dropdown ">
               <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                <span class="d-none d-lg-inline-flex"><?php echo "$fname $lname";  ?></span>
-                <img class="rounded-circle ml-2 me-lg-2" src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt="" style="width: 40px; height: 40px;">
+                <span class="d-none d-lg-inline-flex">
+                  <?php echo "$fname $lname"; ?>
+                </span>
+                <img class="rounded-circle ml-2 me-lg-2" src="uploaded files/Profile Pictures/<?php echo $target; ?>"
+                  alt="" style="width: 40px; height: 40px;">
 
               </a>
               <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
@@ -82,16 +87,16 @@
               </div>
             </div>
 
-          <?php
+            <?php
           } else {
-          ?>
+            ?>
             <li class="nav-item">
               <a class="nav-link pb-2" href="index.php">Home</a>
             </li>
             <li class="nav-item ml-0 ml-lg-4">
               <a class="nav-link btn btn-primary" href="signin.php">Login</a>
             </li>
-          <?php
+            <?php
           }
           ?>
         </ul>
@@ -154,7 +159,7 @@
                   Personal
                 </label>
               </div>
-              
+
               <hr>
               <h5>Service</h5>
               <div class="form-check">
@@ -176,10 +181,11 @@
                 </label>
               </div>
               <hr>
-              
+
             </div>
             <!-- Show/hide sidebar (mobile) -->
-            <button class="btn btn-primary d-lg-none w-100  d-md-none" type="button" data-toggle="collapse" data-target="#sidebar" aria-expanded="false" aria-controls="sidebar">
+            <button class="btn btn-primary d-lg-none w-100  d-md-none" type="button" data-toggle="collapse"
+              data-target="#sidebar" aria-expanded="false" aria-controls="sidebar">
               <i class="fa fa-filter"></i> Filters
             </button>
 
@@ -231,7 +237,7 @@
                     Personal
                   </label>
                 </div>
-                
+
                 <hr>
                 <h5>Service</h5>
                 <div class="form-check">
@@ -253,7 +259,7 @@
                   </label>
                 </div>
                 <hr>
-                
+
               </div>
             </div>
           </div>
@@ -266,94 +272,8 @@
               <div class="container mt-5 mb-5">
                 <div class="d-flex justify-content-center row">
                   <div class="col-md-12">
-                    <div class="row p-2 bg-white border rounded">
-                      <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="assets/imgs/p1.jpg"></div>
-                      <div class="col-md-6 mt-1">
-                        <h5>Jordan Carter</h5>
-                        <div class="d-flex flex-row">
-                          <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>310</span>
-                        </div>
-                        <div class="mt-1 mb-1 spec-1"><span>Plumber</span><span class="dot"></span><span> Dummy</span><span class="dot"></span><span> ✓<br></span></div>
-                        <div class="mt-1 mb-1 spec-1"><span>Unique design</span><span class="dot"></span><span>For
-                            men</span><span class="dot"></span><span>Casual<br></span></div>
-                        <p class="text-justify text-truncate para mb-0">There are many variations of passages of Lorem Ipsum
-                          available, but the majority have suffeOrganisation alteration in some form, by injected humour, or
-                          randomised words which don't look even slightly believable.<br><br></p>
-                      </div>
-                      <div class="align-items-center align-content-center col-md-3 border-left mt-1">
-                        <div class="d-flex flex-row align-items-center">
-                          <h4 class="mr-1">$13.99</h4><span class="strike-text">/ hr</span>
-                        </div>
-                        <h6 class="text-success">Blank</h6>
-                        <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button">Details</button><button class="btn btn-outline-primary btn-sm mt-2" type="button">Book Now</button></div>
-                      </div>
-                    </div>
-                    <div class="row p-2 bg-white border rounded mt-2">
-                      <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="assets/imgs/p2.jpg"></div>
-                      <div class="col-md-6 mt-1">
-                        <h5>Marcus Lee</h5>
-                        <div class="d-flex flex-row">
-                          <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>310</span>
-                        </div>
-                        <div class="mt-1 mb-1 spec-1"><span>Electrician</span><span class="dot"></span><span> Dummy</span><span class="dot"></span><span> ✓<br></span></div>
-                        <div class="mt-1 mb-1 spec-1"><span>Unique design</span><span class="dot"></span><span>For
-                            men</span><span class="dot"></span><span>Casual<br></span></div>
-                        <p class="text-justify text-truncate para mb-0">There are many variations of passages of Lorem Ipsum
-                          available, but the majority have suffeOrganisation alteration in some form, by injected humour, or
-                          randomised words which don't look even slightly believable.<br><br></p>
-                      </div>
-                      <div class="align-items-center align-content-center col-md-3 border-left mt-1">
-                        <div class="d-flex flex-row align-items-center">
-                          <h4 class="mr-1">$14.99</h4><span class="strike-text">/ hr</span>
-                        </div>
-                        <h6 class="text-success">Blank</h6>
-                        <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button">Details</button><button class="btn btn-outline-primary btn-sm mt-2" type="button">Book Now</button></div>
-                      </div>
-                    </div>
-                    <div class="row p-2 bg-white border rounded mt-2">
-                      <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="assets/imgs/p3.jpg"></div>
-                      <div class="col-md-6 mt-1">
-                        <h5>Aria Patel</h5>
-                        <div class="d-flex flex-row">
-                          <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>123</span>
-                        </div>
-                        <div class="mt-1 mb-1 spec-1"><span>Maid</span><span class="dot"></span><span> Dummy</span><span class="dot"></span><span> ✓<br></span></div>
-                        <div class="mt-1 mb-1 spec-1"><span>Unique design</span><span class="dot"></span><span>For
-                            men</span><span class="dot"></span><span>Casual<br></span></div>
-                        <p class="text-justify text-truncate para mb-0">There are many variations of passages of Lorem Ipsum
-                          available, but the majority have suffeOrganisation alteration in some form, by injected humour, or
-                          randomised words which don't look even slightly believable.<br><br></p>
-                      </div>
-                      <div class="align-items-center align-content-center col-md-3 border-left mt-1">
-                        <div class="d-flex flex-row align-items-center">
-                          <h4 class="mr-1">$13.99</h4><span class="strike-text">/ hr</span>
-                        </div>
-                        <h6 class="text-success">Blank</h6>
-                        <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button">Details</button><button class="btn btn-outline-primary btn-sm mt-2" type="button">Book Now</button></div>
-                      </div>
-                    </div>
-                    <div class="row p-2 bg-white border rounded mt-2">
-                      <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="assets/imgs/p4.jpg"></div>
-                      <div class="col-md-6 mt-1">
-                        <h5>Maya Davis</h5>
-                        <div class="d-flex flex-row">
-                          <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>110</span>
-                        </div>
-                        <div class="mt-1 mb-1 spec-1"><span>Repair and Services</span><span class="dot"></span><span> Dummy</span><span class="dot"></span><span> ✓<br></span></div>
-                        <div class="mt-1 mb-1 spec-1"><span>Unique design</span><span class="dot"></span><span>For
-                            men</span><span class="dot"></span><span>Casual<br></span></div>
-                        <p class="text-justify text-truncate para mb-0">There are many variations of passages of Lorem Ipsum
-                          available, but the majority have suffeOrganisation alteration in some form, by injected humour, or
-                          randomised words which don't look even slightly believable.<br><br></p>
-                      </div>
-                      <div class="align-items-center align-content-center col-md-3 border-left mt-1">
-                        <div class="d-flex flex-row align-items-center">
-                          <h4 class="mr-1">$15.99</h4><span class="strike-text">$21.99</span>
-                        </div>
-                        <h6 class="text-success">Blank</h6>
-                        <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button">Details</button><button class="btn btn-outline-primary btn-sm mt-2" type="button">Book Now</button></div>
-                      </div>
-                    </div>
+                     <?php include 'Service_list_paged.php' ?>
+                     
                   </div>
                 </div>
               </div>
