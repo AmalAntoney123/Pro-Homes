@@ -3,7 +3,7 @@
 include("connection.php");
 
 // number of records per page
-$recordsPerPage = 10;
+$recordsPerPage = 1;
 
 // get current page number from URL parameter
 if (isset($_GET["page"])) {
@@ -39,13 +39,13 @@ $sql = "SELECT
 $result = mysqli_query($con, $sql);
 
 // count total number of records
-$totalRecords = mysqli_num_rows(mysqli_query($con, "SELECT * FROM tbl_service_provider WHERE Verification_status = 'verified'"));
+$totalRecords = mysqli_num_rows(mysqli_query($con, "SELECT * FROM tbl_service_provider WHERE Verification_status = 'verfied'"));
 
 // calculate total number of pages
 $totalPages = ceil($totalRecords / $recordsPerPage);
 
 // generate HTML output
-$output = '<div class="">';
+$output = '<div>';
 
 if (mysqli_num_rows($result) > 0) {
   while ($row = mysqli_fetch_assoc($result)) {
@@ -70,21 +70,38 @@ if (mysqli_num_rows($result) > 0) {
   $output .= '<p>No data found.</p>';
   $output .= '</div>';
 }
+$output .= '</div><div class="row pt-3 mt-3 border rounded d-flex bg-light justify-content-center">';
 
-$output .= '</div>';
+// generate pagination links
+
+// calculate range of pages to show
+$range = 4;
+$start = max(1, $currentPage - floor($range / 2));
+$end = min($totalPages, $start + $range - 1);
 
 // generate pagination links
 if ($totalPages > 1) {
   $output .= '<ul class="pagination">';
-  for ($i = 1; $i <= $totalPages; $i++) {
+  if ($start > 1) {
+    // add "first" link
+    $output .= '<li class="page-item"><a class="page-link" href="?page=1">First</a></li>';
+  }
+  for ($i = $start; $i <= $end; $i++) {
     if ($i == $currentPage) {
       $output .= '<li class="page-item active"><a class="page-link" href="#">' . $i . '</a></li>';
     } else {
       $output .= '<li class="page-item"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>';
     }
   }
+  if ($end < $totalPages) {
+    // add "last" link
+    $output .= '<li class="page-item"><a class="page-link" href="?page=' . $totalPages . '">Last</a></li>';
+  }
   $output .= '</ul>';
 }
+
+$output .= '</div>';
+
 
 $output .= '</div>';
 

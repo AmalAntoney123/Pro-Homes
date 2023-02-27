@@ -103,6 +103,78 @@
       </div>
     </div>
   </nav>
+  <style>
+    .pagination li a,
+.pagination li span {
+  color: #f06161;
+  border-color: #f06161;
+}
+.pagination li.active a,
+.pagination li.active span {
+  background-color: #f06161;
+  border-color: #f06161;
+  color: white;
+}
+.pagination li.disabled a,
+.pagination li.disabled span {
+  color: #ccc;
+  pointer-events: none;
+  cursor: default;
+}
+
+.bg-white {
+  background-color: white;
+}
+
+.border {
+  border: 1px solid #f06161;
+}
+
+.text-info {
+  color: #f06161;
+}
+
+.btn-primary {
+  background-color: #f06161;
+  border-color: #f06161;
+}
+
+.btn-primary:hover {
+  background-color: white;
+  border-color: #f06161;
+  color: #f06161;
+}
+
+.btn-outline-primary {
+  border-color: #f06161;
+  color: #f06161;
+}
+
+.btn-outline-primary:hover {
+  background-color: #f06161;
+  border-color: #f06161;
+  color: white;
+}
+
+.strike-text {
+  color: #f06161;
+  text-decoration: line-through;
+}
+
+.text-success {
+  color: #28a745;
+}
+
+.dot {
+  height: 10px;
+  width: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  background-color: #f06161;
+  border-radius: 50%;
+  display: inline-block;
+}
+  </style>
 
 
 
@@ -268,16 +340,10 @@
           <!-- Main content -->
           <!-- Product Listing -->
           <div class="col-12">
-            <div class="container">
-              <div class="container mt-5 mb-5">
-                <div class="d-flex justify-content-center row">
-                  <div class="col-md-12">
-                     <?php include 'Service_list_paged.php' ?>
-                     
-                  </div>
-                </div>
-              </div>
-            </div>
+
+            <?php include 'Service_list_paged.php' ?>
+
+
           </div>
         </div>
       </div>
