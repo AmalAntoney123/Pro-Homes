@@ -58,6 +58,7 @@
       $mail = ucfirst($row["Email"]);
       $phone = ucfirst($row["Phone_Number"]);
       $city = ucfirst($row["City"]);
+      $role=$row["User_Type"];
     } else {
       $target = "default.webp";
     }
@@ -155,10 +156,15 @@
                   <a href="" class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change
                     Password</a>
                 </li>
+                <?php if($role=="user"){?>
                 <li class="nav-item border-top border-bottom">
                   <a href="service_signin.php" class="nav-link">Become A Service Provider</a>
                 </li>
-
+                <?php }else if($role=="provider"){?>
+                <li class="nav-item border-top border-bottom">
+                  <a href="service_signin.php" class="nav-link">Service Provider Panel</a>
+                </li>
+                <?php }?>
               </ul>
             </div>
           </div>

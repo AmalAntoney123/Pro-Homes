@@ -1,50 +1,111 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>404 Page Not Found</title>
-	<!-- Include Bootstrap CSS -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
-	<!-- Custom styles for this template -->
-	<style>
-		body {
-			background-color: #f4f4f4;
-			font-family: Arial, sans-serif;
-			color: #333;
-		}
-		.container {
-			margin: 0 auto;
-			text-align: center;
-			padding: 50px;
-		}
-		h1 {
-			font-size: 72px;
-			color: #f06161;
-			margin-top: 0;
-		}
-		p {
-			font-size: 24px;
-			margin-bottom: 40px;
-		}
-		a {
-			color: #f06161;
-		}
-		a:hover {
-			color: #fff;
-			background-color: #f06161;
-		}
-	</style>
-</head>
-<body>
-	<div class="container">
-		<h1>404</h1>
-		<p>Oops! The page you're looking for is not here.</p>
-		<p><a href="#" class="btn btn-lg btn-outline-danger">Go back to the homepage</a></p>
-	</div>
+<html lang="en">
 
-	<!-- Include Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmIa9Md+PcTTFpOHxJhM" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-</body>
-</html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Signup</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <style>
+    label {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    input.form-control {
+      border-radius: 25px;
+    }
+
+    span.error {
+      display: none;
+    }
+
+    input.form-control.is-invalid+span.error {
+      display: block;
+      color: #dc3545;
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="text-center">Signup</h4>
+          </div>
+          <div class="card-body">
+            <form method="POST" action="">
+              <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input type="text" class="form-control" id="first_name" name="first_name">
+                <span class="error">Please enter your first name.</span>
+              </div>
+              <div class="form-group">
+                <label for="last_name">Last Name</label>
+                <input type="text" class="form-control" id="last_name" name="last_name">
+                <span class="error">Please enter your last name.</span>
+              </div>
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username">
+                <span class="error">Please enter a username.</span>
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" class="form-control" id="email" name="email">
+                <span class="error">Please enter a valid email address.</span>
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" class="form-control" id="phone" name="phone">
+                <span class="error">Please enter a valid phone number.</span>
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password">
+                <span class="error">Please enter a password.</span>
+              </div>
+              <div class="form-group">
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" class="form-control" id="confirm_password" name="confirm_password">
+                <span class="error">Please confirm your password.</span>
+              </div>
+              <div class="form-group">
+                <label for="city">City</label>
+                <select class="form-control" id="city" name="city">
+                  <option value="">Select a city</option>
+                  <option value="New York">New York</option>
+                  <option value="Los Angeles">Los Angeles</option>
+                  <option value="Chicago">Chicago</option>
+                  <option value="Houston">Houston</option>
+                </select>
+                <span class="error">Please select a city.</span>
+              </div>
+              <div class="form-group">
+                <label for="profile_picture">Profile Picture</label>
+                <input type="file" class="form-control-file" id="profile_picture" name="profile_picture">
+                <span class="error">Please select a profile picture.</span>
+              </div>
+              <div class="form-group mt-4">
+                <button type="submit" class="btn btn-primary btn-block">Signup</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  

@@ -1,15 +1,13 @@
 <?php
+session_start();
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
-
-session_start();
-$i = 0;
-try_again:
 include("connection.php");
+
 
 $fname = trim($_POST["fname"]);
 $lname = trim($_POST["lname"]);
@@ -20,6 +18,17 @@ $phone = $_POST["phone"];
 $pic = $_FILES["p_pic"]["name"];
 $city = $_POST["city"];
 $code = rand(10000, 99999);
+
+$query = "INSERT INTO `tbl_user`(`First_Name`, `Last_Name`, `Username`, `Email`, `Password`, `Phone_Number`, `Profile_Picture`, `City`, `User_Type`, `Verification_status`) 
+VALUES ('$fname','$lname','$uname','$mail1','$pass','$phone','$pic','$city','Customer','$code')";
+$result = mysqli_query($con, $query);
+
+if ($result) {
+$target = "uploaded files/Profile Pictures/" . $pic;
+move_uploaded_file($_FILES["p_pic"]["tmp_name"], $target);
+}
+try_again:
+
 
 //mailer start
 $mail = new PHPMailer;
@@ -141,17 +150,7 @@ $mail->Body = '<!doctype html>
     </div>
   </body>
 </html>';
-if ($i == 0) {
-  $query = "INSERT INTO `tbl_user`(`First_Name`, `Last_Name`, `Username`, `Email`, `Password`, `Phone_Number`, `Profile_Picture`, `City`, `User_Type`, `Verification_status`) 
-                    VALUES ('$fname','$lname','$uname','$mail1','$pass','$phone','$pic','$city','Customer','$code')";
-  $result = mysqli_query($con, $query);
 
-  if ($result) {
-    $target = "uploaded files/Profile Pictures/" . $pic;
-    move_uploaded_file($_FILES["p_pic"]["tmp_name"], $target);
-  }
-  $i += 1;
-}
 if (!$mail->send()) {
   goto try_again;
 } else {
