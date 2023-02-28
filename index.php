@@ -17,6 +17,7 @@
 
     <!-- Bootstrap + Ollie main styles -->
     <link rel="stylesheet" href="assets/css/ollie.css">
+    <link rel="stylesheet" href="assets/css/scrollbar.css"/>
 
 </head>
 

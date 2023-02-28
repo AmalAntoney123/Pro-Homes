@@ -20,7 +20,8 @@
     <!-- Bootstrap + Ollie main styles -->
     <link rel="stylesheet" href="assets/css/ollie.css">
     <link rel="stylesheet" href="assets/css/siginin.css">
-
+    <link rel="stylesheet" href="assets/css/scrollbar.css"/>
+    
     <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
     <script src="assets/vendors/bootstrap/bootstrap.bundle.js"></script>
     <style>

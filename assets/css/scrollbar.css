@@ -1,0 +1,34 @@
+::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #f06161;
+    border-radius: 5px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #e37b7b;
+  }
+  
+  /* Apply scrollbar style to the reviews section */
+  #reviews-section::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  #reviews-section::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+  }
+  
+  #reviews-section::-webkit-scrollbar-thumb {
+    background-color: #f06161;
+    border-radius: 5px;
+  }
+  
+  #reviews-section::-webkit-scrollbar-thumb:hover {
+    background-color: #e37b7b;
+  }

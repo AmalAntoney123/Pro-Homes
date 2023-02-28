@@ -47,7 +47,7 @@ if (isset($_SESSION["l_id"])) {
 
         <!-- Customized Bootstrap Stylesheet -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
-
+        <link rel="stylesheet" href="assets/css/scrollbar.css"/>
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
         <link rel="stylesheet" href="assets/css/ollie.css">
