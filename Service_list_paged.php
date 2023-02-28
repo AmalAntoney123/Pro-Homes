@@ -184,4 +184,4 @@ $output .= '</div>';
 // output HTML
 echo $output;
 
-// close
+mysqli_close($con);

@@ -157,7 +157,7 @@
                   <a href="" class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change
                     Password</a>
                 </li>
-                <?php if($role=="user"){?>
+                <?php if($role=="Customer"){?>
                 <li class="nav-item border-top border-bottom">
                   <a href="service_signin.php" class="nav-link">Become A Service Provider</a>
                 </li>
