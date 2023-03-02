@@ -23,58 +23,10 @@
     
     <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
     <script src="assets/vendors/bootstrap/bootstrap.bundle.js"></script>
-    <script>
-        $(document).ready(function () {
-            // When a file is selected, show the name of the file in the label
-            $('.custom-file-input').on('change', function () {
-                var fileName = $(this).val().split('\\').pop();
-                $(this).siblings('.custom-file-label').addClass('selected').html(fileName);
-            });
+    <script src="assets/js/validationservice.js">
 
-            // Before form submission, check that each file is a PDF
-            $('form').submit(function (event) {
-                var qualifications = $('#qualification');
-                var certificate = $('#certificate');
-                var insurance = $('#insurance');
+</script>
 
-                var isValid = true;
-
-                // Check qualifications file
-                if (qualifications[0].files.length > 0) {
-                    var file = qualifications[0].files[0];
-                    var fileType = file.type.toLowerCase();
-                    if (fileType != 'application/pdf') {
-                        isValid = false;
-                        $('#qualification-error').text('Please upload a PDF file.');
-                    }
-                }
-
-                // Check certificate file
-                if (certificate[0].files.length > 0) {
-                    var file = certificate[0].files[0];
-                    var fileType = file.type.toLowerCase();
-                    if (fileType != 'application/pdf') {
-                        isValid = false;
-                        $('#certificate-error').text('Please upload a PDF file.');
-                    }
-                }
-
-                // Check insurance file
-                if (insurance[0].files.length > 0) {
-                    var file = insurance[0].files[0];
-                    var fileType = file.type.toLowerCase();
-                    if (fileType != 'application/pdf') {
-                        isValid = false;
-                        $('#insurance-error').text('Please upload a PDF file.');
-                    }
-                }
-
-                if (!isValid) {
-                    event.preventDefault(); // Prevent form submission
-                }
-            });
-        });
-    </script>
     <style>
         textarea {
             resize: none;

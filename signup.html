@@ -24,6 +24,8 @@
     <script>
         function disableSubmit() {
             document.getElementById("sub").disabled = true;
+            $('#signup_loader').show()
+            $('.signup_text').hide()
         }
     </script>
 </head>
@@ -167,8 +169,10 @@
 
                             <!-- Submit button -->
                             <button type="submit" id="sub" class="btn btn-primary btn-block mb-4" width="">
-                                Sign up
+                                <div class="spinner-border mfa-rotate-180" id="signup_loader" style="display: none;"></div><span class="signup_text">Sign up</span> 
                             </button>
+            
+                            
 
                             </ul>
                             <div class="text-center">

@@ -17,7 +17,7 @@
     }
     $re=mysqli_query($con,$query);
     if($re){
-        $target = "uploads/".$pic;
+        $target = "uploaded files/Profile Pictures/".$pic;
         move_uploaded_file($_FILES["p_pic"]["tmp_name"],$target);
     }
 
