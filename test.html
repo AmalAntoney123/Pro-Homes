@@ -1,111 +1,92 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Signup</title>
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-  <style>
-    label {
-      font-weight: 600;
-      font-size: 0.9rem;
-    }
-
-    input.form-control {
-      border-radius: 25px;
-    }
-
-    span.error {
-      display: none;
-    }
-
-    input.form-control.is-invalid+span.error {
-      display: block;
-      color: #dc3545;
-      font-size: 0.8rem;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="container mt-5">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header d-flex">
-            <h4 class="text-center">Signup</h4>
+<!doctype html>
+    <html lang="en">
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <style>
+          body {
+            background-color: #f8f9fa;
+          }
+    
+          .container {
+            padding: 1rem;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            background-color: #fff;
+          }
+    
+          .header {
+            padding: 1rem 0;
+            background-color: #1f2122;
+          }
+    
+          .header h1 {
+            text-align: center;
+            color: #fff;
+          }
+    
+          .title {
+            text-align: center;
+            color: #1f2122;
+            margin-top: 2rem;
+          }
+    
+          .link {
+            text-align: center;
+            margin-top: 5rem;
+          }
+    
+          .link a {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #1f2122;
+            color: #fff;
+            text-decoration: none;
+            font-size: 2rem;
+            font-weight: bold;
+            border-radius: 0.5rem;
+          }
+    
+          .link a:hover {
+            background-color: #3f4244;
+          }
+    
+          .message {
+            text-align: center;
+            margin-top: 2rem;
+          }
+    
+          .footer {
+            padding: 1rem 0;
+            background-color: #1f2122;
+          }
+    
+          .footer p {
+            text-align: center;
+            color: #fff;
+          }
+        </style>
+        <title>Forgot Password Link</title>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>Flash Games</h1>
           </div>
-          <div class="card-body">
-            <form method="POST" action="">
-              <div class="form-group">
-                <label for="first_name">First Name</label>
-                <input type="text" class="form-control" id="first_name" name="first_name">
-                <span class="error">Please enter your first name.</span>
-              </div>
-              <div class="form-group">
-                <label for="last_name">Last Name</label>
-                <input type="text" class="form-control" id="last_name" name="last_name">
-                <span class="error">Please enter your last name.</span>
-              </div>
-              <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" name="username">
-                <span class="error">Please enter a username.</span>
-              </div>
-              <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" class="form-control" id="email" name="email">
-                <span class="error">Please enter a valid email address.</span>
-              </div>
-              <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input type="tel" class="form-control" id="phone" name="phone">
-                <span class="error">Please enter a valid phone number.</span>
-              </div>
-              <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password">
-                <span class="error">Please enter a password.</span>
-              </div>
-              <div class="form-group">
-                <label for="confirm_password">Confirm Password</label>
-                <input type="password" class="form-control" id="confirm_password" name="confirm_password">
-                <span class="error">Please confirm your password.</span>
-              </div>
-              <div class="form-group">
-                <label for="city">City</label>
-                <select class="form-control" id="city" name="city">
-                  <option value="">Select a city</option>
-                  <option value="New York">New York</option>
-                  <option value="Los Angeles">Los Angeles</option>
-                  <option value="Chicago">Chicago</option>
-                  <option value="Houston">Houston</option>
-                </select>
-                <span class="error">Please select a city.</span>
-              </div>
-              <div class="form-group">
-                <label for="profile_picture">Profile Picture</label>
-                <input type="file" class="form-control-file" id="profile_picture" name="profile_picture">
-                <span class="error">Please select a profile picture.</span>
-              </div>
-              <div class="form-group mt-4">
-                <button type="submit" class="btn btn-primary btn-block">Signup</button>
-              </div>
-            </form>
+          <div class="title">
+            <h2>Forgot Password Link</h2>
+            <p>Click on the link below to reset your password:</p>
+          </div>
+          <div class="link">
+            <a href="'.$link.'">Reset Password</a>
+            <p>Clicking on the link will take you to the password reset page.</p>
+          </div>
+          <div class="message">
+            <p>This email was sent by Fash Games</p>
+          </div>
+          <div class="footer">
+            <p>&copy; 2023 Flash Games. All rights reserved.</p>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-
-<!-- Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-  
+      </body>
+    </html>
+    '

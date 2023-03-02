@@ -71,7 +71,7 @@
 
   <nav id="scrollspy" class="navbar navbar-black bg-light navbar-expand-lg ">
     <div class="container">
-      <a class="navbar-brand" href="#"><img src="assets/imgs/logo.png" alt="" class="brand-img"></a>
+      <a class="navbar-brand" href="index.php"><img src="assets/imgs/logo.png" alt="" class="brand-img"></a>
       <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse"
         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
         aria-label="Toggle navigation">

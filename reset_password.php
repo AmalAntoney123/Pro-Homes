@@ -1,5 +1,5 @@
 <?php session_start();
-$_SESSION["l_id"]=$_GET["id"]
+    $_SESSION["l_id"]= base64_decode(urldecode($_GET['token']));
 ?>
 <!DOCTYPE html>
 <html lang="en">

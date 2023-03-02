@@ -73,7 +73,7 @@ if (isset($_SESSION["l_id"])) {
             <!-- Sidebar Start -->
             <div class="sidebar pe-4 pb-3">
                 <nav class="navbar bg-light navbar-light">
-                    <a href="index.html" class="navbar-brand mx-4 mb-3">
+                    <a href="index.php" class="navbar-brand mx-4 mb-3">
                         <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>PRO HOMES</h3>
                     </a>
                     <div class="d-flex align-items-center ms-4 mb-4">
@@ -105,16 +105,16 @@ if (isset($_SESSION["l_id"])) {
                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                    class="far fa-user me-2"></i>Users</a>
+                                    class="fa fa-user me-2"></i>Users</a>
                             <div class="dropdown-menu bg-transparent border-0">
-                                <a href="#" class="dropdown-item">Manage Users</a>
+                                <a href="admin_manage_user.php" class="dropdown-item">Manage Users</a>
                                 <a href="#" class="dropdown-item">Feedbacks</a>
                                 <a href="#" class="dropdown-item">Complaints</a>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                    class="far fa-user me-2"></i>Pages</a>
+                                    class="fa fa-user me-2"></i>Pages</a>
                             <div class="dropdown-menu bg-transparent border-0">               
                                 <a href="index.php" class="dropdown-item">Home</a>
                                 <a href="signin.php" class="dropdown-item">Signin</a>

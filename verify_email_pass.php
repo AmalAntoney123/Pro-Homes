@@ -9,8 +9,6 @@ $i=0;
 try_again:
 
 
-
-
 include("connection.php");
 $mail1 = $_POST['mail'];
 
@@ -26,7 +24,8 @@ $count = mysqli_num_rows($result);
 $id = $row['User_ID'];
 if ($count > 0) {
 
-    $link="localhost/prohomes/reset_password.php?id=".$id;
+  $link = 'localhost/prohomes/reset_password.php?token=' . urlencode(base64_encode($id));
+
 
     //mailer start
     $mail = new PHPMailer;
