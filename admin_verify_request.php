@@ -88,6 +88,13 @@ if (isset($_SESSION["l_id"])) {
             });
 
         </script>
+        <script>
+            function disableSubmit() {
+                document.getElementById("sub").disabled = true;
+                $('#signup_loader').show()
+                $('.signup_text').hide()
+            }
+        </script>
 
     </head>
 
