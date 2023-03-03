@@ -3,7 +3,7 @@
 include("connection.php");
 
 // number of records per page
-$recordsPerPage = 5;
+$recordsPerPage = 1;
 
 // get current page number from URL parameter
 if (isset($_GET["page"])) {

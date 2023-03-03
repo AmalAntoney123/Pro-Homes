@@ -10,9 +10,14 @@
     $result = mysqli_query($con,$query);
     $count=mysqli_num_rows($result);
     $row = mysqli_fetch_array($result);
-    if($count){
+    if($count>0){
         $_SESSION["l_id"] = $row["User_ID"];
-        if($row['Verification_status']!='verified'){
+        if($row['User_Status']=='disabled'){
+            $_SESSION['Check_login']='DISABLED';
+            unset($_SESSION["l_id"]);
+            header("Location: signin.php");
+        }
+        else if($row['Verification_status']!='verified'){
             $_SESSION['uname']==$uname;
             header("Location: validate_email.php");
         }

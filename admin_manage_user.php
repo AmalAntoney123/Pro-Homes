@@ -319,7 +319,7 @@ if (isset($_SESSION["l_id"])) {
                                         $output .= '<td>' . $row['Phone_Number'] . '</td>';
                                         $output .= '<td>' . $row['City'] . '</td>';
                                         $output .= '<td>' . $row['User_Type'] . '</td>';
-                                        $output .= '<td>
+                                        $output .= '<td align="center">
                                                         <div class="form-check form-switch">
                                                             <input class="form-check-input btn-primary toggle-switch"';
                                         if($row['User_Status']=='disabled'){

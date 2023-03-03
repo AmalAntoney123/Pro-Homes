@@ -273,73 +273,71 @@ include("connection.php"); ?>
             <!-- Sidebar (mobile) -->
             <div class="collapse d-lg-none w-100" id="sidebar">
               <div class="btn-group-vertical">
+              <form action="#" method="GET">
+                <h3>Filters</h3>
                 <hr>
                 <h5>City</h5>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                  <label class="form-check-label" for="defaultCheck1">
-                    Kochi
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
-                  <label class="form-check-label" for="defaultCheck2">
-                    Kottayam
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck3">
-                  <label class="form-check-label" for="defaultCheck3">
-                    Trivandrum
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck4">
-                  <label class="form-check-label" for="defaultCheck4">
-                    Calicut
-                  </label>
-                </div>
-                <hr>
-                <h5>Price Range</h5>
-                <div class="form-group">
-                  <input type="range" class="form-control-range" id="priceRange">
-                </div>
-                <hr>
-                <h5>Type</h5>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="colorCheck1">
-                  <label class="form-check-label" for="colorCheck1">
-                    Organisation
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="colorCheck2">
-                  <label class="form-check-label" for="colorCheck2">
-                    Personal
-                  </label>
-                </div>
+                  <input class="form-check-input" type="checkbox" value="kochi" id="defaultCheck1" name="city[]" <?php
+                  if (isset($_SESSION['city_filter']) && in_array('kochi', $_SESSION['city_filter']))
+                    echo "checked" ?>>
+                    <label class="form-check-label" for="defaultCheck1">
+                      Kochi
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="kottayam" id="defaultCheck2" name="city[]"
+                    <?php if (isset($_SESSION['city_filter']) && in_array('kottayam', $_SESSION['city_filter']))
+                    echo "checked" ?>>
+                    <label class="form-check-label" for="defaultCheck2">
+                      Kottayam
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="trivandrum" id="defaultCheck3" name="city[]"
+                    <?php if (isset($_SESSION['city_filter']) && in_array('trivandrum', $_SESSION['city_filter']))
+                    echo "checked" ?>>
+                    <label class="form-check-label" for="defaultCheck3">
+                      Trivandrum
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="calicut" id="defaultCheck4" name="city[]" <?php
+                  if (isset($_SESSION['city_filter']) && in_array('calicut', $_SESSION['city_filter']))
+                    echo "checked" ?>>
+                    <label class="form-check-label" for="defaultCheck4">
+                      Calicut
+                    </label>
+                  </div>
+                  <hr>
+                  <h5>Price Range</h5>
+                  <div class="form-group">
+                    <input type="range" value="<?php if (isset($_SESSION['price_filter'])) echo $_SESSION['price_filter']; else echo '0'?>" class="form-control-range" id="priceRange" min="0" step="50" max="2000"
+                      name="pricefilter" oninput="this.nextElementSibling.value = this.value">
+                    <output id="rangeValue"><?php if (isset($_SESSION['price_filter'])) echo $_SESSION['price_filter'];?></output><span>₹</span>
+                  </div>
+                  <hr>
+                  <h5>Service</h5>
+                <?php $query = "SELECT * FROM `tbl_services`";
+                  $result = mysqli_query($con, $query);
+                  while ($tbl_service = mysqli_fetch_array($result)) { ?>
+
+                    <?php echo '<div class="form-check">
+                                  <input class="form-check-input" name="service_filter[]" type="checkbox" value="' . $tbl_service['Service_Name'] . '" id="sizeCheck3" ';
+                                  if (isset($_SESSION['service_filter']) && in_array($tbl_service['Service_Name'], $_SESSION['service_filter']))
+                                    echo "checked" ;
+                          echo '>
+                                  <label class="form-check-label" for="sizeCheck3">
+                                    ' . $tbl_service['Service_Name'] . '
+                                  </label>
+                                </div>';
+                    ?>
+                <?php } ?>
 
                 <hr>
-                <h5>Service</h5>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="sizeCheck1">
-                  <label class="form-check-label" for="sizeCheck1">
-                    Plumber
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="sizeCheck2">
-                  <label class="form-check-label" for="sizeCheck2">
-                    Electrician
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="sizeCheck3">
-                  <label class="form-check-label" for="sizeCheck3">
-                    Exterminator
-                  </label>
-                </div>
-                <hr>
+                <div class="mb-3 block"><button type="submit" name="sub_filter" class="btn btn-primary">Apply Filters</button>
+                <button type="submit" name="sub_unset" class="btn btn-primary">Remove Filters</button></div>
+              </form>
 
               </div>
             </div>

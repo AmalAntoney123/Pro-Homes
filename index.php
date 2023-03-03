@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,9 +48,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="services.php">Find Service</a>
                     </li>
+                    <?php if(!isset($_SESSION["l_id"])){ ?>
                     <li class="nav-item ml-0 ml-lg-4">
                         <a class="nav-link btn btn-primary" href="signin.php">Login</a>
                     </li>
+                    <?php }?>
                 </ul>
             </div>
         </div>

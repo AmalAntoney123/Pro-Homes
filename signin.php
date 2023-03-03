@@ -98,6 +98,8 @@
                       }
                       if ($_SESSION['Check_login'] == "ADMIN_INVALID")
                         echo "You need to login";
+                      if ($_SESSION['Check_login'] == "DISABLED")
+                        echo "Your account has been disabled";
                       
                     }
                     ?>

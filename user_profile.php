@@ -137,10 +137,10 @@
                 <p class="fw-bold h4 mt-3">
                   <?php echo "$fname $lname"; ?>
                 </p>
-                <div class="d-flex ">
+                <!-- <div class="d-flex ">
                   <div class="btn btn-primary follow me-2">Follow</div>
                   <div class="btn btn-outline-primary message">Message</div>
-                </div>
+                </div> -->
               </div>
               <ul class="nav flex-column my-5">
 
