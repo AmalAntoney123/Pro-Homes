@@ -282,7 +282,7 @@ if (isset($_SESSION["l_id"])) {
                     <div class="row  rounded align-items-center justify-content-center mx-0">
                         <div class="bg-light rounded h-100 p-4">
 
-                            <h6 class="mb-4">User Management</h6>
+                            <h6 class="mb-4">Service Provider Management</h6>
                             <table class="table table-striped table-hover" id="tbl_user_mgt">
                                 <?php
                                 // connect to database
@@ -290,7 +290,7 @@ if (isset($_SESSION["l_id"])) {
 
 
                                 // fetch data from database
-                                $sql = "SELECT * FROM `tbl_user` WHERE `User_Type` NOT LIKE 'Admin' AND `User_Type` NOT LIKE 'provider'";
+                                $sql = "SELECT * FROM `tbl_user` WHERE `User_Type` LIKE 'provider'";
                                 $result = mysqli_query($con, $sql);
 
 

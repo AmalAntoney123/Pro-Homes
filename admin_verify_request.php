@@ -140,7 +140,7 @@ if (isset($_SESSION["l_id"])) {
                             <div class="dropdown-menu bg-transparent border-0 active">
                                 <a href="verify_request.php" class="dropdown-item active">Verify Providers</a>
                                 <a href="typography.html" class="dropdown-item">Recent Appoinments</a>
-                                <a href="element.html" class="dropdown-item">List Providers</a>
+                                <a href="admin_list_provider.php" class="dropdown-item">List Providers</a>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
