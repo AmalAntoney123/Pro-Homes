@@ -94,7 +94,7 @@
                   <?php echo "$fname $lname"; ?>
                 </span>
                 <img class="rounded-circle ml-2 me-lg-2" src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt=""
-                  style="width: 40px; height: 40px;">
+                  style="width: 40px; height: 40px; object-fit:cover;">
 
               </a>
               <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">

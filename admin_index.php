@@ -79,7 +79,7 @@ if (isset($_SESSION["l_id"])) {
                     <div class="d-flex align-items-center ms-4 mb-4">
                         <div class="position-relative">
                             <img class="rounded-circle" src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt=""
-                                style="width: 40px; height: 40px;">
+                                style="width: 40px; height: 40px; object-fit:cover;">
                             <div
                                 class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                             </div>
@@ -114,7 +114,7 @@ if (isset($_SESSION["l_id"])) {
                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                    class="fa fa-user me-2"></i>Pages</a>
+                                    class="fa fa-file me-2"></i>Pages</a>
                             <div class="dropdown-menu bg-transparent border-0">               
                                 <a href="index.php" class="dropdown-item">Home</a>
                                 <a href="signin.php" class="dropdown-item">Signin</a>
@@ -210,7 +210,7 @@ if (isset($_SESSION["l_id"])) {
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                                 <img class="rounded-circle me-lg-2"
                                     src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt=""
-                                    style="width: 40px; height: 40px;">
+                                    style="width: 40px; height: 40px; object-fit:cover;">
                                 <span class="d-none d-lg-inline-flex">
                                     <?php echo "$fname $lname"; ?>
                                 </span>
@@ -228,11 +228,47 @@ if (isset($_SESSION["l_id"])) {
 
                 <!-- Blank Start -->
                 <div class="container-fluid pt-4 px-4">
-                    <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
-                        <div class="col-md-6 text-center">
-                            <h3>This is blank page</h3>
+                    
+                <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <?php 
+                        $query="SELECT * FROM `tbl_user` WHERE `User_Type` NOT LIKE 'Admin'";
+                        $result=mysqli_query($con,$query);
+                        $users_count=mysqli_num_rows($result);
+                        $query="SELECT * FROM `tbl_user` WHERE `User_Type` LIKE 'provider'";
+                        $result=mysqli_query($con,$query);
+                        $provider_count=mysqli_num_rows($result);
+                    ?>
+                    <div class="col-sm-6 col-xl-4">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                            <i class="fa fa-chart-line fa-3x text-primary"></i>
+                            <div class="ms-3">
+                                <p class="mb-2">Total Users</p>
+                                <h6 class="mb-0"><?php echo $users_count; ?></h6>
+                            </div>
                         </div>
                     </div>
+                    <div class="col-sm-6 col-xl-4">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                            <i class="fa fa-chart-bar fa-3x text-primary"></i>
+                            <div class="ms-3">
+                                <p class="mb-2">Total Service Providers</p>
+                                <h6 class="mb-0"><?php echo $provider_count; ?></h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-4">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                            <i class="fa fa-chart-area fa-3x text-primary"></i>
+                            <div class="ms-3">
+                                <p class="mb-2">Total Services</p>
+                                <h6 class="mb-0">0</h6>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
                 </div>
                 <!-- Blank End -->
 

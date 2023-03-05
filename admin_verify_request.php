@@ -119,7 +119,7 @@ if (isset($_SESSION["l_id"])) {
                     <div class="d-flex align-items-center ms-4 mb-4">
                         <div class="position-relative">
                             <img class="rounded-circle" src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt=""
-                                style="width: 40px; height: 40px;">
+                                style="width: 40px; height: 40px; object-fit:cover;">
                             <div
                                 class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                             </div>
@@ -249,7 +249,7 @@ if (isset($_SESSION["l_id"])) {
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                                 <img class="rounded-circle me-lg-2"
                                     src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt=""
-                                    style="width: 40px; height: 40px;">
+                                    style="width: 40px; height: 40px; object-fit:cover;">
                                 <span class="d-none d-lg-inline-flex">
                                     <?php echo "$fname $lname"; ?>
                                 </span>
