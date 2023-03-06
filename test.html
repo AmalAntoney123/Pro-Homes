@@ -1,92 +1,83 @@
-<!doctype html>
-    <html lang="en">
-      <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <style>
-          body {
-            background-color: #f8f9fa;
-          }
-    
-          .container {
-            padding: 1rem;
-            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-            background-color: #fff;
-          }
-    
-          .header {
-            padding: 1rem 0;
-            background-color: #1f2122;
-          }
-    
-          .header h1 {
-            text-align: center;
-            color: #fff;
-          }
-    
-          .title {
-            text-align: center;
-            color: #1f2122;
-            margin-top: 2rem;
-          }
-    
-          .link {
-            text-align: center;
-            margin-top: 5rem;
-          }
-    
-          .link a {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background-color: #1f2122;
-            color: #fff;
-            text-decoration: none;
-            font-size: 2rem;
-            font-weight: bold;
-            border-radius: 0.5rem;
-          }
-    
-          .link a:hover {
-            background-color: #3f4244;
-          }
-    
-          .message {
-            text-align: center;
-            margin-top: 2rem;
-          }
-    
-          .footer {
-            padding: 1rem 0;
-            background-color: #1f2122;
-          }
-    
-          .footer p {
-            text-align: center;
-            color: #fff;
-          }
-        </style>
-        <title>Forgot Password Link</title>
-      </head>
-      <body>
-        <div class="container">
-          <div class="header">
-            <h1>Flash Games</h1>
-          </div>
-          <div class="title">
-            <h2>Forgot Password Link</h2>
-            <p>Click on the link below to reset your password:</p>
-          </div>
-          <div class="link">
-            <a href="'.$link.'">Reset Password</a>
-            <p>Clicking on the link will take you to the password reset page.</p>
-          </div>
-          <div class="message">
-            <p>This email was sent by Fash Games</p>
-          </div>
-          <div class="footer">
-            <p>&copy; 2023 Flash Games. All rights reserved.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bootstrap Datepicker Example</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Datepicker CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+  <style>
+    .datepicker-dropdown {
+      top: 38px;
+      border: none;
+      box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.175);
+    }
+
+    .datepicker td, .datepicker th {
+      width: 3rem;
+      height: 3rem;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+
+    .datepicker td span {
+      width: 2.5rem;
+      height: 2.5rem;
+      line-height: 2.5rem;
+      display: inline-block;
+      border-radius: 50%;
+    }
+
+    .datepicker td.active, .datepicker td.active:hover, .datepicker td.active.disabled, .datepicker td.active.disabled:hover {
+      background-color: #007bff;
+    }
+
+    .datepicker td.disabled, .datepicker td.disabled:hover {
+      color: #999999;
+      background-color: #f5f5f5;
+      cursor: not-allowed;
+    }
+
+    .datepicker td.weekend {
+      color: #999999;
+    }
+  </style>
+  
+  <link rel="stylesheet" href="assets/css/ollie.css">
+  <link rel="stylesheet" href="assets/css/scrollbar.css"/>
+</head>
+<body>
+  <div class="container">
+    <h1>Select a Date</h1>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <div class="input-group date">
+            <input type="text" class="form-control" id="datepicker">
+            <div class="input-group-append">
+              <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+            </div>
           </div>
         </div>
-      </body>
-    </html>
-    '
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap and Datepicker JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#datepicker').datepicker({
+        format: 'dd-mm-yyyy',
+        startDate: new Date(),
+        daysOfWeekDisabled: [0, 6], // Disables Saturdays and Sundays
+      });
+    });
+  </script>
+</body>
+</html>

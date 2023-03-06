@@ -18,12 +18,39 @@
   <!-- Bootstrap + Ollie main styles -->
   <link rel="stylesheet" href="assets/css/ollie.css">
   <link rel="stylesheet" href="assets/css/siginin.css">
-  <link rel="stylesheet" href="assets/css/scrollbar.css"/>
-  
+  <link rel="stylesheet" href="assets/css/scrollbar.css" />
+
   <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
   <script src="assets/vendors/bootstrap/bootstrap.bundle.js"></script>
 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="assets/js/validationprofile.js"></script>
+
+
+  <script>
+    $(document).ready(function () {
+      $("#address-form").validate({
+        rules: {
+          pincode: {
+            required: true,
+            digits: true,
+            minlength: 6,
+            maxlength: 6,
+            pattern: /^[1-9][0-9]{5}$/
+          }
+        },
+        messages: {
+          pincode: {
+            required: "Please enter a valid Pin Code",
+            digits: "Please enter only numbers",
+            minlength: "Pin Code must be 6 digits",
+            maxlength: "Pin Code must be 6 digits",
+            pattern: "Please enter a valid Pin Code"
+          }
+        }
+      });
+    });
+  </script>
 
   <style>
     .nav-link {
@@ -40,6 +67,7 @@
       height: calc(4.5rem + 15px);
       position: relative;
     }
+
   </style>
   <?php
   if (isset($_SESSION["l_id"])) {
@@ -59,7 +87,7 @@
       $mail = ucfirst($row["Email"]);
       $phone = ucfirst($row["Phone_Number"]);
       $city = ucfirst($row["City"]);
-      $role=$row["User_Type"];
+      $role = $row["User_Type"];
     } else {
       $target = "default.webp";
     }
@@ -93,8 +121,8 @@
                 <span class="d-none d-lg-inline-flex">
                   <?php echo "$fname $lname"; ?>
                 </span>
-                <img class="rounded-circle ml-2 me-lg-2" src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt=""
-                  style="width: 40px; height: 40px; object-fit:cover;">
+                <img class="rounded-circle ml-2 me-lg-2" src="uploaded files/Profile Pictures/<?php echo $target; ?>"
+                  alt="" style="width: 40px; height: 40px; object-fit:cover;">
 
               </a>
               <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
@@ -132,7 +160,8 @@
             <div class="ps-md-4 shadow-sm pt-5 pb-5 mb-5 my-2 bg-white" style="border-radius:20px;">
               <div class="d-flex flex-column align-items-center">
                 <div class="row px-5">
-                  <img class="photo" src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt="" style="width: 100%; height: 200px;object-fit: cover;" class="img-fluid ">
+                  <img class="photo" src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt=""
+                    style="width: 100%; height: 200px;object-fit: cover;" class="img-fluid ">
                 </div>
                 <p class="fw-bold h4 mt-3">
                   <?php echo "$fname $lname"; ?>
@@ -157,15 +186,18 @@
                   <a href="" class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change
                     Password</a>
                 </li>
-                <?php if($role=="Customer"){?>
-                <li class="nav-item border-top border-bottom">
-                  <a href="service_signin.php" class="nav-link">Become A Service Provider</a>
+                <li class="nav-item border-top">
+                  <a href="" class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-add-address">Address</a>
                 </li>
-                <?php }else if($role=="provider"){?>
-                <li class="nav-item border-top border-bottom">
-                  <a href="service_signin.php" class="nav-link">Service Provider Panel</a>
-                </li>
-                <?php }?>
+                <?php if ($role == "Customer") { ?>
+                  <li class="nav-item border-top border-bottom">
+                    <a href="service_signin.php" class="nav-link">Become A Service Provider</a>
+                  </li>
+                <?php } else if ($role == "provider") { ?>
+                    <li class="nav-item border-top border-bottom">
+                      <a href="service_signin.php" class="nav-link">Service Provider Panel</a>
+                    </li>
+                <?php } ?>
               </ul>
             </div>
           </div>
@@ -336,14 +368,122 @@
                       </form><!-- End Change Password Form -->
 
                     </div>
+                    <div class="tab-pane fade pt-3 mb-4" id="profile-add-address">
+                      <h1 class="mb-5">Address</h1>
 
-                  </div><!-- End Bordered Tabs -->
 
-                </div>
+                      <!-- Saved Addresses -->
+                      <h2 class="mb-3">Saved Addresses</h2>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="address-list">
+                            <table class="table table-striped table-hover">
+                              <?php
+                              $lid = $_SESSION["l_id"];
+                              $query = "SELECT * FROM `tbl_address` WHERE `User_ID`='$lid'";
+                              $result4 = mysqli_query($con, $query);
+                              $count=1;
+                              if(mysqli_num_rows($result4)==0){
+                                echo"<span>No Saved Address</span>";
+                              }
+                              while ($address = mysqli_fetch_array($result4)) {
+
+                                ?>
+                                <tr>
+                                  <td><?php echo $count?></td>
+                                  <td>
+                                    <?php echo $address['House'] ?>,
+                                    <?php echo $address['Street'] ?>,
+                                    <?php echo $address['City'] ?>,
+                                    <?php echo $address['Locality'] ?>,
+                                    <?php echo $address['State'] ?>, Near:
+                                    <?php echo $address['Landmark'] ?>,
+                                    <?php echo $address['Pincode'] ?>
+                                  <td>
+                                  <td><button onclick="location.href='edit_address.php?token=<?php echo $address['Address_ID']?>'" class="btn btn-sm btn-outline-secondary">Edit</button></td>
+                                  <td><button onclick="location.href='delete_address.php?token=<?php echo $address['Address_ID']?>'" class="btn btn-sm btn-outline-secondary">Delete</button></td>
+                                </tr>
+                              <?php $count+=1;} ?>
+                          </div>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Add New Address Form -->
+                    <div class="mb-3 mt-2">
+                      <h2>Add New Address</h2>
+                      <form id="address-form" action="add_address.php" method="POST">
+                        <div class="row mb-3">
+                          <label for="house" class="col-md-4 col-lg-3 col-form-label">House/Flat No:</label>
+                          <div class="col-md-8 col-lg-9">
+                            <input name="house" type="text" class="form-control" id="house" required>
+                            <div id="house-error" class="invalid-feedback"></div>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label for="street" class="col-md-4 col-lg-3 col-form-label">Street</label>
+                          <div class="col-md-8 col-lg-9">
+                            <input name="street" type="text" class="form-control" id="street" required>
+                            <div id="street-error" class="invalid-feedback"></div>
+                          </div>
+                        </div>
+
+                        <div class="row mb-3">
+                          <label for="city1" class="col-md-4 col-lg-3 col-form-label">City</label>
+                          <div class="col-md-8 col-lg-9">
+                            <select name="city" class="form-control" id="city1" required>
+                              <option value="kottayam">Kottayam</option>
+                              <option value="kochi">Kochi</option>
+                              <option value="trivandrum">Trivandrum</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="row mb-3">
+                          <label for="state" class="col-md-4 col-lg-3 col-form-label">State</label>
+                          <div class="col-md-8 col-lg-9">
+                            <input name="state" type="text" class="form-control" id="state" required>
+                            <div id="state-error" class="invalid-feedback"></div>
+                          </div>
+                        </div>
+
+                        <div class="row mb-3">
+                          <label for="locality" class="col-md-4 col-lg-3 col-form-label">Locality</label>
+                          <div class="col-md-8 col-lg-9">
+                            <input name="locality" type="text" class="form-control" id="locality" required>
+                            <div id="locality-error" class="invalid-feedback"></div>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label for="landmark" class="col-md-4 col-lg-3 col-form-label">Landmark</label>
+                          <div class="col-md-8 col-lg-9">
+                            <input name="landmark" type="text" class="form-control" id="landmark" required>
+                            <div id="landmark-error" class="invalid-feedback"></div>
+                          </div>
+                        </div>
+
+                        <div class="row mb-3">
+                          <label for="pincode" class="col-md-4 col-lg-3 col-form-label">Pin Code</label>
+                          <div class="col-md-8 col-lg-9">
+                            <input name="pincode" type="number" class="form-control" id="pincode" required>
+                            <div id="pincode-error" class="invalid-feedback"></div>
+                          </div>
+                        </div>
+
+                        <div class="text-center">
+                          <button id="sub_address" type="submit" class="btn btn-primary">Add Address</button>
+                        </div>
+                      </form>
+                    </div><!-- End Add New Address Form -->
+                  </div>
+
+                </div><!-- End Bordered Tabs -->
+
               </div>
             </div>
           </div>
         </div>
+      </div>
       </div>
 
     </section>
@@ -415,6 +555,24 @@
           </div>
         </div>
       </div>
+      <div class="modal" id="modal_addressedit">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Pro Homes</h4>
+              <button type="button" class="close close-modal" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+              <p>Address Edited Successfully</p>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary close-modal" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="modal" id="Service_Pending">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -469,6 +627,21 @@
         unset($_SESSION["Requested"]);
 
       }
+      
+      if (isset($_SESSION["address"])) {
+        $MSG = $_SESSION["address"];
+        if ($MSG == "ADDRESS") {
+          
+          echo '<script>
+            $(document).ready(function(){
+              $("#modal_addressedit").modal("show");
+            });
+          </script>';
+          
+        }
+        unset($_SESSION["address"]);
+
+      }
 
       ?>
 
@@ -477,7 +650,7 @@
     <script>
       $(document).ready(function () {
         $('.close-modal').click(function () {
-          $('#Service_Pending,#myModal,#myModal1').modal('hide');
+          $('#Service_Pending,#myModal,#myModal1,#modal_addressedit').modal('hide');
         });
       });</script>
     <!-- bootstrap 3 affix -->
