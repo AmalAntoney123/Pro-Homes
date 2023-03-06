@@ -413,6 +413,7 @@
                     <div class="mb-3 mt-2">
                       <h2>Add New Address</h2>
                       <form id="address-form" action="add_address.php" method="POST">
+                        <input type="hidden" name="check" value="profile"/>
                         <div class="row mb-3">
                           <label for="house" class="col-md-4 col-lg-3 col-form-label">House/Flat No:</label>
                           <div class="col-md-8 col-lg-9">

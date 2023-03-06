@@ -24,58 +24,66 @@
     <script src="assets/vendors/bootstrap/bootstrap.bundle.js"></script>
 
     <script src="assets/js/validationprofile.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <style>
-    .datepicker-dropdown {
-      top: 38px;
-      border: none;
-      box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.175);
-    }
+        .datepicker-dropdown {
+            top: 38px;
+            border: none;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.175);
+        }
 
-    .datepicker td, .datepicker th {
-      width: 3rem;
-      height: 3rem;
-      font-size: 1.2rem;
-      text-align: center;
-    }
+        .datepicker td,
+        .datepicker th {
+            width: 3rem;
+            height: 3rem;
+            font-size: 1.2rem;
+            text-align: center;
+        }
 
-    .datepicker td span {
-      width: 2.5rem;
-      height: 2.5rem;
-      line-height: 2.5rem;
-      display: inline-block;
-      border-radius: 50%;
-    }
+        .datepicker td span {
+            width: 2.5rem;
+            height: 2.5rem;
+            line-height: 2.5rem;
+            display: inline-block;
+            border-radius: 50%;
+        }
 
-    .datepicker td.active, .datepicker td.active:hover, .datepicker td.active.disabled, .datepicker td.active.disabled:hover {
-      background-color: #007bff;
-    }
+        .datepicker td.active,
+        .datepicker td.active:hover,
+        .datepicker td.active.disabled,
+        .datepicker td.active.disabled:hover {
+            background-color: #007bff;
+        }
 
-    .datepicker td.disabled, .datepicker td.disabled:hover {
-      color: #999999;
-      background-color: #f5f5f5;
-      cursor: not-allowed;
-    }
+        .datepicker td.disabled,
+        .datepicker td.disabled:hover {
+            color: #999999;
+            background-color: #f5f5f5;
+            cursor: not-allowed;
+        }
 
-    .datepicker td.weekend {
-      color: #999999;
-    }
-     /* Change color of active date */
-  .datepicker td.active > a,
-  .datepicker td.active > a:hover,
-  .datepicker td.active > a:focus {
-    background-color: #f06161;
-    border-radius: 50%;
-  }
-  /* Change color of disabled date */
-  .datepicker td.disabled,
-  .datepicker td.disabled > span,
-  .datepicker td.disabled > a {
-    color: #ccc;
-    background-color: #fff;
-    cursor: not-allowed;
-  }
-  </style>
+        .datepicker td.weekend {
+            color: #999999;
+        }
+
+        /* Change color of active date */
+        .datepicker td.active>a,
+        .datepicker td.active>a:hover,
+        .datepicker td.active>a:focus {
+            background-color: #f06161;
+            border-radius: 50%;
+        }
+
+        /* Change color of disabled date */
+        .datepicker td.disabled,
+        .datepicker td.disabled>span,
+        .datepicker td.disabled>a {
+            color: #ccc;
+            background-color: #fff;
+            cursor: not-allowed;
+        }
+    </style>
 
     <style>
         .nav-link {
@@ -107,15 +115,34 @@
             $target = $row["Profile_Picture"];
             $fname = ucfirst($row["First_Name"]);
             $lname = ucfirst($row["Last_Name"]);
-            $uname = ucfirst($row["Username"]);
-            $mail = ucfirst($row["Email"]);
-            $phone = ucfirst($row["Phone_Number"]);
-            $city = ucfirst($row["City"]);
-            $role = $row["User_Type"];
+            
         } else {
             $target = "default.webp";
         }
     }
+    $id=$_GET['id'];
+    $sql = 'SELECT 
+    sp.Provider_ID,
+    u.User_ID, 
+    u.First_Name, 
+    u.Last_Name, 
+    u.City, 
+    u.Profile_Picture,
+    s.Service_Name, 
+    sp.Service_Desc, 
+    sp.Qualification_File, 
+    sp.Insurance_File, 
+    sp.Certificate_File, 
+    sp.Price, 
+    sp.Verification_status 
+    FROM 
+    tbl_service_provider sp 
+    INNER JOIN tbl_services s ON sp.Service_ID = s.Service_ID 
+    INNER JOIN tbl_user u ON sp.User_ID = u.User_ID 
+    WHERE sp.Provider_ID = "'.$id.'" ';
+    $result = mysqli_query($con, $sql);
+    $service_p = mysqli_fetch_assoc($result)
+
     ?>
 </head>
 
@@ -186,21 +213,21 @@
                             <div class="d-flex flex-column ">
                                 <div class="row px-5">
                                     <div class="col-lg-4">
-                                        <img class="photo" src="uploaded files/Profile Pictures/<?php echo $target; ?>"
+                                        <img class="photo" src="uploaded files/Profile Pictures/<?php echo $service_p['Profile_Picture']; ?>"
                                             alt="" style="width: 100%; height: 200px;object-fit: cover;border-radius:10px;"
                                             class="img-fluid ">
                                         <p class="fw-bold h4 mt-3 text-center">
-                                            <?php echo "$fname $lname"; ?>
+                                            <?php echo ucfirst($service_p['First_Name']).' '; echo ucfirst($service_p['Last_Name']); ?>
                                         </p>
                                     </div>
                                     <div class="col-lg-8  border-left">
                                         <div class="container ml-3">
-                                            <h1 class="text-primary">Service Name</h1>
+                                            <h1 class="text-primary"><?php echo $service_p['Service_Name']?></h1>
                                             <span>
-                                                Description
+                                            <?php echo $service_p['Service_Desc']; ?>
                                             </span>
-                                            <h3 class="text-info">Price: ₹120 /hr</h3>
-                                            <h4 class="">City: Kottayam</h4>
+                                            <h3 class="text-info">Price: ₹<?php echo $service_p['Price']; ?> /hr</h3>
+                                            <h4 class="">City: <?php echo $service_p['City']; ?></h4>
                                         </div>
                                     </div>
                                 </div>
@@ -209,16 +236,59 @@
                             <div class="d-flex flex-column ">
                                 <div clas="row px-5">
                                     <div class="container-fluid px-5 my-5">
-                                        <form class="mx-auto">
-                                            <div class="form-group mb-3">
-                                                <label for="exampleTextarea" class="form-label">Your Address:</label>
-                                                <textarea style="resize:none;" class="form-control" id="exampleTextarea"
-                                                    placeholder=" " rows="3"></textarea>
-                                            </div>
+                                        <form class="mx-auto" action="#" method="POST">
                                             <div class="form-group">
+                                                <label for="date">Select your Address:</label>
+                                                <select class="form-control">
+                                                    <?php
+                                                    $lid = $_SESSION["l_id"];
+                                                    $_SESSION["provider_id"] = $_GET["id"];
+                                                    $query = "SELECT * FROM `tbl_address` WHERE `User_ID`='$lid'";
+                                                    $result4 = mysqli_query($con, $query);
+                                                    $count = 1;
+                                                    if (mysqli_num_rows($result4) == 0) {
+                                                        echo "<span>No Saved Address</span>";
+                                                    }
+                                                    while ($address = mysqli_fetch_array($result4)) {
+
+                                                        ?>
+                                                        <option value="<?php echo $address['Address_ID'] ?>">
+                                                            <?php echo $address['House'] ?>,
+                                                            <?php echo $address['Street'] ?>,
+                                                            <?php echo $address['City'] ?>,
+                                                            <?php echo $address['Locality'] ?>,
+                                                            <?php echo $address['State'] ?>, Near:
+                                                            <?php echo $address['Landmark'] ?>,
+                                                            <?php echo $address['Pincode'] ?>
+                                                        </option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                            <button type="button" onclick="location.href='add_address_book.php'"
+                                                class="btn btn-secondary">Add New Address</button>
+                                            <div class="form-group mt-2">
                                                 <label for="date">Select a date:</label>
                                                 <input type="text" class="form-control" id="date" name="date" required>
                                             </div>
+                                            <div class="form-group mt-2">
+                                                <label for="time">Select a time:</label>
+                                                <select class="form-control" name="appointment_time" id="time">
+                                                    <?php
+                                                    $start_time = strtotime('9:00 AM');
+                                                    $end_time = strtotime('5:00 PM');
+                                                    $interval = 120; // in minutes
+                                                
+                                                    for ($time = $start_time; $time <= $end_time; $time += $interval * 60) {
+                                                        echo '<option value="' . date('H:i', $time) . '">' . date('h:i A', $time) . '</option>';
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <label for="description">Description of Work:</label>
+                                                <textarea class="form-control" name="description" id="description" style="resize:none;"></textarea>
+                                            </div>
+                                            
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </form>
                                     </div>
