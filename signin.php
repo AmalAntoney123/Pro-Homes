@@ -100,6 +100,8 @@
                         echo "You need to login";
                       if ($_SESSION['Check_login'] == "DISABLED")
                         echo "Your account has been disabled";
+                      if ($_SESSION['Check_login'] == "BOOK")
+                        echo "Login to Book Service";
                       
                     }
                     ?>

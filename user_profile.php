@@ -195,7 +195,7 @@
                   </li>
                 <?php } else if ($role == "provider") { ?>
                     <li class="nav-item border-top border-bottom">
-                      <a href="service_signin.php" class="nav-link">Service Provider Panel</a>
+                      <a href="service_provider_index.php" class="nav-link">Service Provider Panel</a>
                     </li>
                 <?php } ?>
               </ul>

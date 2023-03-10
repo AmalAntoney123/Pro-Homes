@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php session_start(); 
+if (isset($_SESSION["l_id"])) {
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -142,7 +144,6 @@
     WHERE sp.Provider_ID = "'.$id.'" ';
     $result = mysqli_query($con, $sql);
     $service_p = mysqli_fetch_assoc($result)
-
     ?>
 </head>
 
@@ -459,7 +460,7 @@
                     daysOfWeekDisabled: [0, 7], // disable Sundays and Saturdays
                     datesDisabled: [<?php
                     // Disable specific dates
-                    $unavailableDates = ['2023-03-06', '2023-03-12', '2023-03-19'];
+                    $unavailableDates = ['2023-03-16', '2023-03-17', '2023-03-19'];
                     foreach ($unavailableDates as $date) {
                         echo "'$date',";
                     }
@@ -475,6 +476,10 @@
     </body>
     <?php
     } else {
+        header("location:signin.php");
+    }
+    } else {
+        $_SESSION['Check_login'] = "BOOK";
         header("location:signin.php");
     }
     ?>
