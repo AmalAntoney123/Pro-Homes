@@ -7,6 +7,8 @@ $address = $_POST['address'];
 $service = $_POST['service'];
 $description = $_POST['description'];
 $price = $_POST['price'];
+$startday=$_POST['startday'];
+$endday=$_POST['endday'];
 $qualification = $_FILES['qualification']['name'];
 $certificate = $_FILES['certificate']['name'];
 $insurance = $_FILES['insurance']['name'];
@@ -18,8 +20,8 @@ $service_id = (int) $service_tbl['Service_ID'];
 
 $query = "INSERT INTO `tbl_service_provider`(`User_ID`, `Service_ID`, `Address`, `Service_Desc`, `Qualification_File`, `Insurance_File`, `Certificate_File`, `Price`, `Verification_status`) 
                 VALUES ('$lid','$service_id','$address','$description','$qualification','$insurance','$certificate','$price','pending')";
-
 $result1 = mysqli_query($con, $query);
+
 if ($result1) {
     $target_qualification = "uploaded files/qualification/" . $qualification;
     $target_insurance = "uploaded files/insurance/" . $insurance;
@@ -27,11 +29,16 @@ if ($result1) {
     move_uploaded_file($_FILES["qualification"]["tmp_name"], $target_qualification);
     move_uploaded_file($_FILES["certificate"]["tmp_name"], $target_certificate);
     move_uploaded_file($_FILES["insurance"]["tmp_name"], $target_insurance);
+    
+$p_id = mysqli_insert_id($con);
+
+$query2 = "INSERT INTO `tbl_service_provider_availability`(`Provider_ID`,`Workday_Start`, `Workday_End`) 
+                VALUES ($p_id,'$startday','$endday')";
+
+$result2 = mysqli_query($con, $query2);
 }
 
 
 $_SESSION["Requested"] = "VALID";
 header("location:user_profile.php")
-
-
-    ?>
+?>

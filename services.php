@@ -29,7 +29,7 @@ include("connection.php"); ?>
   <?php
   if (isset($_SESSION["l_id"])) {
 
-    
+
     $lid = $_SESSION["l_id"];
     if ($lid) {
       $lid = $_SESSION["l_id"];
@@ -45,62 +45,6 @@ include("connection.php"); ?>
     }
   }
   ?>
-
-</head>
-
-<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home" class="">
-
-  <nav id="scrollspy" class="navbar navbar-black bg-light navbar-expand-lg ">
-    <div class="container">
-      <a class="navbar-brand" href="index.php"><img src="assets/imgs/logo.png" alt="" class="brand-img"></a>
-      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse"
-        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-        aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon navbar-light"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <?php
-          if (isset($_SESSION["l_id"])) {
-            ?>
-            <li class="nav-item">
-              <a class="nav-link mt-2" href="index.php">Home</a>
-            </li>
-
-
-            <div class="nav-item dropdown ">
-              <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                <span class="d-none d-lg-inline-flex">
-                  <?php echo "$fname $lname"; ?>
-                </span>
-                <img class="rounded-circle ml-2 me-lg-2" src="uploaded files/Profile Pictures/<?php echo $target; ?>"
-                  alt="" style="width: 40px; height: 40px; object-fit: cover;">
-
-              </a>
-              <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                <a href="user_profile.php" class="dropdown-item">My Profile</a>
-                <a href="user_profile.php" class="dropdown-item">Settings</a>
-                <a href="logout.php" class="dropdown-item">Log Out</a>
-              </div>
-            </div>
-
-            <?php
-          } else {
-            ?>
-            <li class="nav-item">
-              <a class="nav-link pb-2" href="index.php">Home</a>
-            </li>
-            <li class="nav-item ml-0 ml-lg-4">
-              <a class="nav-link btn btn-primary" href="signin.php">Login</a>
-            </li>
-            <?php
-          }
-          ?>
-        </ul>
-      </div>
-    </div>
-  </nav>
   <style>
     .pagination li a,
     .pagination li span {
@@ -188,7 +132,61 @@ include("connection.php"); ?>
       text-align: center;
     }
   </style>
+</head>
 
+<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home" class="">
+
+  <nav id="scrollspy" class="navbar navbar-black bg-light navbar-expand-lg ">
+    <div class="container">
+      <a class="navbar-brand" href="index.php"><img src="assets/imgs/logo.png" alt="" class="brand-img"></a>
+      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse"
+        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon navbar-light"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <?php
+          if (isset($_SESSION["l_id"])) {
+            ?>
+            <li class="nav-item">
+              <a class="nav-link mt-2" href="index.php">Home</a>
+            </li>
+
+
+            <div class="nav-item dropdown ">
+              <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                <span class="d-none d-lg-inline-flex">
+                  <?php echo "$fname $lname"; ?>
+                </span>
+                <img class="rounded-circle ml-2 me-lg-2" src="uploaded files/Profile Pictures/<?php echo $target; ?>"
+                  alt="" style="width: 40px; height: 40px; object-fit: cover;">
+
+              </a>
+              <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                <a href="user_profile.php" class="dropdown-item">My Profile</a>
+                <a href="user_profile.php" class="dropdown-item">Settings</a>
+                <a href="logout.php" class="dropdown-item">Log Out</a>
+              </div>
+            </div>
+
+            <?php
+          } else {
+            ?>
+            <li class="nav-item">
+              <a class="nav-link pb-2" href="index.php">Home</a>
+            </li>
+            <li class="nav-item ml-0 ml-lg-4">
+              <a class="nav-link btn btn-primary" href="signin.php">Login</a>
+            </li>
+            <?php
+          }
+          ?>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
 
   <section>
@@ -237,31 +235,39 @@ include("connection.php"); ?>
                   <hr>
                   <h5>Price Range</h5>
                   <div class="form-group">
-                    <input type="range" value="<?php if (isset($_SESSION['price_filter'])) echo $_SESSION['price_filter']; else echo '0'?>" class="form-control-range" id="priceRange" min="0" step="50" max="2000"
+                    <input type="range" value="<?php if (isset($_SESSION['price_filter']))
+                    echo $_SESSION['price_filter'];
+                  else
+                    echo '0' ?>" class="form-control-range" id="priceRange" min="0" step="50" max="2000"
                       name="pricefilter" oninput="this.nextElementSibling.value = this.value">
-                    <output id="rangeValue"><?php if (isset($_SESSION['price_filter'])) echo $_SESSION['price_filter'];?></output><span>₹</span>
-                  </div>
-                  <hr>
-                  <h5>Service</h5>
+                    <output id="rangeValue">
+                    <?php if (isset($_SESSION['price_filter']))
+                    echo $_SESSION['price_filter']; ?>
+                  </output><span>₹</span>
+                </div>
+                <hr>
+                <h5>Service</h5>
                 <?php $query = "SELECT * FROM `tbl_services`";
-                  $result = mysqli_query($con, $query);
-                  while ($tbl_service = mysqli_fetch_array($result)) { ?>
+                $result = mysqli_query($con, $query);
+                while ($tbl_service = mysqli_fetch_array($result)) { ?>
 
-                    <?php echo '<div class="form-check">
+                  <?php echo '<div class="form-check">
                                   <input class="form-check-input" name="service_filter[]" type="checkbox" value="' . $tbl_service['Service_Name'] . '" id="sizeCheck3" ';
-                                  if (isset($_SESSION['service_filter']) && in_array($tbl_service['Service_Name'], $_SESSION['service_filter']))
-                                    echo "checked" ;
-                          echo '>
+                  if (isset($_SESSION['service_filter']) && in_array($tbl_service['Service_Name'], $_SESSION['service_filter']))
+                    echo "checked";
+                  echo '>
                                   <label class="form-check-label" for="sizeCheck3">
                                     ' . $tbl_service['Service_Name'] . '
                                   </label>
                                 </div>';
-                    ?>
+                  ?>
                 <?php } ?>
 
                 <hr>
-                <div class="mb-3 block"><button type="submit" name="sub_filter" class="btn btn-primary">Apply Filters</button>
-                <button type="submit" name="sub_unset" class="btn btn-primary">Remove Filters</button></div>
+                <div class="mb-3 block"><button type="submit" name="sub_filter" class="btn btn-primary">Apply
+                    Filters</button>
+                  <button type="submit" name="sub_unset" class="btn btn-primary">Remove Filters</button>
+                </div>
               </form>
             </div>
             <!-- Show/hide sidebar (mobile) -->
@@ -273,71 +279,79 @@ include("connection.php"); ?>
             <!-- Sidebar (mobile) -->
             <div class="collapse d-lg-none w-100" id="sidebar">
               <div class="btn-group-vertical">
-              <form action="#" method="GET">
-                <h3>Filters</h3>
-                <hr>
-                <h5>City</h5>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="kochi" id="defaultCheck1" name="city[]" <?php
-                  if (isset($_SESSION['city_filter']) && in_array('kochi', $_SESSION['city_filter']))
-                    echo "checked" ?>>
-                    <label class="form-check-label" for="defaultCheck1">
-                      Kochi
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="kottayam" id="defaultCheck2" name="city[]"
-                    <?php if (isset($_SESSION['city_filter']) && in_array('kottayam', $_SESSION['city_filter']))
-                    echo "checked" ?>>
-                    <label class="form-check-label" for="defaultCheck2">
-                      Kottayam
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="trivandrum" id="defaultCheck3" name="city[]"
-                    <?php if (isset($_SESSION['city_filter']) && in_array('trivandrum', $_SESSION['city_filter']))
-                    echo "checked" ?>>
-                    <label class="form-check-label" for="defaultCheck3">
-                      Trivandrum
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="calicut" id="defaultCheck4" name="city[]" <?php
-                  if (isset($_SESSION['city_filter']) && in_array('calicut', $_SESSION['city_filter']))
-                    echo "checked" ?>>
-                    <label class="form-check-label" for="defaultCheck4">
-                      Calicut
-                    </label>
-                  </div>
+                <form action="#" method="GET">
+                  <h3>Filters</h3>
                   <hr>
-                  <h5>Price Range</h5>
-                  <div class="form-group">
-                    <input type="range" value="<?php if (isset($_SESSION['price_filter'])) echo $_SESSION['price_filter']; else echo '0'?>" class="form-control-range" id="priceRange" min="0" step="50" max="2000"
-                      name="pricefilter" oninput="this.nextElementSibling.value = this.value">
-                    <output id="rangeValue"><?php if (isset($_SESSION['price_filter'])) echo $_SESSION['price_filter'];?></output><span>₹</span>
+                  <h5>City</h5>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="kochi" id="defaultCheck1" name="city[]" <?php
+                    if (isset($_SESSION['city_filter']) && in_array('kochi', $_SESSION['city_filter']))
+                      echo "checked" ?>>
+                      <label class="form-check-label" for="defaultCheck1">
+                        Kochi
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="kottayam" id="defaultCheck2" name="city[]"
+                      <?php if (isset($_SESSION['city_filter']) && in_array('kottayam', $_SESSION['city_filter']))
+                      echo "checked" ?>>
+                      <label class="form-check-label" for="defaultCheck2">
+                        Kottayam
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="trivandrum" id="defaultCheck3" name="city[]"
+                      <?php if (isset($_SESSION['city_filter']) && in_array('trivandrum', $_SESSION['city_filter']))
+                      echo "checked" ?>>
+                      <label class="form-check-label" for="defaultCheck3">
+                        Trivandrum
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="calicut" id="defaultCheck4" name="city[]" <?php
+                    if (isset($_SESSION['city_filter']) && in_array('calicut', $_SESSION['city_filter']))
+                      echo "checked" ?>>
+                      <label class="form-check-label" for="defaultCheck4">
+                        Calicut
+                      </label>
+                    </div>
+                    <hr>
+                    <h5>Price Range</h5>
+                    <div class="form-group">
+                      <input type="range" value="<?php if (isset($_SESSION['price_filter']))
+                      echo $_SESSION['price_filter'];
+                    else
+                      echo '0' ?>" class="form-control-range" id="priceRange" min="0" step="50" max="2000"
+                        name="pricefilter" oninput="this.nextElementSibling.value = this.value">
+                      <output id="rangeValue">
+                      <?php if (isset($_SESSION['price_filter']))
+                      echo $_SESSION['price_filter']; ?>
+                    </output><span>₹</span>
                   </div>
                   <hr>
                   <h5>Service</h5>
-                <?php $query = "SELECT * FROM `tbl_services`";
+                  <?php $query = "SELECT * FROM `tbl_services`";
                   $result = mysqli_query($con, $query);
                   while ($tbl_service = mysqli_fetch_array($result)) { ?>
 
                     <?php echo '<div class="form-check">
                                   <input class="form-check-input" name="service_filter[]" type="checkbox" value="' . $tbl_service['Service_Name'] . '" id="sizeCheck3" ';
-                                  if (isset($_SESSION['service_filter']) && in_array($tbl_service['Service_Name'], $_SESSION['service_filter']))
-                                    echo "checked" ;
-                          echo '>
+                    if (isset($_SESSION['service_filter']) && in_array($tbl_service['Service_Name'], $_SESSION['service_filter']))
+                      echo "checked";
+                    echo '>
                                   <label class="form-check-label" for="sizeCheck3">
                                     ' . $tbl_service['Service_Name'] . '
                                   </label>
                                 </div>';
                     ?>
-                <?php } ?>
+                  <?php } ?>
 
-                <hr>
-                <div class="mb-3 block"><button type="submit" name="sub_filter" class="btn btn-primary">Apply Filters</button>
-                <button type="submit" name="sub_unset" class="btn btn-primary">Remove Filters</button></div>
-              </form>
+                  <hr>
+                  <div class="mb-3 block"><button type="submit" name="sub_filter" class="btn btn-primary">Apply
+                      Filters</button>
+                    <button type="submit" name="sub_unset" class="btn btn-primary">Remove Filters</button>
+                  </div>
+                </form>
 
               </div>
             </div>

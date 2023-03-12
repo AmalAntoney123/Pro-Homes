@@ -1,0 +1,33 @@
+/* Change flatpicker calendar and datepicker style */
+.flatpickr-calendar {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+}
+
+.flatpickr-input {
+  background-color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  color: #000000;
+  font-size: 16px;
+  padding: 12px;
+  width: 100%;
+}
+
+.flatpickr-day:hover {
+  background-color: #f06161 !important;
+  color: #ffffff;
+}
+
+/* Increase the size of the flatpicker calendar and datepicker */
+.flatpickr-calendar {
+  font-size: 16px;
+  width: 320px;
+}
+
+.flatpickr-time {
+  font-size: 16px;
+  width: 100%;
+}

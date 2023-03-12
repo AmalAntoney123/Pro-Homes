@@ -57,6 +57,7 @@ if (isset($_SESSION["l_id"])) {
         <link href="css/style.css" rel="stylesheet">
         <link rel="stylesheet" href="assets/css/ollie.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <link rel="stylesheet" href="assets/css/flatpicker.css" />
 
     </head>
 
@@ -210,7 +211,28 @@ if (isset($_SESSION["l_id"])) {
                 </nav>
                 <!-- Navbar End -->
 
+                <?php
+                $query = "SELECT Provider_ID FROM `tbl_service_provider` WHERE `User_ID`=$lid";
+                $result = mysqli_query($con, $query);
+                $row = mysqli_fetch_array($result);
+                $provider_id = $row["Provider_ID"];
 
+
+                $unavailable_dates = array();
+                $query = "SELECT * FROM `tbl_service_provider_availability` WHERE `Provider_ID`='$provider_id'";
+                $result3 = mysqli_query($con, $query);
+                $availability = mysqli_fetch_array($result3);
+
+                if (isset($availability['Unavailable Dates'])) {
+                    $dates_string = $availability['Unavailable Dates'];
+                    $dates_array = explode(',', $dates_string);
+                    foreach ($dates_array as $date) {
+                        $unix_timestamp = strtotime($date);
+                        $formatted_date = date('Y-m-d', $unix_timestamp);
+                        array_push($unavailable_dates, $formatted_date);
+                    }
+                }
+                ?>
                 <!-- Blank Start -->
                 <div class="container-fluid pt-4 px-4">
                     <div class="bg-light rounded-top p-4">
@@ -219,11 +241,12 @@ if (isset($_SESSION["l_id"])) {
                             <form action="sp_availability_change.php" method="POST">
                                 <div class="form-group">
                                     <label for="date-picker">Pick Unavailable Dates</label>
-                                    <input type="text" class="form-control" id="date-picker"
-                                        placeholder="Select dates" name="unavailabledates" multiple>
+                                    <input type="text" class="form-control" id="date-picker" placeholder="Select dates"
+                                        name="unavailabledates" multiple>
                                 </div>
                                 <div class="form-group form-check ml-1">
-                                    <input type="checkbox" class="form-check-input" id="sundays" name="sunday"/>
+                                    <input type="checkbox" class="form-check-input" id="sundays" name="sunday" <?php if ($availability['Sunday_Unvailable'] == 'Yes')
+                                        echo 'checked'; ?> />
                                     <label class="form-check-label" for="sundays">
                                         Unavailable on Sundays
                                     </label>
@@ -251,46 +274,59 @@ if (isset($_SESSION["l_id"])) {
 
                             <script>
                                 // Initialize Flatpickr
+                                var unavailableDates = <?php echo json_encode($unavailable_dates); ?>;
+                                var sundayAvailable = "<?php echo $availability['Sunday_Unvailable'] ?>";
                                 flatpickr("#date-picker", {
                                     mode: "multiple",
                                     dateFormat: "Y-m-d",
                                     minDate: "today",
-                                    
+                                    defaultDate: unavailableDates,
+                                    disable: [
+                                        function (date) {
+                                            // Check if it's a Sunday
+                                            if (date.getDay() === 0) {
+                                                // Check if Sunday is unavailable
+                                                if (sundayAvailable === 'Yes') {
+                                                    return true; // Disable Sunday
+                                                }
+                                            }
+                                        }
+                                    ]
                                 });
+
                                 flatpickr("#start-time", {
                                     enableTime: true,
                                     noCalendar: true,
                                     dateFormat: "H:i",
                                     time_24hr: true,
                                     minuteIncrement: 30,
+                                    defaultDate: "<?php echo $availability['Workday_Start'] ?>",
                                     onClose: function (selectedDates, dateStr, instance) {
                                         // Set the minimum time for the end time input to the selected start time
                                         if (selectedDates.length > 0) {
                                             var minTime = new Date(selectedDates[0].getTime() + 30 * 60000);
+                                            // Create a new instance of the end-time picker with updated options
                                             flatpickr("#end-time", {
                                                 enableTime: true,
                                                 noCalendar: true,
                                                 dateFormat: "H:i",
                                                 time_24hr: true,
                                                 minuteIncrement: 30,
+                                                defaultDate: "<?php echo $availability['Workday_End'] ?>",
                                                 minTime: minTime,
-                                                onClose: function (selectedDates, dateStr, instance) {
-                                                    // Set the maximum time for the start time input to the selected end time
-                                                    if (selectedDates.length > 0) {
-                                                        var maxTime = new Date(selectedDates[0].getTime() - 30 * 60000);
-                                                        flatpickr("#start-time", {
-                                                            enableTime: true,
-                                                            noCalendar: true,
-                                                            dateFormat: "H:i",
-                                                            time_24hr: true,
-                                                            minuteIncrement: 30,
-                                                            maxTime: maxTime
-                                                        });
-                                                    }
-                                                }
                                             });
                                         }
                                     }
+                                });
+
+                                flatpickr("#end-time", {
+                                    minTime: "<?php echo $availability['Workday_Start'] ?>",
+                                    enableTime: true,
+                                    noCalendar: true,
+                                    dateFormat: "H:i",
+                                    time_24hr: true,
+                                    minuteIncrement: 30,
+                                    defaultDate: "<?php echo $availability['Workday_End'] ?>"
                                 });
                             </script>
 
