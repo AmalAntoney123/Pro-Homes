@@ -99,7 +99,7 @@ if (isset($_SESSION["l_id"])) {
                                     class="fa fa-briefcase me-2"></i>Services</a>
                             <div class="dropdown-menu bg-transparent border-0">
                                 <a href="sp_manage_appoinmnt.php" class="dropdown-item">Manage Appoinments</a>
-                                <a href="typography.html" class="dropdown-item">Recent Appoinments</a>
+                                <a href="sp_recent_appoinments.php" class="dropdown-item">Recent Appoinments</a>
                                 <a href="Service_provider_availability.php" class="dropdown-item">Set Availability</a>
                             </div>
                         </div>

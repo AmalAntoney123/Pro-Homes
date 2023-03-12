@@ -67,19 +67,47 @@ if (isset($_SESSION["l_id"])) {
 
         <script>
             $(document).ready(function() {
-                $('#tbl_apt_mgt').DataTable();
+                $('#tbl_apt_mgt').DataTable({
+                    error: null
+                });
+            });
+            //ajax update request status
+            $(document).ready(function() {
+                $('select[name="select"]').change(function() {
+                    var selectedOption = $(this).val();
+                    var requestID = $(this).attr('id');
+                    $.ajax({
+                        url: 'update_database_rqststatus.php',
+                        type: 'POST',
+                        data: {
+                            'selectedOption': selectedOption,
+                            'requestID': requestID
+                        },
+                        success: function(response) {
+                            // do something with the response
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus, errorThrown);
+                        }
+                    });
+                });
             });
         </script>
+        <style>
+            .form-select{
+                width: 135px;
+            }
+            </style>
     </head>
 
     <body>
         <div class="container-xxl position-relative bg-white d-flex p-0">
             <!-- Spinner Start -->
-            <!-- <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
                 <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
-            </div> -->
+            </div>
             <!-- Spinner End -->
 
 
@@ -108,7 +136,7 @@ if (isset($_SESSION["l_id"])) {
                             <a href="#" class="nav-link dropdown-toggle  active" data-bs-toggle="dropdown"><i class="fa fa-briefcase me-2"></i>Services</a>
                             <div class="dropdown-menu bg-transparent border-0">
                                 <a href="sp_manage_appoinmnt.php" class="dropdown-item active">Manage Appoinments</a>
-                                <a href="typography.html" class="dropdown-item">Recent Appoinments</a>
+                                <a href="sp_recent_appoinments.php" class="dropdown-item">Recent Appoinments</a>
                                 <a href="Service_provider_availability.php" class="dropdown-item">Set
                                     Availability</a>
                             </div>
@@ -217,13 +245,16 @@ if (isset($_SESSION["l_id"])) {
                     <div class="row  rounded align-items-center justify-content-center mx-0">
                         <div class="bg-light rounded h-100 p-4">
 
-                            <h6 class="mb-4">User Management</h6>
+                            <h6 class="mb-4">Appoinment Management</h6>
                             <div class="table-responsive">
                                 <table class="table table-striped table-hover" id="tbl_apt_mgt">
                                     <?php
                                     // connect to database
                                     include("connection.php");
-
+                                    $sql1 = "SELECT * FROM `tbl_service_provider` WHERE `User_ID`=$lid";
+                                    $result = mysqli_query($con, $sql1);
+                                    $row = mysqli_fetch_array($result);
+                                    $provider_id = $row['Provider_ID'];
 
                                     // fetch data from database
                                     $sql = "SELECT sr.Request_ID, sr.User_ID, sr.Provider_ID, sr.Serivce_ID, 
@@ -233,10 +264,10 @@ if (isset($_SESSION["l_id"])) {
                                     u.Phone_Number, u.Profile_Picture, u.City, u.User_Type, 
                                     u.Register_Date, u.Verification_status, u.User_Status,
                                     a.House, a.Street, a.State, a.Locality, a.Landmark, a.Pincode
-                             FROM tbl_service_request sr
-                             JOIN tbl_user u ON sr.User_ID = u.User_ID
-                             JOIN tbl_address a ON sr.Address_ID = a.Address_ID AND a.User_ID = u.User_ID
-                             ";
+                                    FROM tbl_service_request sr
+                                        JOIN tbl_user u ON sr.User_ID = u.User_ID
+                                        JOIN tbl_address a ON sr.Address_ID = a.Address_ID AND a.User_ID = u.User_ID
+                                            WHERE sr.Provider_ID=$provider_id AND sr.Status not like 'completed'";
                                     $result = mysqli_query($con, $sql);
 
 
@@ -260,26 +291,27 @@ if (isset($_SESSION["l_id"])) {
                                         while ($row = mysqli_fetch_assoc($result)) {
                                             $output .= '<tr>';
                                             $output .= '<td>' . $count . '</td>';
-                                            $output .= '<td > <select class="form-select">
-                                            <option value="accepted">Accept</option>
-                                            <option value="approved">Working</option>
-                                            <option value="approved">Completed</option>
+                                            $output .= '<td > <select name="select" class="form-select" id="' . $row['Request_ID'] . '">
+                                            <option value="requested" ';if($row['Status']=="requested") $output.="selected";$output.='>Requested</option>
+                                            <option value="accepted" ';if($row['Status']=="accepted") $output.="selected";$output.='>Accept</option>
+                                            <option value="approved" ';if($row['Status']=="approved") $output.="selected";$output.='>Working</option>
+                                            <option value="completed" ';if($row['Status']=="completed") $output.="selected";$output.='>Completed</option>
                                                             </select>
                                                 
                                                         </td>';
-                                            $output .= '<td>'.$row['Appointment_Date'].'</td>';
-                                            $output .= '<td>'.$row['Appoinment_Start_Time'].'</td>';
+                                            $output .= '<td>' . $row['Appointment_Date'] . '</td>';
+                                            $output .= '<td>' . $row['Appoinment_Start_Time'] . '</td>';
                                             $output .= '<td>' . $row['First_Name'] . ' ' . $row['Last_Name'] . '</td>';
                                             $output .= '<td>' . $row['Email'] . '</td>';
                                             $output .= '<td>' . $row['Phone_Number'] . '</td>';
-                                            $output .= '<td>'.$row['House'].', '.$row['Street'] .', '.$row['City'].', '.$row['Locality'] .', '.$row['State'] .', Near:'.$row['Landmark'] .', '.$row['Pincode'].'</td>';
+                                            $output .= '<td>' . $row['House'] . ', ' . $row['Street'] . ', ' . $row['City'] . ', ' . $row['Locality'] . ', ' . $row['State'] . ', Near:' . $row['Landmark'] . ', ' . $row['Pincode'] . '</td>';
 
                                             $output .= '<td>' . $row['Service_Description'] . '</td>';
                                             $output .= '</tr>';
                                             $count++;
                                         }
                                     } else {
-                                        $output .= '<tr><td colspan="9">No Pending Appointments</td></tr>';
+                                        $output .= 'No Pending Appointments';
                                     }
 
                                     // send table rows back to Ajax

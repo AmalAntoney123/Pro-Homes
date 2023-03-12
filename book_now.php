@@ -177,9 +177,27 @@ if (isset($_SESSION["l_id"])) {
                                 $lid = $_SESSION["l_id"];
                                 $_SESSION["provider_id"] = $_GET["id"];
                                 $pid = $_GET["id"];
+
+                                //booked dates
+                                $bookeddates = array();
+
+                                // Prepare the SQL query to fetch the appointment dates
+                                $sql = "SELECT * FROM `tbl_service_request` where `Provider_ID` =$pid";
+
+                                // Execute the SQL query
+                                $result = mysqli_query($con, $sql);
+
+
+                                while ($dates = mysqli_fetch_array($result)) {
+                                    // Split the appointment dates string into an array
+                                    array_push($bookeddates,$dates['Appointment_Date']);
+                                }
+
+                                //address fetching
                                 $query1 = "SELECT * FROM `tbl_address` WHERE `User_ID`='$lid'";
                                 $result4 = mysqli_query($con, $query1);
 
+                                //unavailable dates fetching
                                 $unavailable_dates = array();
                                 $query = "SELECT * FROM `tbl_service_provider_availability` WHERE `Provider_ID`='$pid'";
                                 $result3 = mysqli_query($con, $query);
@@ -188,6 +206,7 @@ if (isset($_SESSION["l_id"])) {
                                 if (isset($availability['Unavailable Dates'])) {
                                     $dates_string = $availability['Unavailable Dates'];
                                     $dates_array = explode(',', $dates_string);
+                                    $dates_array=array_merge($dates_array,$bookeddates);
                                     foreach ($dates_array as $date) {
                                         $unix_timestamp = strtotime($date);
                                         $formatted_date = date('Y-m-d', $unix_timestamp);
@@ -203,7 +222,7 @@ if (isset($_SESSION["l_id"])) {
                                             <form class="mx-auto" action="book_now_submit.php" method="POST">
                                                 <div class="form-group">
                                                     <label for="date">Select your Address:</label>
-                                                    <select class="form-control" name="address">
+                                                    <select class="form-select" name="address">
                                                         <?php
 
                                                         $count = 1;
@@ -324,8 +343,8 @@ if (isset($_SESSION["l_id"])) {
                     </div>
                 </div>
             </section>
-            
-    
+
+
             <!-- bootstrap 3 affix -->
             <script src="assets/vendors/bootstrap/bootstrap.affix.js"></script>
             <script src="lib/chart/chart.min.js"></script>
