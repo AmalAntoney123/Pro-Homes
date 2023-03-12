@@ -101,7 +101,7 @@ if (isset($_SESSION["l_id"])) {
                             <a href="#" class="nav-link dropdown-toggle  active" data-bs-toggle="dropdown"><i
                                     class="fa fa-briefcase me-2"></i>Services</a>
                             <div class="dropdown-menu bg-transparent border-0">
-                                <a href="admin_verify_request.php" class="dropdown-item">Manage Appoinments</a>
+                                <a href="sp_manage_appoinmnt.php" class="dropdown-item">Manage Appoinments</a>
                                 <a href="typography.html" class="dropdown-item">Recent Appoinments</a>
                                 <a href="Service_provider_availability.php" class="dropdown-item active">Set
                                     Availability</a>

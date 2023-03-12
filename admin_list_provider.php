@@ -17,7 +17,7 @@ if (isset($_SESSION["l_id"])) {
     }
     if ($row["User_Type"] != "Admin")
         header("location:signin.php");
-    ?>
+?>
 
     <!DOCTYPE html>
     <html lang="en">
@@ -60,18 +60,16 @@ if (isset($_SESSION["l_id"])) {
         </style>
 
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <link
-            href="https://cdn.datatables.net/v/bs4/dt-1.13.2/b-2.3.4/cr-1.6.1/date-1.3.0/fh-3.3.1/r-2.4.0/sc-2.1.0/sb-1.4.0/sp-2.1.1/sl-1.6.0/sr-1.2.1/datatables.min.css" />
+        <link href="https://cdn.datatables.net/v/bs4/dt-1.13.2/b-2.3.4/cr-1.6.1/date-1.3.0/fh-3.3.1/r-2.4.0/sc-2.1.0/sb-1.4.0/sp-2.1.1/sl-1.6.0/sr-1.2.1/datatables.min.css" />
 
-        <script
-            src="https://cdn.datatables.net/v/bs4/dt-1.13.2/b-2.3.4/cr-1.6.1/date-1.3.0/fh-3.3.1/r-2.4.0/sc-2.1.0/sb-1.4.0/sp-2.1.1/sl-1.6.0/sr-1.2.1/datatables.min.js"></script>
+        <script src="https://cdn.datatables.net/v/bs4/dt-1.13.2/b-2.3.4/cr-1.6.1/date-1.3.0/fh-3.3.1/r-2.4.0/sc-2.1.0/sb-1.4.0/sp-2.1.1/sl-1.6.0/sr-1.2.1/datatables.min.js"></script>
 
         <script>
-            $(document).ready(function () {
+            $(document).ready(function() {
                 $('#tbl_user_mgt').DataTable();
             });
-            $(document).ready(function () {
-                $('.toggle-switch').on('change', function () {
+            $(document).ready(function() {
+                $('.toggle-switch').on('change', function() {
                     var userId = $(this).data('userid');
                     var isEnabled = $(this).prop('checked');
                     $.ajax({
@@ -81,9 +79,8 @@ if (isset($_SESSION["l_id"])) {
                             id: userId,
                             enabled: isEnabled ? 1 : 0 // convert boolean to integer
                         },
-                        success: function (response) {
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
+                        success: function(response) {},
+                        error: function(jqXHR, textStatus, errorThrown) {
                             // handle error response
                         }
                     });
@@ -91,21 +88,20 @@ if (isset($_SESSION["l_id"])) {
             });
         </script>
         <script>
-                            //Load table
-                            // $(document).ready(function () {
-                            //     // load the initial table data
-                            //     load_data();
-                            //     function load_data() {
-                            //         $.ajax({
-                            //             url: "fetch_user_table.php",
-                            //             method: "POST",
-                            //             success: function (data) {
-                            //                 $('#tbl_user_mgt').html(data);
-                            //             }
-                            //         });
-                            //     }
-                            // });
-
+            //Load table
+            // $(document).ready(function () {
+            //     // load the initial table data
+            //     load_data();
+            //     function load_data() {
+            //         $.ajax({
+            //             url: "fetch_user_table.php",
+            //             method: "POST",
+            //             success: function (data) {
+            //                 $('#tbl_user_mgt').html(data);
+            //             }
+            //         });
+            //     }
+            // });
         </script>
 
     </head>
@@ -113,12 +109,11 @@ if (isset($_SESSION["l_id"])) {
     <body>
         <div class="container-xxl position-relative bg-white d-flex p-0">
             <!-- Spinner Start -->
-            <div id="spinner"
-                class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <!-- <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
                 <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
-            </div>
+            </div> -->
             <!-- Spinner End -->
 
 
@@ -130,10 +125,8 @@ if (isset($_SESSION["l_id"])) {
                     </a>
                     <div class="d-flex align-items-center ms-4 mb-4">
                         <div class="position-relative">
-                            <img class="rounded-circle" src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt=""
-                                style="width: 40px; height: 40px; object-fit:cover;">
-                            <div
-                                class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
+                            <img class="rounded-circle" src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt="" style="width: 40px; height: 40px; object-fit:cover;">
+                            <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                             </div>
                         </div>
                         <div class="ms-3">
@@ -144,29 +137,25 @@ if (isset($_SESSION["l_id"])) {
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
-                        <a href="admin_index.php" class="nav-item nav-link"><i
-                                class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                        <a href="admin_index.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                    class="fa fa-briefcase me-2"></i>Services</a>
+                            <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="fa fa-briefcase me-2"></i>Services</a>
                             <div class="dropdown-menu bg-transparent border-0">
                                 <a href="admin_verify_request.php" class="dropdown-item">Verify Providers</a>
                                 <a href="typography.html" class="dropdown-item">Recent Appoinments</a>
-                                <a href="admin_list_provider.php" class="dropdown-item">List Providers</a>
+                                <a href="admin_list_provider.php" class="dropdown-item active">List Providers</a>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i
-                                    class="fa fa-user me-2"></i>Users</a>
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-user me-2"></i>Users</a>
                             <div class="dropdown-menu bg-transparent border-0">
-                                <a href="admin_manage_user.php" class="dropdown-item active">Manage Users</a>
+                                <a href="admin_manage_user.php" class="dropdown-item">Manage Users</a>
                                 <a href="signup.html" class="dropdown-item">Feedbacks</a>
                                 <a href="404.html" class="dropdown-item">Complaints</a>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                    class="fa fa-file me-2"></i>Pages</a>
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-file me-2"></i>Pages</a>
                             <div class="dropdown-menu bg-transparent border-0">
                                 <a href="index.php" class="dropdown-item">Home</a>
                                 <a href="signin.php" class="dropdown-item">Signin</a>
@@ -199,8 +188,7 @@ if (isset($_SESSION["l_id"])) {
                             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                                 <a href="#" class="dropdown-item">
                                     <div class="d-flex align-items-center">
-                                        <img class="rounded-circle" src="img/user.jpg" alt=""
-                                            style="width: 40px; height: 40px;">
+                                        <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
                                         <div class="ms-2">
                                             <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                             <small>15 minutes ago</small>
@@ -210,8 +198,7 @@ if (isset($_SESSION["l_id"])) {
                                 <hr class="dropdown-divider">
                                 <a href="#" class="dropdown-item">
                                     <div class="d-flex align-items-center">
-                                        <img class="rounded-circle" src="img/user.jpg" alt=""
-                                            style="width: 40px; height: 40px;">
+                                        <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
                                         <div class="ms-2">
                                             <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                             <small>15 minutes ago</small>
@@ -221,8 +208,7 @@ if (isset($_SESSION["l_id"])) {
                                 <hr class="dropdown-divider">
                                 <a href="#" class="dropdown-item">
                                     <div class="d-flex align-items-center">
-                                        <img class="rounded-circle" src="img/user.jpg" alt=""
-                                            style="width: 40px; height: 40px;">
+                                        <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
                                         <div class="ms-2">
                                             <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                             <small>15 minutes ago</small>
@@ -259,9 +245,7 @@ if (isset($_SESSION["l_id"])) {
                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <img class="rounded-circle me-lg-2"
-                                    src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt=""
-                                    style="width: 40px; height: 40px; object-fit:cover;">
+                                <img class="rounded-circle me-lg-2" src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt="" style="width: 40px; height: 40px; object-fit:cover;">
                                 <span class="d-none d-lg-inline-flex">
                                     <?php echo "$fname $lname"; ?>
                                 </span>
@@ -283,62 +267,82 @@ if (isset($_SESSION["l_id"])) {
                         <div class="bg-light rounded h-100 p-4">
 
                             <h6 class="mb-4">Service Provider Management</h6>
-                            <table class="table table-striped table-hover" id="tbl_user_mgt">
-                                <?php
-                                // connect to database
-                                include("connection.php");
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover" id="tbl_user_mgt">
+                                    <?php
+                                    // connect to database
+                                    include("connection.php");
 
 
-                                // fetch data from database
-                                $sql = "SELECT * FROM `tbl_user` WHERE `User_Type` LIKE 'provider'";
-                                $result = mysqli_query($con, $sql);
+                                    // fetch data from database
+                                    $sql = "SELECT u.`User_ID`, u.`First_Name`, u.`Last_Name`, u.`Username`, u.`Email`, u.`Password`, u.`Phone_Number`, u.`Profile_Picture`, u.`City`, u.`User_Type`, u.`Register_Date`, u.`Verification_status`, u.`User_Status`, s.`Service_ID`, s.`Service_Name`, s.`Description`, p.`Provider_ID`, p.`Address`, p.`Service_Desc`, p.`Qualification_File`, p.`Insurance_File`, p.`Certificate_File`, p.`Price`, p.`Verification_status`
+                                    FROM `tbl_user` u
+                                    JOIN `tbl_service_provider` p ON u.`User_ID` = p.`User_ID`
+                                    JOIN `tbl_services` s ON p.`Service_ID` = s.`Service_ID`
+                                    WHERE u.`User_Type` = 'provider'
+                                    
+                                  ";
+                                    $result = mysqli_query($con, $sql);
 
 
-                                // generate table rows from data
-                                $output = '';
-                                if (mysqli_num_rows($result) > 0) {
-                                    $output = '<thead>';
-                                    $output .= '<tr>';
-                                    $output .= '<th>#</th>';
-                                    $output .= '<th>Name</th>';
-                                    $output .= '<th>Username</th>';
-                                    $output .= '<th>Email </th>';
-                                    $output .= '<th>Phone_Number</th>';
-                                    $output .= '<th>City</th>';
-                                    $output .= '<th>User Type</th>';
-                                    $output .= '<th>Disable</th>';
-                                    $output .= '</tr>';
-                                    $output .= '</thead>';
-                                    $count = 1;
-                                    while ($row = mysqli_fetch_assoc($result)) {
+                                    // generate table rows from data
+                                    $output = '';
+                                    if (mysqli_num_rows($result) > 0) {
+                                        $output = '<thead>';
                                         $output .= '<tr>';
-                                        $output .= '<td>' . $count . '</td>';
-                                        $output .= '<td>' . $row['First_Name'] . ' ' . $row['Last_Name'] . '</td>';
-                                        $output .= '<td>' . $row['Username'] . '</td>';
-                                        $output .= '<td>' . $row['Email'] . '</td>';
-                                        $output .= '<td>' . $row['Phone_Number'] . '</td>';
-                                        $output .= '<td>' . $row['City'] . '</td>';
-                                        $output .= '<td>' . $row['User_Type'] . '</td>';
-                                        $output .= '<td align="center">
+                                        $output .= '<th>#</th>';
+                                        $output .= '<th>Name</th>';
+                                        $output .= '<th>Username</th>';
+                                        $output .= '<th>Email </th>';
+                                        $output .= '<th>Phone_Number</th>';
+                                        $output .= '<th>City</th>';
+
+                                        $output .= '<th>Service type</th>';
+                                        $output .= '<th>Description</th>';
+                                        $output .= '<th>Qualification</th>';
+                                        $output .= '<th>Certification</th>';
+                                        $output .= '<th>Insurance</th>';
+                                        $output .= '<th>Price /hr</th>';
+
+                                        $output .= '<th>Disable</th>';
+                                        $output .= '</tr>';
+                                        $output .= '</thead>';
+                                        $count = 1;
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            $output .= '<tr>';
+                                            $output .= '<td>' . $count . '</td>';
+                                            $output .= '<td>' . $row['First_Name'] . ' ' . $row['Last_Name'] . '</td>';
+                                            $output .= '<td>' . $row['Username'] . '</td>';
+                                            $output .= '<td>' . $row['Email'] . '</td>';
+                                            $output .= '<td>' . $row['Phone_Number'] . '</td>';
+                                            $output .= '<td>' . $row['City'] . '</td>';
+                                            $output .= '<td>' . $row['Service_Name'] . '</td>';
+                                            $output .= '<td>' . $row['Service_Desc'] . '</td>';
+                                            $output .= '<td> <button class="btn btn-secondary pdf-button" onclick="window.open(`uploaded files/qualification/' . $row['Qualification_File'] . '`, `_blank`)">Qualification</button></td>';
+                                            $output .= '<td> <button class="btn btn-secondary pdf-button" onclick="window.open(`uploaded files/certificates/' . $row['Certificate_File'] . '`, `_blank`)">Certificate</button></td>';
+                                            $output .= '<td> <button class="btn btn-secondary pdf-button" onclick="window.open(`uploaded files/insurance/' . $row['Insurance_File'] . '`, `_blank`)">Insurance</button></td>';
+                                            $output .= '<td>' . $row['Price'] . '</td>';
+                                            $output .= '<th ">
                                                         <div class="form-check form-switch">
                                                             <input class="form-check-input btn-primary toggle-switch"';
-                                        if($row['User_Status']=='disabled'){
-                                            $output .='checked';
-                                        }
-                                        $output .= ' type="checkbox" role="switch" id="toggle-switch-1" data-userid="' . $row['User_ID'] . '">
+                                            if ($row['User_Status'] == 'disabled') {
+                                                $output .= 'checked';
+                                            }
+                                            $output .= ' type="checkbox" role="switch" id="toggle-switch-1" data-userid="' . $row['User_ID'] . '">
                                                         </div>
-                                                    </td>';
-                                        $output .= '</tr>';
-                                        $count++;
+                                                    </th>';
+                                            $output .= '</tr>';
+                                            $count++;
+                                        }
+                                    } else {
+                                        $output .= '<tr><td colspan="9">No Pending Request</td></tr>';
                                     }
-                                } else {
-                                    $output .= '<tr><td colspan="9">No Pending Request</td></tr>';
-                                }
 
-                                // send table rows back to Ajax
-                                echo $output;
-                                ?>
-                            </table>
+                                    // send table rows back to Ajax
+                                    echo $output;
+                                    ?>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -384,7 +388,7 @@ if (isset($_SESSION["l_id"])) {
 
     </html>
 
-    <?php
+<?php
 } else {
     header("location:signin.php");
 }
