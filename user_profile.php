@@ -595,6 +595,25 @@
           </div>
         </div>
       </div>
+      <div class="modal" id="Service_Requested">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Pro Homes</h4>
+              <button type="button" class="close close-modal" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+              <p>
+              <h5>Your request has been submitted.</h5><br> Check Services tab to see Appoinment status.</p>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary close-modal" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <?php
       if (isset($_SESSION["pass_status"])) {
@@ -625,6 +644,13 @@
             });
           </script>';
         }
+        if ($MSG == "SERVICE") {
+          echo '<script>
+            $(document).ready(function(){
+              $("#Service_Requested").modal("show");
+            });
+          </script>';
+        }
         unset($_SESSION["Requested"]);
 
       }
@@ -651,7 +677,7 @@
     <script>
       $(document).ready(function () {
         $('.close-modal').click(function () {
-          $('#Service_Pending,#myModal,#myModal1,#modal_addressedit').modal('hide');
+          $('#Service_Pending,#myModal,#myModal1,#modal_addressedit,#Service_Requested').modal('hide');
         });
       });</script>
     <!-- bootstrap 3 affix -->

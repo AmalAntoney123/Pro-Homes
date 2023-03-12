@@ -79,6 +79,7 @@ if (isset($_SESSION["l_id"])) {
     sp.Insurance_File, 
     sp.Certificate_File, 
     sp.Price, 
+    sp.Service_ID,
     sp.Verification_status 
     FROM 
     tbl_service_provider sp 
@@ -199,10 +200,10 @@ if (isset($_SESSION["l_id"])) {
                                 <div class="d-flex flex-column ">
                                     <div clas="row px-5">
                                         <div class="container-fluid px-5 my-5">
-                                            <form class="mx-auto" action="#" method="POST">
+                                            <form class="mx-auto" action="book_now_submit.php" method="POST">
                                                 <div class="form-group">
                                                     <label for="date">Select your Address:</label>
-                                                    <select class="form-control">
+                                                    <select class="form-control" name="address">
                                                         <?php
 
                                                         $count = 1;
@@ -227,18 +228,18 @@ if (isset($_SESSION["l_id"])) {
                                                 <button type="button" onclick="location.href='add_address_book.php'" class="btn btn-secondary">Add New Address</button>
                                                 <div class="form-group mt-2">
                                                     <label for="date-picker">Appoinment Date</label>
-                                                    <input type="text" class="form-control" id="date-picker" placeholder="Select dates" name="unavailabledates">
+                                                    <input type="text" class="form-control" id="date-picker" placeholder="Select dates" name="appoinmentdate">
                                                 </div>
                                                 <div class="form-group mt-2">
                                                     <label for="time-picker">Select a time:</label>
-                                                    <input type="text" placeholder="Select start time" id="time-picker" class="flatpickr form-control">
+                                                    <input type="text" placeholder="Select start time" id="time-picker" class="flatpickr form-control" name="time_start">
 
                                                 </div>
                                                 <div class="form-group mt-2">
                                                     <label for="description">Description of Work:</label>
                                                     <textarea class="form-control" name="description" id="description" style="resize:none;"></textarea>
                                                 </div>
-
+                                                <input type="hidden" name="service_id" id="service_id" value="<?php echo $service_p['Service_ID'] ?>">
                                                 <button type="submit" class="btn btn-primary">Submit</button>
                                             </form>
                                             <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -323,110 +324,8 @@ if (isset($_SESSION["l_id"])) {
                     </div>
                 </div>
             </section>
-            <!-- Modals -->
-            <section>
-                <div class="modal" id="myModal">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Pro Homes</h4>
-                                <button type="button" class="close close-modal" data-dismiss="modal">&times;</button>
-                            </div>
-
-                            <div class="modal-body">
-                                <p>Password Changed</p>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary close-modal" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal" id="myModal1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Pro Homes</h4>
-                                <button type="button" class="close close-modal" data-dismiss="modal">&times;</button>
-                            </div>
-
-                            <div class="modal-body">
-                                <p>Check Current Password</p>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary close-modal" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal" id="Service_Pending">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Pro Homes</h4>
-                                <button type="button" class="close close-modal" data-dismiss="modal">&times;</button>
-                            </div>
-
-                            <div class="modal-body">
-                                <p>
-                                <h5>Your request has been submitted.</h5><br> You will receive an email notification once you
-                                have been
-                                accepted.</p>
-
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary close-modal" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <?php
-                if (isset($_SESSION["pass_status"])) {
-
-                    $MSG = $_SESSION["pass_status"];
-
-                    if ($MSG) {
-                        echo '<script>
-            $(document).ready(function(){
-              $("#myModal").modal("show");
-            });
-          </script>';
-                    } else {
-                        echo '<script>
-            $(document).ready(function(){
-              $("#myModal1").modal("show");
-            });
-          </script>';
-                    }
-                    unset($_SESSION["pass_status"]);
-                }
-                if (isset($_SESSION["Requested"])) {
-                    $MSG = $_SESSION["Requested"];
-                    if ($MSG == "VALID") {
-                        echo '<script>
-            $(document).ready(function(){
-              $("#Service_Pending").modal("show");
-            });
-          </script>';
-                    }
-                    unset($_SESSION["Requested"]);
-                }
-
-                ?>
-
-            </section>
-            <!-- JavaScript Libraries -->
-            <script>
-                $(document).ready(function() {
-                    $('.close-modal').click(function() {
-                        $('#Service_Pending,#myModal,#myModal1').modal('hide');
-                    });
-                });
-            </script>
+            
+    
             <!-- bootstrap 3 affix -->
             <script src="assets/vendors/bootstrap/bootstrap.affix.js"></script>
             <script src="lib/chart/chart.min.js"></script>

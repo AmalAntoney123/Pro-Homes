@@ -154,7 +154,7 @@ if (isset($_SESSION["l_id"])) {
                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                    class="fa fa-user me-2"></i>Pages</a>
+                                    class="fa fa-file me-2"></i>Pages</a>
                             <div class="dropdown-menu bg-transparent border-0">
                                 <a href="index.php" class="dropdown-item">Home</a>
                                 <a href="signin.php" class="dropdown-item">Signin</a>
