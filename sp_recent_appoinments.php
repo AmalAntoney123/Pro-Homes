@@ -282,8 +282,7 @@ if (isset($_SESSION["l_id"])) {
                                         $output .= '<th>Appointment Time</th>';
                                         $output .= '<th>Completed Time</th>';
                                         $output .= '<th>Phone_Number</th>';
-                                        $output .= '<th>Address</th>';
-                                        $output .= '<th>Problem Description</th>';
+                                        $output .= '<th>Payment Status</th>';
                                         $output .= '</tr>';
                                         $output .= '</thead>';
                                         $count = 1;
@@ -295,8 +294,7 @@ if (isset($_SESSION["l_id"])) {
                                             $output .= '<td>' . $row['Appoinment_Start_Time'] . '</td>';
                                             $output .= '<td>' . $row['Appoinment_End_Time'] . '</td>';
                                             $output .= '<td>' . $row['Phone_Number'] . '</td>';
-                                            $output .= '<td>' . $row['House'] . ', ' . $row['Street'] . ', ' . $row['City'] . ', ' . $row['Locality'] . ', ' . $row['State'] . ', Near:' . $row['Landmark'] . ', ' . $row['Pincode'] . '</td>';
-                                            $output .= '<td>' . $row['Service_Description'] . '</td>';
+                                            $output .= '<td> Pending </td>';
                                             $output .= '</tr>';
                                             $count++;
                                         }

@@ -222,7 +222,7 @@ if (isset($_SESSION["l_id"])) {
                                             <form class="mx-auto" action="book_now_submit.php" method="POST">
                                                 <div class="form-group">
                                                     <label for="date">Select your Address:</label>
-                                                    <select class="form-select" name="address">
+                                                    <select class="form-select" name="address" required>
                                                         <?php
 
                                                         $count = 1;
@@ -247,16 +247,16 @@ if (isset($_SESSION["l_id"])) {
                                                 <button type="button" onclick="location.href='add_address_book.php'" class="btn btn-secondary">Add New Address</button>
                                                 <div class="form-group mt-2">
                                                     <label for="date-picker">Appoinment Date</label>
-                                                    <input type="text" class="form-control" id="date-picker" placeholder="Select dates" name="appoinmentdate">
+                                                    <input type="text" class="form-control" id="date-picker" placeholder="Select dates" name="appoinmentdate" required>
                                                 </div>
                                                 <div class="form-group mt-2">
                                                     <label for="time-picker">Select a time:</label>
-                                                    <input type="text" placeholder="Select start time" id="time-picker" class="flatpickr form-control" name="time_start">
+                                                    <input type="text" placeholder="Select start time" id="time-picker" class="flatpickr form-control" name="time_start" required>
 
                                                 </div>
                                                 <div class="form-group mt-2">
                                                     <label for="description">Description of Work:</label>
-                                                    <textarea class="form-control" name="description" id="description" style="resize:none;"></textarea>
+                                                    <textarea class="form-control" name="description" id="description" style="resize:none;" required></textarea>
                                                 </div>
                                                 <input type="hidden" name="service_id" id="service_id" value="<?php echo $service_p['Service_ID'] ?>">
                                                 <button type="submit" class="btn btn-primary">Submit</button>
