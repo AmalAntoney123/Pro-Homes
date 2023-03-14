@@ -367,27 +367,79 @@
                         <table class="table table-striped table-hover">
                           <?php
                           $lid = $_SESSION["l_id"];
-                          $query = "SELECT * FROM `tbl_address` WHERE `User_ID`='$lid'";
+                          $query = "SELECT 
+                          p.`Payment_ID`, 
+                          p.`User_ID` AS payment_user_id, 
+                          p.`Request_ID`, 
+                          p.`Provider_ID`, 
+                          p.`Amount`, 
+                          p.`Payment_Status`, 
+                          p.`Payment_Request_Date`, 
+                          p.`Payment_Date`, 
+                          sr.`User_ID` AS sr_user_id, 
+                          sr.`Provider_ID` AS sr_provider_id, 
+                          sr.`Serivce_ID`, 
+                          sr.`Address_ID`, 
+                          sr.`Service_Description`, 
+                          sr.`Appointment_Date`, 
+                          sr.`Appoinment_Start_Time`, 
+                          sr.`Appoinment_End_Time`, 
+                          sr.`Status`, 
+                          sp.`User_ID` AS sp_user_id, 
+                          sp.`Service_ID` AS sp_service_id, 
+                          sp.`Provider_ID` AS sp_provider_id, 
+                          sp.`Address`, 
+                          sp.`Service_Desc`, 
+                          sp.`Qualification_File`, 
+                          sp.`Insurance_File`, 
+                          sp.`Certificate_File`, 
+                          sp.`Price`, 
+                          sp.`Verification_status`, 
+                          u.`User_ID` AS user_id, 
+                          u.`First_Name`, 
+                          u.`Last_Name`, 
+                          u.`Username`, 
+                          u.`Email`, 
+                          u.`Password`, 
+                          u.`Phone_Number`, 
+                          u.`Profile_Picture`, 
+                          u.`City`, 
+                          u.`User_Type`, 
+                          u.`Register_Date`, 
+                          u.`Verification_status` AS user_verification_status, 
+                          u.`User_Status`, 
+                          s.`Service_ID` AS service_id, 
+                          s.`Service_Name`, 
+                          s.`Description` AS service_description
+                      FROM 
+                          `tbl_payment` AS p 
+                          JOIN `tbl_service_request` AS sr ON p.`Request_ID` = sr.`Request_ID`  AND p.User_ID = $lid
+                          JOIN `tbl_service_provider` AS sp ON p.`Provider_ID` = sp.`Provider_ID` 
+                          JOIN `tbl_user` AS u ON sp.`User_ID` = u.`User_ID` 
+                          JOIN `tbl_services` AS s ON sp.`Service_ID` = s.`Service_ID`;";
                           $result4 = mysqli_query($con, $query);
                           $count = 1;
                           if (mysqli_num_rows($result4) == 0) {
-                            echo "<span>No Saved Address</span>";
+                            echo "<span>No Services Completed</span>";
                           }
-                          while ($address = mysqli_fetch_array($result4)) {
+                          while ($payment = mysqli_fetch_array($result4)) {
 
                           ?>
                             <tr>
                               <td><?php echo $count ?></td>
                               <td>
-                                <?php echo $address['House'] ?>,
-                                <?php echo $address['Street'] ?>,
-                                <?php echo $address['City'] ?>,
-                                <?php echo $address['Locality'] ?>,
-                                <?php echo $address['State'] ?>, Near:
-                                <?php echo $address['Landmark'] ?>,
-                                <?php echo $address['Pincode'] ?>
+                                <?php echo $payment['First_Name'] ?>&nbsp;
+                                <?php echo $payment['Last_Name'] ?> for
+                                <?php echo $payment['Service_Name'] ?> on
+                                <?php echo $payment['Appointment_Date'] ?>
+                              </td>
+                              <td class="text-success">
+                                ₹<?php echo $payment['Amount'] ?>
                               <td>
-                              <td><button onclick="location.href='edit_address.php?token=<?php echo $address['Address_ID'] ?>'" class="btn btn-sm btn-outline-primary">Pay</button></td>
+                              <td>
+                                <?php if ($payment['Payment_Status'] != "completed"){ ?><button onclick="location.href='edit_address.php?token=<?php echo $address['Address_ID'] ?>'" class="btn btn-sm btn-outline-primary">Pay</button>
+                                <?php }else{?>Paid <?php } ?>
+                              </td>
                             </tr>
                           <?php $count += 1;
                           } ?>
