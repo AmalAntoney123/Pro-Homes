@@ -139,9 +139,7 @@ include("connection.php"); ?>
   <nav id="scrollspy" class="navbar navbar-black bg-light navbar-expand-lg ">
     <div class="container">
       <a class="navbar-brand" href="index.php"><img src="assets/imgs/logo.png" alt="" class="brand-img"></a>
-      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse"
-        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-        aria-label="Toggle navigation">
+      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon navbar-light"></span>
       </button>
 
@@ -149,7 +147,7 @@ include("connection.php"); ?>
         <ul class="navbar-nav ml-auto">
           <?php
           if (isset($_SESSION["l_id"])) {
-            ?>
+          ?>
             <li class="nav-item">
               <a class="nav-link mt-2" href="index.php">Home</a>
             </li>
@@ -160,8 +158,7 @@ include("connection.php"); ?>
                 <span class="d-none d-lg-inline-flex">
                   <?php echo "$fname $lname"; ?>
                 </span>
-                <img class="rounded-circle ml-2 me-lg-2" src="uploaded files/Profile Pictures/<?php echo $target; ?>"
-                  alt="" style="width: 40px; height: 40px; object-fit: cover;">
+                <img class="rounded-circle ml-2 me-lg-2" src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt="" style="width: 40px; height: 40px; object-fit: cover;">
 
               </a>
               <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
@@ -171,16 +168,16 @@ include("connection.php"); ?>
               </div>
             </div>
 
-            <?php
+          <?php
           } else {
-            ?>
+          ?>
             <li class="nav-item">
               <a class="nav-link pb-2" href="index.php">Home</a>
             </li>
             <li class="nav-item ml-0 ml-lg-4">
               <a class="nav-link btn btn-primary" href="signin.php">Login</a>
             </li>
-            <?php
+          <?php
           }
           ?>
         </ul>
@@ -202,47 +199,44 @@ include("connection.php"); ?>
                 <h5>City</h5>
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="kochi" id="defaultCheck1" name="city[]" <?php
-                  if (isset($_SESSION['city_filter']) && in_array('kochi', $_SESSION['city_filter']))
-                    echo "checked" ?>>
-                    <label class="form-check-label" for="defaultCheck1">
-                      Kochi
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="kottayam" id="defaultCheck2" name="city[]"
-                    <?php if (isset($_SESSION['city_filter']) && in_array('kottayam', $_SESSION['city_filter']))
-                    echo "checked" ?>>
-                    <label class="form-check-label" for="defaultCheck2">
-                      Kottayam
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="trivandrum" id="defaultCheck3" name="city[]"
-                    <?php if (isset($_SESSION['city_filter']) && in_array('trivandrum', $_SESSION['city_filter']))
-                    echo "checked" ?>>
-                    <label class="form-check-label" for="defaultCheck3">
-                      Trivandrum
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="calicut" id="defaultCheck4" name="city[]" <?php
-                  if (isset($_SESSION['city_filter']) && in_array('calicut', $_SESSION['city_filter']))
-                    echo "checked" ?>>
-                    <label class="form-check-label" for="defaultCheck4">
-                      Calicut
-                    </label>
-                  </div>
-                  <hr>
-                  <h5>Price Range</h5>
-                  <div class="form-group">
-                    <input type="range" value="<?php if (isset($_SESSION['price_filter']))
-                    echo $_SESSION['price_filter'];
-                  else
-                    echo '0' ?>" class="form-control-range" id="priceRange" min="0" step="50" max="2000"
-                      name="pricefilter" oninput="this.nextElementSibling.value = this.value">
-                    <output id="rangeValue">
+                                                                                                                  if (isset($_SESSION['city_filter']) && in_array('kochi', $_SESSION['city_filter']))
+                                                                                                                    echo "checked" ?>>
+                  <label class="form-check-label" for="defaultCheck1">
+                    Kochi
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="kottayam" id="defaultCheck2" name="city[]" <?php if (isset($_SESSION['city_filter']) && in_array('kottayam', $_SESSION['city_filter']))
+                                                                                                                      echo "checked" ?>>
+                  <label class="form-check-label" for="defaultCheck2">
+                    Kottayam
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="trivandrum" id="defaultCheck3" name="city[]" <?php if (isset($_SESSION['city_filter']) && in_array('trivandrum', $_SESSION['city_filter']))
+                                                                                                                        echo "checked" ?>>
+                  <label class="form-check-label" for="defaultCheck3">
+                    Trivandrum
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="calicut" id="defaultCheck4" name="city[]" <?php
+                                                                                                                    if (isset($_SESSION['city_filter']) && in_array('calicut', $_SESSION['city_filter']))
+                                                                                                                      echo "checked" ?>>
+                  <label class="form-check-label" for="defaultCheck4">
+                    Calicut
+                  </label>
+                </div>
+                <hr>
+                <h5>Price Range</h5>
+                <div class="form-group">
+                  <input type="range" value="<?php if (isset($_SESSION['price_filter']))
+                                                echo $_SESSION['price_filter'];
+                                              else
+                                                echo '0' ?>" class="form-control-range" id="priceRange" min="0" step="50" max="2000" name="pricefilter" oninput="this.nextElementSibling.value = this.value">
+                  <output id="rangeValue">
                     <?php if (isset($_SESSION['price_filter']))
-                    echo $_SESSION['price_filter']; ?>
+                      echo $_SESSION['price_filter']; ?>
                   </output><span>₹</span>
                 </div>
                 <hr>
@@ -271,8 +265,7 @@ include("connection.php"); ?>
               </form>
             </div>
             <!-- Show/hide sidebar (mobile) -->
-            <button class="btn btn-primary d-lg-none w-100  d-md-none" type="button" data-toggle="collapse"
-              data-target="#sidebar" aria-expanded="false" aria-controls="sidebar">
+            <button class="btn btn-primary d-lg-none w-100  d-md-none" type="button" data-toggle="collapse" data-target="#sidebar" aria-expanded="false" aria-controls="sidebar">
               <i class="fa fa-filter"></i> Filters
             </button>
 
@@ -285,47 +278,44 @@ include("connection.php"); ?>
                   <h5>City</h5>
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="kochi" id="defaultCheck1" name="city[]" <?php
-                    if (isset($_SESSION['city_filter']) && in_array('kochi', $_SESSION['city_filter']))
-                      echo "checked" ?>>
-                      <label class="form-check-label" for="defaultCheck1">
-                        Kochi
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="kottayam" id="defaultCheck2" name="city[]"
-                      <?php if (isset($_SESSION['city_filter']) && in_array('kottayam', $_SESSION['city_filter']))
-                      echo "checked" ?>>
-                      <label class="form-check-label" for="defaultCheck2">
-                        Kottayam
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="trivandrum" id="defaultCheck3" name="city[]"
-                      <?php if (isset($_SESSION['city_filter']) && in_array('trivandrum', $_SESSION['city_filter']))
-                      echo "checked" ?>>
-                      <label class="form-check-label" for="defaultCheck3">
-                        Trivandrum
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="calicut" id="defaultCheck4" name="city[]" <?php
-                    if (isset($_SESSION['city_filter']) && in_array('calicut', $_SESSION['city_filter']))
-                      echo "checked" ?>>
-                      <label class="form-check-label" for="defaultCheck4">
-                        Calicut
-                      </label>
-                    </div>
-                    <hr>
-                    <h5>Price Range</h5>
-                    <div class="form-group">
-                      <input type="range" value="<?php if (isset($_SESSION['price_filter']))
-                      echo $_SESSION['price_filter'];
-                    else
-                      echo '0' ?>" class="form-control-range" id="priceRange" min="0" step="50" max="2000"
-                        name="pricefilter" oninput="this.nextElementSibling.value = this.value">
-                      <output id="rangeValue">
+                                                                                                                    if (isset($_SESSION['city_filter']) && in_array('kochi', $_SESSION['city_filter']))
+                                                                                                                      echo "checked" ?>>
+                    <label class="form-check-label" for="defaultCheck1">
+                      Kochi
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="kottayam" id="defaultCheck2" name="city[]" <?php if (isset($_SESSION['city_filter']) && in_array('kottayam', $_SESSION['city_filter']))
+                                                                                                                        echo "checked" ?>>
+                    <label class="form-check-label" for="defaultCheck2">
+                      Kottayam
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="trivandrum" id="defaultCheck3" name="city[]" <?php if (isset($_SESSION['city_filter']) && in_array('trivandrum', $_SESSION['city_filter']))
+                                                                                                                          echo "checked" ?>>
+                    <label class="form-check-label" for="defaultCheck3">
+                      Trivandrum
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="calicut" id="defaultCheck4" name="city[]" <?php
+                                                                                                                      if (isset($_SESSION['city_filter']) && in_array('calicut', $_SESSION['city_filter']))
+                                                                                                                        echo "checked" ?>>
+                    <label class="form-check-label" for="defaultCheck4">
+                      Calicut
+                    </label>
+                  </div>
+                  <hr>
+                  <h5>Price Range</h5>
+                  <div class="form-group">
+                    <input type="range" value="<?php if (isset($_SESSION['price_filter']))
+                                                  echo $_SESSION['price_filter'];
+                                                else
+                                                  echo '0' ?>" class="form-control-range" id="priceRange" min="0" step="50" max="2000" name="pricefilter" oninput="this.nextElementSibling.value = this.value">
+                    <output id="rangeValue">
                       <?php if (isset($_SESSION['price_filter']))
-                      echo $_SESSION['price_filter']; ?>
+                        echo $_SESSION['price_filter']; ?>
                     </output><span>₹</span>
                   </div>
                   <hr>
@@ -358,7 +348,21 @@ include("connection.php"); ?>
           </div>
         </div>
         <div class="col-lg-9 col-md-9">
-
+          <div class="btn-group btn-group-toggle d-flex justify-content-center" data-toggle="buttons">
+            <label class="btn btn-secondary rounded-0 active mr-2">
+              <input type="radio" name="options" id="option1" autocomplete="off" checked>
+              Name <i class="fas fa-sort"></i>
+            </label>
+            <label class="btn btn-secondary rounded-0 mr-2">
+              <input type="radio" name="options" id="option2" autocomplete="off">
+              Rating <i class="fas fa-sort"></i>
+            </label>
+            <label class="btn btn-secondary rounded-0 mr-2">
+              <input type="radio" name="options" id="option3" autocomplete="off">
+              Price <i class="fas fa-sort"></i>
+            </label>
+          </div>
+ 
           <!-- Main content -->
           <!-- Product Listing -->
           <div class="col-12">

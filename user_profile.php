@@ -7,8 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>ProHomes - House services</title>
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="icon" href="assets/imgs/Logo.png" type="image/icon type">
 
   <!-- font icons -->
@@ -28,7 +27,7 @@
 
 
   <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
       $("#address-form").validate({
         rules: {
           pincode: {
@@ -67,7 +66,6 @@
       height: calc(4.5rem + 15px);
       position: relative;
     }
-
   </style>
   <?php
   if (isset($_SESSION["l_id"])) {
@@ -100,9 +98,7 @@
   <nav id="scrollspy" class="navbar navbar-black bg-light navbar-expand-lg ">
     <div class="container">
       <a class="navbar-brand" href="index.php"><img src="assets/imgs/logo.png" alt="" class="brand-img"></a>
-      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse"
-        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-        aria-label="Toggle navigation">
+      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon navbar-light"></span>
       </button>
 
@@ -110,7 +106,7 @@
         <ul class="navbar-nav ml-auto">
           <?php
           if (isset($_SESSION["l_id"])) {
-            ?>
+          ?>
             <li class="nav-item">
               <a class="nav-link mt-2" href="index.php">Home</a>
             </li>
@@ -121,8 +117,7 @@
                 <span class="d-none d-lg-inline-flex">
                   <?php echo "$fname $lname"; ?>
                 </span>
-                <img class="rounded-circle ml-2 me-lg-2" src="uploaded files/Profile Pictures/<?php echo $target; ?>"
-                  alt="" style="width: 40px; height: 40px; object-fit:cover;">
+                <img class="rounded-circle ml-2 me-lg-2" src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt="" style="width: 40px; height: 40px; object-fit:cover;">
 
               </a>
               <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
@@ -132,16 +127,16 @@
               </div>
             </div>
 
-            <?php
+          <?php
           } else {
-            ?>
+          ?>
             <li class="nav-item">
               <a class="nav-link pb-2" href="index.php">Home</a>
             </li>
             <li class="nav-item ml-0 ml-lg-4">
               <a class="nav-link btn btn-primary" href="signin.php">Login</a>
             </li>
-            <?php
+          <?php
           }
           ?>
         </ul>
@@ -151,7 +146,7 @@
 
   <?php
   if (isset($_SESSION["l_id"])) {
-    ?>
+  ?>
 
     <section>
       <div class="container">
@@ -160,8 +155,7 @@
             <div class="ps-md-4 shadow-sm pt-5 pb-5 mb-5 my-2 bg-white" style="border-radius:20px;">
               <div class="d-flex flex-column align-items-center">
                 <div class="row px-5">
-                  <img class="photo" src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt=""
-                    style="width: 100%; height: 200px;object-fit: cover;" class="img-fluid ">
+                  <img class="photo" src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt="" style="width: 100%; height: 200px;object-fit: cover;" class="img-fluid ">
                 </div>
                 <p class="fw-bold h4 mt-3">
                   <?php echo "$fname $lname"; ?>
@@ -189,14 +183,17 @@
                 <li class="nav-item border-top">
                   <a href="" class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-add-address">Address</a>
                 </li>
+                <li class="nav-item border-top">
+                  <a href="" class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-history">Service History</a>
+                </li>
                 <?php if ($role == "Customer") { ?>
                   <li class="nav-item border-top border-bottom">
                     <a href="service_signin.php" class="nav-link">Become A Service Provider</a>
                   </li>
                 <?php } else if ($role == "provider") { ?>
-                    <li class="nav-item border-top border-bottom">
-                      <a href="service_provider_index.php" class="nav-link">Service Provider Panel</a>
-                    </li>
+                  <li class="nav-item border-top border-bottom">
+                    <a href="service_provider_index.php" class="nav-link">Service Provider Panel</a>
+                  </li>
                 <?php } ?>
               </ul>
             </div>
@@ -256,15 +253,13 @@
                         <!-- 2 column grid layout with text inputs for the first and last names -->
 
                         <div class="form-floating form-outline ">
-                          <input type="text" required name="fname" autofocus id="fname" value="<?php echo "$fname"; ?>"
-                            class="form-control" placeholder=" " />
+                          <input type="text" required name="fname" autofocus id="fname" value="<?php echo "$fname"; ?>" class="form-control" placeholder=" " />
                           <label class="form-label" for="fname">First name</label>
                           <span class="error text-left" id="error1"> * Name should contain letters
                             only</span>
                         </div>
                         <div class="form-floating form-outline">
-                          <input type="text" required name="lname" id="lname" class="form-control" placeholder=" "
-                            value="<?php echo "$lname"; ?>" />
+                          <input type="text" required name="lname" id="lname" class="form-control" placeholder=" " value="<?php echo "$lname"; ?>" />
                           <label class="form-label" for="lname">Last name</label>
                           <span class="error text-left" id="error2"> * Name should contain letters
                             only</span>
@@ -272,8 +267,7 @@
 
 
                         <div class="form-floating form-floating mb-3">
-                          <input type="text" required name="uname" class="form-control" id="uname" placeholder=" "
-                            value="<?php echo "$uname"; ?>">
+                          <input type="text" required name="uname" class="form-control" id="uname" placeholder=" " value="<?php echo "$uname"; ?>">
                           <span class="erroruname" id="erroruname"></span>
                           <label for="uname">User Name</label>
                           <span class="error" id="error3"> * Username can contain only letters,
@@ -283,8 +277,7 @@
                         </div>
 
                         <div class="form-floating form-floating mb-3">
-                          <input type="number" required name="phone" class="form-control" id="phone" placeholder=" "
-                            value="<?php echo "$phone"; ?>" />
+                          <input type="number" required name="phone" class="form-control" id="phone" placeholder=" " value="<?php echo "$phone"; ?>" />
                           <label for="phone">Phone Number</label>
                           <span class="error" id="error10"> * Invalid phone number</span>
                         </div>
@@ -296,8 +289,7 @@
                         <div class="row">
                           <div class="col-md-6 mb-4">
                             <div class="form-floating form-outline">
-                              <input accept="image/jpeg,image/png" onchange="validateFileType()" type="file" id="file"
-                                name="p_pic" value="Profile Picture" class="form-control" placeholder=" " />
+                              <input accept="image/jpeg,image/png" onchange="validateFileType()" type="file" id="file" name="p_pic" value="Profile Picture" class="form-control" placeholder=" " />
                               <label class="form-label" for="file">Profile Picture</label>
                               <span id="error8">&nbsp; </span>
                             </div>
@@ -368,9 +360,44 @@
                       </form><!-- End Change Password Form -->
 
                     </div>
+                    <div class="tab-pane fade pt-3 mb-4" id="profile-history">
+                      <h1 class="mb-5">Service History</h1>
+                      <!-- Service History Lisst -->
+                      <div class="service-list table-responsive">
+                        <table class="table table-striped table-hover">
+                          <?php
+                          $lid = $_SESSION["l_id"];
+                          $query = "SELECT * FROM `tbl_address` WHERE `User_ID`='$lid'";
+                          $result4 = mysqli_query($con, $query);
+                          $count = 1;
+                          if (mysqli_num_rows($result4) == 0) {
+                            echo "<span>No Saved Address</span>";
+                          }
+                          while ($address = mysqli_fetch_array($result4)) {
+
+                          ?>
+                            <tr>
+                              <td><?php echo $count ?></td>
+                              <td>
+                                <?php echo $address['House'] ?>,
+                                <?php echo $address['Street'] ?>,
+                                <?php echo $address['City'] ?>,
+                                <?php echo $address['Locality'] ?>,
+                                <?php echo $address['State'] ?>, Near:
+                                <?php echo $address['Landmark'] ?>,
+                                <?php echo $address['Pincode'] ?>
+                              <td>
+                              <td><button onclick="location.href='edit_address.php?token=<?php echo $address['Address_ID'] ?>'" class="btn btn-sm btn-outline-primary">Pay</button></td>
+                            </tr>
+                          <?php $count += 1;
+                          } ?>
+
+                        </table>
+                      </div>
+
+                    </div>
                     <div class="tab-pane fade pt-3 mb-4" id="profile-add-address">
                       <h1 class="mb-5">Address</h1>
-
 
                       <!-- Saved Addresses -->
                       <h2 class="mb-3">Saved Addresses</h2>
@@ -382,15 +409,15 @@
                               $lid = $_SESSION["l_id"];
                               $query = "SELECT * FROM `tbl_address` WHERE `User_ID`='$lid'";
                               $result4 = mysqli_query($con, $query);
-                              $count=1;
-                              if(mysqli_num_rows($result4)==0){
-                                echo"<span>No Saved Address</span>";
+                              $count = 1;
+                              if (mysqli_num_rows($result4) == 0) {
+                                echo "<span>No Saved Address</span>";
                               }
                               while ($address = mysqli_fetch_array($result4)) {
 
-                                ?>
+                              ?>
                                 <tr>
-                                  <td><?php echo $count?></td>
+                                  <td><?php echo $count ?></td>
                                   <td>
                                     <?php echo $address['House'] ?>,
                                     <?php echo $address['Street'] ?>,
@@ -400,82 +427,84 @@
                                     <?php echo $address['Landmark'] ?>,
                                     <?php echo $address['Pincode'] ?>
                                   <td>
-                                  <td><button onclick="location.href='edit_address.php?token=<?php echo $address['Address_ID']?>'" class="btn btn-sm btn-outline-secondary">Edit</button></td>
-                                  <td><button onclick="location.href='delete_address.php?token=<?php echo $address['Address_ID']?>'" class="btn btn-sm btn-outline-secondary">Delete</button></td>
+                                  <td><button onclick="location.href='edit_address.php?token=<?php echo $address['Address_ID'] ?>'" class="btn btn-sm btn-outline-secondary">Edit</button></td>
+                                  <td><button onclick="location.href='delete_address.php?token=<?php echo $address['Address_ID'] ?>'" class="btn btn-sm btn-outline-secondary">Delete</button></td>
                                 </tr>
-                              <?php $count+=1;} ?>
+                              <?php $count += 1;
+                              } ?>
+
+                            </table>
                           </div>
-                          </table>
                         </div>
                       </div>
+                      <!-- Add New Address Form -->
+                      <div class="mb-3 mt-2">
+                        <h2>Add New Address</h2>
+                        <form id="address-form" action="add_address.php" method="POST">
+                          <input type="hidden" name="check" value="profile" />
+                          <div class="row mb-3">
+                            <label for="house" class="col-md-4 col-lg-3 col-form-label">House/Flat No:</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="house" type="text" class="form-control" id="house" required>
+                              <div id="house-error" class="invalid-feedback"></div>
+                            </div>
+                          </div>
+                          <div class="row mb-3">
+                            <label for="street" class="col-md-4 col-lg-3 col-form-label">Street</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="street" type="text" class="form-control" id="street" required>
+                              <div id="street-error" class="invalid-feedback"></div>
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <label for="city1" class="col-md-4 col-lg-3 col-form-label">City</label>
+                            <div class="col-md-8 col-lg-9">
+                              <select name="city" class="form-control" id="city1" required>
+                                <option value="kottayam">Kottayam</option>
+                                <option value="kochi">Kochi</option>
+                                <option value="trivandrum">Trivandrum</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <label for="state" class="col-md-4 col-lg-3 col-form-label">State</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="state" type="text" class="form-control" id="state" required>
+                              <div id="state-error" class="invalid-feedback"></div>
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <label for="locality" class="col-md-4 col-lg-3 col-form-label">Locality</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="locality" type="text" class="form-control" id="locality" required>
+                              <div id="locality-error" class="invalid-feedback"></div>
+                            </div>
+                          </div>
+                          <div class="row mb-3">
+                            <label for="landmark" class="col-md-4 col-lg-3 col-form-label">Landmark</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="landmark" type="text" class="form-control" id="landmark" required>
+                              <div id="landmark-error" class="invalid-feedback"></div>
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <label for="pincode" class="col-md-4 col-lg-3 col-form-label">Pin Code</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="pincode" type="number" class="form-control" id="pincode" required>
+                              <div id="pincode-error" class="invalid-feedback"></div>
+                            </div>
+                          </div>
+
+                          <div class="text-center">
+                            <button id="sub_address" type="submit" class="btn btn-primary">Add Address</button>
+                          </div>
+                        </form>
+                      </div><!-- End Add New Address Form -->
                     </div>
-                    <!-- Add New Address Form -->
-                    <div class="mb-3 mt-2">
-                      <h2>Add New Address</h2>
-                      <form id="address-form" action="add_address.php" method="POST">
-                        <input type="hidden" name="check" value="profile"/>
-                        <div class="row mb-3">
-                          <label for="house" class="col-md-4 col-lg-3 col-form-label">House/Flat No:</label>
-                          <div class="col-md-8 col-lg-9">
-                            <input name="house" type="text" class="form-control" id="house" required>
-                            <div id="house-error" class="invalid-feedback"></div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label for="street" class="col-md-4 col-lg-3 col-form-label">Street</label>
-                          <div class="col-md-8 col-lg-9">
-                            <input name="street" type="text" class="form-control" id="street" required>
-                            <div id="street-error" class="invalid-feedback"></div>
-                          </div>
-                        </div>
-
-                        <div class="row mb-3">
-                          <label for="city1" class="col-md-4 col-lg-3 col-form-label">City</label>
-                          <div class="col-md-8 col-lg-9">
-                            <select name="city" class="form-control" id="city1" required>
-                              <option value="kottayam">Kottayam</option>
-                              <option value="kochi">Kochi</option>
-                              <option value="trivandrum">Trivandrum</option>
-                            </select>
-                          </div>
-                        </div>
-
-                        <div class="row mb-3">
-                          <label for="state" class="col-md-4 col-lg-3 col-form-label">State</label>
-                          <div class="col-md-8 col-lg-9">
-                            <input name="state" type="text" class="form-control" id="state" required>
-                            <div id="state-error" class="invalid-feedback"></div>
-                          </div>
-                        </div>
-
-                        <div class="row mb-3">
-                          <label for="locality" class="col-md-4 col-lg-3 col-form-label">Locality</label>
-                          <div class="col-md-8 col-lg-9">
-                            <input name="locality" type="text" class="form-control" id="locality" required>
-                            <div id="locality-error" class="invalid-feedback"></div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label for="landmark" class="col-md-4 col-lg-3 col-form-label">Landmark</label>
-                          <div class="col-md-8 col-lg-9">
-                            <input name="landmark" type="text" class="form-control" id="landmark" required>
-                            <div id="landmark-error" class="invalid-feedback"></div>
-                          </div>
-                        </div>
-
-                        <div class="row mb-3">
-                          <label for="pincode" class="col-md-4 col-lg-3 col-form-label">Pin Code</label>
-                          <div class="col-md-8 col-lg-9">
-                            <input name="pincode" type="number" class="form-control" id="pincode" required>
-                            <div id="pincode-error" class="invalid-feedback"></div>
-                          </div>
-                        </div>
-
-                        <div class="text-center">
-                          <button id="sub_address" type="submit" class="btn btn-primary">Add Address</button>
-                        </div>
-                      </form>
-                    </div><!-- End Add New Address Form -->
                   </div>
 
                 </div><!-- End Bordered Tabs -->
@@ -652,22 +681,19 @@
           </script>';
         }
         unset($_SESSION["Requested"]);
-
       }
-      
+
       if (isset($_SESSION["address"])) {
         $MSG = $_SESSION["address"];
         if ($MSG == "ADDRESS") {
-          
+
           echo '<script>
             $(document).ready(function(){
               $("#modal_addressedit").modal("show");
             });
           </script>';
-          
         }
         unset($_SESSION["address"]);
-
       }
 
       ?>
@@ -675,11 +701,12 @@
     </section>
     <!-- JavaScript Libraries -->
     <script>
-      $(document).ready(function () {
-        $('.close-modal').click(function () {
+      $(document).ready(function() {
+        $('.close-modal').click(function() {
           $('#Service_Pending,#myModal,#myModal1,#modal_addressedit,#Service_Requested').modal('hide');
         });
-      });</script>
+      });
+    </script>
     <!-- bootstrap 3 affix -->
     <script src="assets/vendors/bootstrap/bootstrap.affix.js"></script>
     <script src="lib/chart/chart.min.js"></script>
@@ -697,11 +724,11 @@
 
 
 
-  </body>
-  <?php
+</body>
+<?php
   } else {
     header("location:signin.php");
   }
-  ?>
+?>
 
 </html>

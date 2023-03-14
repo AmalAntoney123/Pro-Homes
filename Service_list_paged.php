@@ -1,4 +1,7 @@
 <?php
+$lid=9999;
+if(isset($_SESSION['l_id']))
+    $lid=$_SESSION['l_id'];
 // connect to database
 include("connection.php");
 
@@ -34,7 +37,7 @@ $sql = "SELECT
     tbl_service_provider sp 
     INNER JOIN tbl_services s ON sp.Service_ID = s.Service_ID 
     INNER JOIN tbl_user u ON sp.User_ID = u.User_ID 
-    WHERE sp.Verification_status = 'verfied'";
+    WHERE sp.Verification_status = 'verfied' AND u.User_ID not like $lid";
 
 
 //City Filter

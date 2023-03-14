@@ -263,12 +263,17 @@ if (isset($_SESSION["l_id"])) {
                                     u.First_Name, u.Last_Name, u.Username, u.Email, u.Password,
                                     u.Phone_Number, u.Profile_Picture, u.City, u.User_Type, 
                                     u.Register_Date, u.Verification_status, u.User_Status,
-                                    a.House, a.Street, a.State, a.Locality, a.Landmark, a.Pincode
+                                    a.House, a.Street, a.State, a.Locality, a.Landmark, a.Pincode,
+                                    p.Amount,P.Payment_Status
                                     FROM tbl_service_request sr
                                         JOIN tbl_user u ON sr.User_ID = u.User_ID
+                                        JOIN tbl_payment p ON sr.Provider_ID = P.Provider_ID AND u.User_ID = P.User_ID AND sr.Request_ID = P.Request_ID
                                         JOIN tbl_address a ON sr.Address_ID = a.Address_ID AND a.User_ID = u.User_ID
                                             WHERE sr.Provider_ID=$provider_id AND sr.Status like 'completed'";
                                     $result = mysqli_query($con, $sql);
+
+                                    $sql1="SELECT * FROM `tbl_payment` WHERE Provider_ID = $provider_id";
+                                    $result1 = mysqli_query($con, $sql1);
 
 
                                     // generate table rows from data
@@ -281,7 +286,7 @@ if (isset($_SESSION["l_id"])) {
                                         $output .= '<th>Appointment Date</th>';
                                         $output .= '<th>Appointment Time</th>';
                                         $output .= '<th>Completed Time</th>';
-                                        $output .= '<th>Phone_Number</th>';
+                                        $output .= '<th>Amount</th>';
                                         $output .= '<th>Payment Status</th>';
                                         $output .= '</tr>';
                                         $output .= '</thead>';
@@ -293,8 +298,8 @@ if (isset($_SESSION["l_id"])) {
                                             $output .= '<td>' . $row['Appointment_Date'] . '</td>';
                                             $output .= '<td>' . $row['Appoinment_Start_Time'] . '</td>';
                                             $output .= '<td>' . $row['Appoinment_End_Time'] . '</td>';
-                                            $output .= '<td>' . $row['Phone_Number'] . '</td>';
-                                            $output .= '<td> Pending </td>';
+                                            $output .= '<td>' . $row['Amount'] . '</td>';
+                                            $output .= '<td>' . $row['Payment_Status'] . '</td>';
                                             $output .= '</tr>';
                                             $count++;
                                         }

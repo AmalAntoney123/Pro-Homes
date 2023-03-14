@@ -1,24 +1,27 @@
 <?php
 session_start();
+include("connection.php");
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
 
-$i=0;
+$requestID = $_REQUEST['requestID'];
+
 try_again:
+//mailer
 
+$query3 = "SELECT * FROM `tbl_service_request` WHERE `Request_ID`='$requestID'";
+$result3 = mysqli_query($con, $query3);
+$request = mysqli_fetch_array($result3);
 
-include("connection.php");
-
-
-
-
-$uname = $_SESSION['uname'];
-$code = rand(10000, 99999);
+$user_id = $request['User_ID'];
+$code = $request['Status'];
 $query = "SELECT * FROM `tbl_user` 
-                WHERE `Username` = '$uname'";
+                WHERE `User_ID` = '$user_id'";
 
 $result = mysqli_query($con, $query);
 $count = mysqli_num_rows($result);
@@ -26,7 +29,6 @@ $row = mysqli_fetch_array($result);
 $mail1 = $row['Email'];
 $fname = $row['First_Name'];
 $lname = $row['Last_Name'];
-
 
 //mailer start
 $mail = new PHPMailer;
@@ -48,7 +50,7 @@ $fullname = "$ffname $llname";
 // Set up email details
 $mail->setFrom('mail.prohomes@gmail.com', 'Pro Homes');
 $mail->addAddress($mail1, $fullname);
-$mail->Subject = 'Verification Code Pro Homes';
+$mail->Subject = 'Service Completion Code Pro Homes';
 $mail->Body = '<!doctype html>
 <html lang="en">
   <head>
@@ -121,7 +123,7 @@ $mail->Body = '<!doctype html>
       </div>
       <div class="code">
         <h2>' . $code . '</h2>
-        <p>Enter this code to verify your email address.</p>
+        <p>Give this code to Service Provider Only After Completion.</p>
       </div>
       <div class="message">
         <p>This email was sent by Pro Homes</p>
@@ -132,21 +134,10 @@ $mail->Body = '<!doctype html>
     </div>
   </body>
 </html>';
-if($i==0){
-$query = "UPDATE `tbl_user` SET `Verification_status`='$code' WHERE `Username` = '$uname'";
-$result = mysqli_query($con, $query);
-$i+=1;
-}
-// Send the email
+
 if (!$mail->send()) {
-  goto try_again;
-} else {
-  $_SESSION['uname'] = $uname;
-  header("Location: validate_email.php");
-}
-
-//mailer end
-
-
-
-?>
+    goto try_again;
+  } else {
+    $rqsturl=urlencode(base64_encode($requestID));
+    header("Location: verify_service_complete.php?token=$rqsturl");
+  }

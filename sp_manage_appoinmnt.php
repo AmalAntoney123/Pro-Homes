@@ -84,7 +84,7 @@ if (isset($_SESSION["l_id"])) {
                             'requestID': requestID
                         },
                         success: function(response) {
-                            // do something with the response
+                            $('#output').html(response);
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
                             console.log(textStatus, errorThrown);
@@ -113,6 +113,7 @@ if (isset($_SESSION["l_id"])) {
 
             <!-- Sidebar Start -->
             <div class="sidebar pe-4 pb-3">
+            
                 <nav class="navbar bg-light navbar-light">
                     <a href="index.php" class="navbar-brand mx-4 mb-3">
                         <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>PRO HOMES</h3>
@@ -150,6 +151,7 @@ if (isset($_SESSION["l_id"])) {
 
             <!-- Content Start -->
             <div class="content">
+            <div id="output"></div>
                 <!-- Navbar Start -->
                 <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
                     <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
