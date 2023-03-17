@@ -124,7 +124,7 @@
                 </div>
 
                 <!-- Submit button -->
-                <button type="submit" class="btn btn-primary btn-block mb-4">
+                <button type="submit" id="sub" class="btn btn-primary btn-block mb-4">
                   Sign in
                 </button>
                 <span class="text-danger"><?php

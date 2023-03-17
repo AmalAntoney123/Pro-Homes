@@ -14,13 +14,15 @@ $lname = trim($_POST["lname"]);
 $uname = trim($_POST["uname"]);
 $mail1 = trim($_POST["email"]);
 $pass = trim($_POST["pass"]);
+$hashed_pass = password_hash($pass, PASSWORD_DEFAULT);
+
 $phone = $_POST["phone"];
 $pic = $_FILES["p_pic"]["name"];
 $city = $_POST["city"];
 $code = rand(10000, 99999);
 
 $query = "INSERT INTO `tbl_user`(`First_Name`, `Last_Name`, `Username`, `Email`, `Password`, `Phone_Number`, `Profile_Picture`, `City`, `User_Type`, `Verification_status`) 
-VALUES ('$fname','$lname','$uname','$mail1','$pass','$phone','$pic','$city','Customer','$code')";
+VALUES ('$fname','$lname','$uname','$mail1','$hashed_pass','$phone','$pic','$city','Customer','$code')";
 $result = mysqli_query($con, $query);
 
 if ($result) {
