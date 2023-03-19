@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 14, 2023 at 10:00 AM
+-- Generation Time: Mar 17, 2023 at 08:07 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -48,7 +48,38 @@ INSERT INTO `tbl_address` (`Address_ID`, `User_ID`, `House`, `Street`, `State`, 
 (9, 42, 'Narithookil House', 'Shanthinagar', 'Kerala', 'kochi', 'Kattappana', 'St George Church', '685515'),
 (20, 44, '234 B', 'b35 avenue', 'kerala', 'kochi', 'kadavanthra', 'lulu mall', '675678'),
 (21, 46, 'iluhjgf', 'fhgd', 'trhygd', 'kottayam', 'rtgr', 'rtyr', '345345'),
-(22, 45, 'xdf', 'sfs', 'sdfs', 'kottayam', 'sdfs', 'fsf', '343255');
+(22, 45, 'xdf', 'sfs', 'sdfs', 'kottayam', 'sdfs', 'fsf', '343255'),
+(23, 54, 'wer', 'wer', 'wer', 'kottayam', 'wer', 'werwe', '324544'),
+(24, 84, 'fghfd', 'fghf', 'ghfghfg', 'kottayam', 'hfgh', 'fghfg', '453343');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_payment`
+--
+
+CREATE TABLE `tbl_payment` (
+  `Payment_ID` int(11) NOT NULL,
+  `User_ID` int(11) NOT NULL,
+  `Request_ID` int(11) NOT NULL,
+  `Provider_ID` int(11) NOT NULL,
+  `Amount` varchar(10) NOT NULL,
+  `Payment_Status` varchar(20) NOT NULL,
+  `Payment_Request_Date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `Payment_Date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_payment`
+--
+
+INSERT INTO `tbl_payment` (`Payment_ID`, `User_ID`, `Request_ID`, `Provider_ID`, `Amount`, `Payment_Status`, `Payment_Request_Date`, `Payment_Date`) VALUES
+(5, 46, 7, 21, '275.983166', 'pending', '2023-03-14 15:24:20', '0000-00-00'),
+(6, 54, 15, 21, '403.825525', 'pending', '2023-03-14 15:31:51', '0000-00-00'),
+(11, 84, 16, 21, '144.51', 'pending', '2023-03-14 15:43:36', '0000-00-00'),
+(12, 42, 17, 21, '321.771', 'pending', '2023-03-14 16:53:16', '0000-00-00'),
+(13, 45, 18, 21, '363.151', 'pending', '2023-03-14 17:13:21', '0000-00-00'),
+(14, 45, 19, 21, '-148.227', 'pending', '2023-03-15 03:44:55', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -105,7 +136,6 @@ CREATE TABLE `tbl_service_provider` (
 
 INSERT INTO `tbl_service_provider` (`Provider_ID`, `User_ID`, `Service_ID`, `Address`, `Service_Desc`, `Qualification_File`, `Insurance_File`, `Certificate_File`, `Price`, `Verification_status`) VALUES
 (19, 46, 1, '123 Main St', 'Provides electrical repair and maintenance services.', 'file1.pdf', 'file2.pdf', 'file3.pdf', '10.99', 'verfied'),
-(20, 87, 2, '456 Elm St', 'Provides plumbing repair and maintenance services.', 'file1.pdf', 'file2.pdf', 'file3.pdf', '20.99', 'verfied'),
 (21, 42, 3, '789 Oak St', 'Provides deep cleaning services for residential and commercial spaces.', 'file1.pdf', 'file2.pdf', 'file3.pdf', '30.99', 'verfied'),
 (22, 85, 4, '321 Pine St', 'Provides cleaning services specifically for bathrooms.', 'file1.pdf', 'file2.pdf', 'file3.pdf', '40.99', 'verfied'),
 (23, 45, 5, '654 Maple St', 'Provides repair and installation services for appliances and fixtures.', 'file1.pdf', 'file2.pdf', 'file3.pdf', '50.99', 'verfied'),
@@ -139,7 +169,6 @@ CREATE TABLE `tbl_service_provider_availability` (
 
 INSERT INTO `tbl_service_provider_availability` (`Provider_Availability_ID`, `Provider_ID`, `Unavailable Dates`, `Sunday_Unvailable`, `Workday_Start`, `Workday_End`) VALUES
 (10, 19, '2023-03-24, 2023-03-28', 'No', '08:45:00', '20:40:00'),
-(11, 20, '', 'No', '08:06:21', '20:29:35'),
 (12, 21, '2023-03-22, 2023-03-21', 'No', '08:00:00', '20:00:00'),
 (13, 22, '', 'No', '08:08:50', '20:15:28'),
 (14, 23, '2023-03-29, 2023-03-30', 'Yes', '08:00:00', '20:00:00'),
@@ -177,11 +206,16 @@ CREATE TABLE `tbl_service_request` (
 
 INSERT INTO `tbl_service_request` (`Request_ID`, `User_ID`, `Provider_ID`, `Serivce_ID`, `Address_ID`, `Service_Description`, `Appointment_Date`, `Appoinment_Start_Time`, `Appoinment_End_Time`, `Status`) VALUES
 (6, 42, 19, 1, 7, 'sdsfsfsfsf', '2023-03-22', '12:00:00', '00:00:00', 'accepted'),
-(7, 46, 21, 3, 21, 'ergdg', '2023-03-23', '12:00:00', '00:00:00', 'requested'),
+(7, 46, 21, 3, 21, 'ergdg', '2023-03-23', '12:00:00', '20:54:20', 'completed'),
 (8, 42, 23, 5, 7, 'rhf', '2023-03-21', '13:00:00', '00:00:00', 'completed'),
 (9, 45, 23, 5, 22, 'sadfadsa', '2023-03-28', '12:00:00', '19:21:00', 'completed'),
 (13, 45, 19, 1, 22, 'help please', '2023-03-13', '08:45:00', '10:01:40', 'completed'),
-(14, 42, 19, 1, 9, 'jygdhfjfds', '2023-03-20', '08:45:00', '00:00:00', 'requested');
+(14, 42, 19, 1, 9, 'jygdhfjfds', '2023-03-20', '08:45:00', '00:00:00', 'requested'),
+(15, 54, 21, 3, 23, 'sdfsfs', '2023-03-16', '08:00:00', '21:01:51', 'completed'),
+(16, 84, 21, 3, 24, 'tyfhfggfhf', '2023-03-24', '10:00:00', '21:13:36', 'completed'),
+(17, 42, 21, 3, 7, 'fdsdgdsg', '2023-03-15', '12:00:00', '22:22:59', 'completed'),
+(18, 45, 21, 3, 22, 'dsfsfsdfs342', '2023-03-17', '11:00:00', '22:43:06', 'completed'),
+(19, 45, 21, 3, 22, 'jshsjfsas', '2023-03-18', '14:00:00', '09:13:01', 'completed');
 
 -- --------------------------------------------------------
 
@@ -195,7 +229,7 @@ CREATE TABLE `tbl_user` (
   `Last_Name` varchar(50) NOT NULL,
   `Username` varchar(50) NOT NULL,
   `Email` varchar(50) NOT NULL,
-  `Password` varchar(50) NOT NULL,
+  `Password` varchar(200) NOT NULL,
   `Phone_Number` varchar(20) NOT NULL,
   `Profile_Picture` varchar(200) NOT NULL,
   `City` varchar(20) NOT NULL,
@@ -210,27 +244,27 @@ CREATE TABLE `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`User_ID`, `First_Name`, `Last_Name`, `Username`, `Email`, `Password`, `Phone_Number`, `Profile_Picture`, `City`, `User_Type`, `Register_Date`, `Verification_status`, `User_Status`) VALUES
-(10, 'Admin', 'Admin', 'Admin123', 'admin@mail.com', 'Admin@123', '9876543210', '_DSC0062.png', 'Kottayam', 'Admin', '2023-02-18 00:00:00', 'verified', 'active'),
-(38, 'Rini', 'Kurian', 'Rini', 'rinikurian@amaljyothi.ac.in', 'Jerin@123', '9847298901', 'Certificate_6.png', 'Kottayam', 'Customer', '2023-02-23 15:33:39', 'verified', 'active'),
-(42, 'Amal', 'Antoney', 'Amal123', 'amalantoney123@gmail.com', 'Amal@123', '6238543016', '_DSC1114.jpg', 'Kottayam', 'provider', '2023-02-24 16:07:38', 'verified', 'active'),
-(43, 'John', 'Doe', 'johndoe', 'johndoe@gmail.com', 'password123', '1234567890', '1.jpg', 'Kochi', 'provider', '2023-02-25 15:20:56', 'verified', 'active'),
-(44, 'Jane', 'Doe', 'janedoe', 'janedoe@gmail.com', 'password123', '1234567890', '2.jpg', 'Kottayam', 'provider', '2023-02-25 15:20:56', 'verified', 'active'),
-(45, 'Bob', 'Smith', 'bobsmith', 'bobsmith@gmail.com', 'password123', '1234567890', '3.jpg', 'Trivandrum', 'provider', '2023-02-25 15:20:56', 'verified', 'active'),
-(46, 'Alice', 'Jones', 'alicejones', 'alicejones@gmail.com', 'password123', '1234567890', '4.jpg', 'Kochi', 'provider', '2023-02-25 15:20:56', 'verified', 'active'),
-(47, 'Mike', 'Johnson', 'mikejohnson', 'mikejohnson@gmail.com', 'password123', '1234567890', '5.jpg', 'Kottayam', 'Customer', '2023-02-25 15:20:56', 'verified', 'active'),
-(48, 'Emily', 'Brown', 'emilybrown', 'emilybrown@gmail.com', 'password123', '1234567890', '6.jpg', 'Trivandrum', 'provider', '2023-02-25 15:20:56', 'verified', 'active'),
-(49, 'David', 'Taylor', 'davidtaylor', 'davidtaylor@gmail.com', 'password123', '1234567890', '7.jpg', 'Kochi', 'provider', '2023-02-25 15:20:56', 'verified', 'active'),
-(50, 'Olivia', 'Miller', 'oliviamiller', 'oliviamiller@gmail.com', 'password123', '1234567890', '8.jpg', 'Kottayam', 'Customer', '2023-02-25 15:20:56', 'verified', 'active'),
-(51, 'Emma', 'Wilson', 'emmawilson', 'emmawilson@gmail.com', 'password123', '1234567890', '9.jpg', 'Trivandrum', 'provider', '2023-02-25 15:20:56', 'verified', 'active'),
-(52, 'William', 'Garcia', 'williamgarcia', 'williamgarcia@gmail.com', 'password123', '1234567890', '10.jpg', 'Kochi', 'Customer', '2023-02-25 15:20:56', 'verified', 'active'),
-(53, 'Sophia', 'Martinez', 'sophiamartinez', 'sophiamartinez@gmail.com', 'password123', '1234567890', '11.jpg', 'Kottayam', 'Customer', '2023-02-25 15:20:56', 'verified', 'active'),
-(54, 'James', 'Lee', 'jameslee', 'jameslee@gmail.com', 'password123', '1234567890', '12.jpg', 'Trivandrum', 'provider', '2023-02-25 15:20:56', 'verified', 'active'),
-(57, 'jills', 'wilson', 'jills', 'jillsantony@gmail.com', 'Wilson070#', '9562954551', '_DSC0061.jpg', 'Kochi', 'provider', '2023-02-25 18:47:29', 'verified', 'active'),
-(58, 'wilson', 'george', 'wilson123', 'wilson2008george@gmail.com', 'Antoney@007', '8606677859', '_DSC0859.jpg', 'Kottayam', 'Customer', '2023-02-25 19:07:29', 'verified', 'active'),
-(84, 'dave', 'lee', 'davelee', 'davelee@mail.com', 'Password@123', '8273642245', '_DSC0896.jpg', 'Kottayam', 'provider', '2023-03-02 09:42:01', 'verified', 'active'),
-(85, 'amal', 'tomy', 'amal321', 'amaltomy2025@mca.ajce.in', '#Amal123', '7424923241', '_DSC0913.jpg', 'Kottayam', 'provider', '2023-03-02 12:48:26', 'verified', 'active'),
-(86, 'judin', 'mathew', 'judin', 'judinmathew2025@mca.ajce.in', 'Judin@123', '9872423433', '_DSC0007.jpg', 'Trivandrum', 'Customer', '2023-03-03 12:45:28', 'verified', 'active'),
-(87, 'amal', 'antoney', 'amal', 'amalantoney2025@mca.ajce.in', '#Amal123', '9876578986', '_DSC0059.jpg', 'Kottayam', 'provider', '2023-03-06 11:23:56', 'verified', 'active');
+(10, 'Admin', 'Admin', 'Admin123', 'admin@mail.com', '$2y$10$PBZ.8oEJtuKBkxaNr6GJOe8DsWjgklxg2Z7DesD3dYKdlq/HfkNna', '9876543210', '_DSC0062.png', 'Kottayam', 'Admin', '2023-02-18 00:00:00', 'verified', 'active'),
+(38, 'Rini', 'Kurian', 'Rini', 'rinikurian@amaljyothi.ac.in', '$2y$10$IinNVCRXt2HEI3J52EP6E.qoDSGuZfEmUPpoYDZNmfyMTC8bhRlKy', '9847298901', 'Certificate_6.png', 'Kottayam', 'Customer', '2023-02-23 15:33:39', 'verified', 'active'),
+(42, 'Amal', 'Antoney', 'Amal123', 'amalantoney123@gmail.com', '$2y$10$/hOxzmpGWHZRAZsVDHckZOB9RcQU3crdmHa7RhjZIGOWRLAGimrWG', '6238543016', '_DSC1114.jpg', 'Kottayam', 'provider', '2023-02-24 16:07:38', 'verified', 'active'),
+(43, 'John', 'Doe', 'johndoe', 'johndoe@gmail.com', '$2y$10$iGzUjUGAsixYaEhgH0Xi.edbcpjLIfI6iXd2gErrVskTooCTEnFnO', '1234567890', '1.jpg', 'Kochi', 'provider', '2023-02-25 15:20:56', 'verified', 'active'),
+(44, 'Jane', 'Doe', 'janedoe', 'janedoe@gmail.com', '$2y$10$iGzUjUGAsixYaEhgH0Xi.edbcpjLIfI6iXd2gErrVskTooCTEnFnO', '1234567890', '2.jpg', 'Kottayam', 'provider', '2023-02-25 15:20:56', 'verified', 'active'),
+(45, 'Bob', 'Smith', 'bobsmith', 'bobsmith@gmail.com', '$2y$10$iGzUjUGAsixYaEhgH0Xi.edbcpjLIfI6iXd2gErrVskTooCTEnFnO', '1234567890', '3.jpg', 'Trivandrum', 'provider', '2023-02-25 15:20:56', 'verified', 'active'),
+(46, 'Alice', 'Jones', 'alicejones', 'alicejones@gmail.com', '$2y$10$iGzUjUGAsixYaEhgH0Xi.edbcpjLIfI6iXd2gErrVskTooCTEnFnO', '1234567890', '4.jpg', 'Kochi', 'provider', '2023-02-25 15:20:56', 'verified', 'active'),
+(47, 'Mike', 'Johnson', 'mikejohnson', 'mikejohnson@gmail.com', '$2y$10$iGzUjUGAsixYaEhgH0Xi.edbcpjLIfI6iXd2gErrVskTooCTEnFnO', '1234567890', '5.jpg', 'Kottayam', 'Customer', '2023-02-25 15:20:56', 'verified', 'active'),
+(48, 'Emily', 'Brown', 'emilybrown', 'emilybrown@gmail.com', '$2y$10$iGzUjUGAsixYaEhgH0Xi.edbcpjLIfI6iXd2gErrVskTooCTEnFnO', '1234567890', '6.jpg', 'Trivandrum', 'provider', '2023-02-25 15:20:56', 'verified', 'active'),
+(49, 'David', 'Taylor', 'davidtaylor', 'davidtaylor@gmail.com', '$2y$10$iGzUjUGAsixYaEhgH0Xi.edbcpjLIfI6iXd2gErrVskTooCTEnFnO', '1234567890', '7.jpg', 'Kochi', 'provider', '2023-02-25 15:20:56', 'verified', 'active'),
+(50, 'Olivia', 'Miller', 'oliviamiller', 'oliviamiller@gmail.com', '$2y$10$iGzUjUGAsixYaEhgH0Xi.edbcpjLIfI6iXd2gErrVskTooCTEnFnO', '1234567890', '8.jpg', 'Kottayam', 'Customer', '2023-02-25 15:20:56', 'verified', 'active'),
+(51, 'Emma', 'Wilson', 'emmawilson', 'emmawilson@gmail.com', '$2y$10$iGzUjUGAsixYaEhgH0Xi.edbcpjLIfI6iXd2gErrVskTooCTEnFnO', '1234567890', '9.jpg', 'Trivandrum', 'provider', '2023-02-25 15:20:56', 'verified', 'active'),
+(52, 'William', 'Garcia', 'williamgarcia', 'williamgarcia@gmail.com', '$2y$10$iGzUjUGAsixYaEhgH0Xi.edbcpjLIfI6iXd2gErrVskTooCTEnFnO', '1234567890', '10.jpg', 'Kochi', 'Customer', '2023-02-25 15:20:56', 'verified', 'active'),
+(53, 'Sophia', 'Martinez', 'sophiamartinez', 'sophiamartinez@gmail.com', '$2y$10$iGzUjUGAsixYaEhgH0Xi.edbcpjLIfI6iXd2gErrVskTooCTEnFnO', '1234567890', '11.jpg', 'Kottayam', 'Customer', '2023-02-25 15:20:56', 'verified', 'active'),
+(54, 'James', 'Lee', 'jameslee', 'jameslee@gmail.com', '$2y$10$iGzUjUGAsixYaEhgH0Xi.edbcpjLIfI6iXd2gErrVskTooCTEnFnO', '1234567890', '12.jpg', 'Trivandrum', 'provider', '2023-02-25 15:20:56', 'verified', 'active'),
+(57, 'jills', 'wilson', 'jills', 'jillsantony@gmail.com', '$2y$10$qF2QorCCykiPj4IWURXBqewghNSND/MeIqGj9CzbavqCcDee5.x5O', '9562954551', '_DSC0061.jpg', 'Kochi', 'provider', '2023-02-25 18:47:29', 'verified', 'active'),
+(58, 'wilson', 'george', 'wilson123', 'wilson2008george@gmail.com', '$2y$10$4NMoSsV2hJAF.AybIuTYRu78iSwZv6k3gpdgJOLxs2dhECDu9okLq', '8606677859', '_DSC0859.jpg', 'Kottayam', 'Customer', '2023-02-25 19:07:29', 'verified', 'active'),
+(84, 'dave', 'lee', 'davelee', 'davelee@mail.com', '$2y$10$7hUK3Im96teiongQqazeZ.pImIesZgoroYtWy021J/mAjcgraF336', '8273642245', '_DSC0896.jpg', 'Kottayam', 'provider', '2023-03-02 09:42:01', 'verified', 'active'),
+(85, 'amal', 'tomy', 'amal321', 'amaltomy2025@mca.ajce.in', '$2y$10$BeEBI7l5RnVLpAioHPQqUO1J4yO.uvMjAth.uvj6kJzR5TfkjMr9a', '7424923241', '_DSC0913.jpg', 'Kottayam', 'provider', '2023-03-02 12:48:26', 'verified', 'active'),
+(86, 'judin', 'mathew', 'judin', 'judinmathew2025@mca.ajce.in', '$2y$10$KU./cebfOkOtSNDPPwNGwOQs7CFcjBp85ZzUP/EJmMrmUzO59kwnu', '9872423433', '_DSC0007.jpg', 'Trivandrum', 'Customer', '2023-03-03 12:45:28', 'verified', 'active'),
+(89, 'amal', 'antoney', 'amal', 'amalantoney2025@mca.ajce.in', '$2y$10$gXaIFQE7tOfMkKc6wM6jOuBVf13aZ2G1GJb0IKOYlIELpED4MFzBi', '7553455622', 'test 2.png', 'Kottayam', 'Customer', '2023-03-17 11:46:46', 'verified', 'active');
 
 --
 -- Indexes for dumped tables
@@ -242,6 +276,15 @@ INSERT INTO `tbl_user` (`User_ID`, `First_Name`, `Last_Name`, `Username`, `Email
 ALTER TABLE `tbl_address`
   ADD PRIMARY KEY (`Address_ID`),
   ADD KEY `Foreign key` (`User_ID`);
+
+--
+-- Indexes for table `tbl_payment`
+--
+ALTER TABLE `tbl_payment`
+  ADD PRIMARY KEY (`Payment_ID`),
+  ADD KEY `User_ID` (`User_ID`),
+  ADD KEY `Provider_ID` (`Provider_ID`),
+  ADD KEY `Request_ID` (`Request_ID`);
 
 --
 -- Indexes for table `tbl_services`
@@ -289,7 +332,13 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `tbl_address`
 --
 ALTER TABLE `tbl_address`
-  MODIFY `Address_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `Address_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `tbl_payment`
+--
+ALTER TABLE `tbl_payment`
+  MODIFY `Payment_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tbl_services`
@@ -313,13 +362,13 @@ ALTER TABLE `tbl_service_provider_availability`
 -- AUTO_INCREMENT for table `tbl_service_request`
 --
 ALTER TABLE `tbl_service_request`
-  MODIFY `Request_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `Request_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `User_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `User_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- Constraints for dumped tables
@@ -330,6 +379,14 @@ ALTER TABLE `tbl_user`
 --
 ALTER TABLE `tbl_address`
   ADD CONSTRAINT `Foreign key` FOREIGN KEY (`User_ID`) REFERENCES `tbl_user` (`User_ID`);
+
+--
+-- Constraints for table `tbl_payment`
+--
+ALTER TABLE `tbl_payment`
+  ADD CONSTRAINT `tbl_payment_ibfk_1` FOREIGN KEY (`User_ID`) REFERENCES `tbl_user` (`User_ID`),
+  ADD CONSTRAINT `tbl_payment_ibfk_2` FOREIGN KEY (`Provider_ID`) REFERENCES `tbl_service_provider` (`Provider_ID`),
+  ADD CONSTRAINT `tbl_payment_ibfk_3` FOREIGN KEY (`Request_ID`) REFERENCES `tbl_service_request` (`Request_ID`);
 
 --
 -- Constraints for table `tbl_service_provider`

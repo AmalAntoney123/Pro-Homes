@@ -134,7 +134,7 @@ if (mysqli_num_rows($result) > 0) {
                         <img src="uploaded files/Profile Pictures/' . $row['Profile_Picture'] . '" class="img-fluid rounded mb-2" style="width: 100%; height: 200px;object-fit: cover;"
                             alt=" ">
                         <!-- Book Now button -->
-                        <button type="button" class="btn btn-primary btn-block mt-3">Book Now</button>
+                        <button type="button" class="btn btn-primary btn-block mt-3" onclick="location.href=`book_now.php?id='.$row['Provider_ID'].'`">Book Now</button>
                     </div>
                     <div class="col-8">
                         <!-- Name and description -->

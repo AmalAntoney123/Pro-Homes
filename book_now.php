@@ -1,5 +1,5 @@
 <?php session_start();
-if (isset($_SESSION["l_id"])) {
+if (isset($_SESSION["l_id"]) and isset($_REQUEST["id"])) {
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -15,6 +15,7 @@ if (isset($_SESSION["l_id"])) {
         <!-- font icons -->
         <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
 
+            <link rel="stylesheet" href="assets/css/flatpicker.css" />
 
         <!-- Bootstrap + Ollie main styles -->
         <link rel="stylesheet" href="assets/css/ollie.css">
@@ -27,7 +28,6 @@ if (isset($_SESSION["l_id"])) {
 
         <script src="assets/js/validationprofile.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-        <link rel="stylesheet" href="assets/css/flatpicker.css" />
 
 
         <style>
@@ -150,79 +150,70 @@ if (isset($_SESSION["l_id"])) {
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12 col-12">
-                            <div class="ps-md-12 shadow-sm pt-5 pb-5 mb-5 my-2 bg-white" style="border-radius:20px;">
-                                <div class="d-flex flex-column ">
-                                    <div class="row px-5">
-                                        <div class="col-lg-4">
-                                            <img class="photo" src="uploaded files/Profile Pictures/<?php echo $service_p['Profile_Picture']; ?>" alt="" style="width: 100%; height: 200px;object-fit: cover;border-radius:10px;" class="img-fluid ">
-                                            <p class="fw-bold h4 mt-3 text-center">
-                                                <?php echo ucfirst($service_p['First_Name']) . ' ';
-                                                echo ucfirst($service_p['Last_Name']); ?>
-                                            </p>
+                            <div class="ps-md-12 shadow-sm p-5 pb-5 mb-5 my-2 bg-white" style="border-radius:20px;">
+                                <div class="container my-4">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <img src="uploaded files/Profile Pictures/<?php echo $service_p['Profile_Picture']; ?>" alt="Service Provider Photo" class="img-fluid rounded shadow-md">
+                                                                                       
                                         </div>
-                                        <div class="col-lg-8  border-left">
-                                            <div class="container ml-3">
-                                                <h1 class="text-primary"><?php echo $service_p['Service_Name'] ?></h1>
-                                                <span>
-                                                    <?php echo $service_p['Service_Desc']; ?>
-                                                </span>
-                                                <h3 class="text-info">Price: ₹<?php echo $service_p['Price']; ?> /hr</h3>
-                                                <h4 class="">City: <?php echo $service_p['City']; ?></h4>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        <div class="col-md-8">
+                                            <h2 class="text-primary mb-2"><?php echo ucfirst($service_p['First_Name']) . ' ';
+                                                                            echo ucfirst($service_p['Last_Name']); ?></h2>
+                                            <h5 class="text-secondary mb-4"><?php echo $service_p['Service_Name'] ?></h5>
+                                            <p><strong class="text-primary">Price per hour:</strong> ₹<?php echo $service_p['Price']; ?></p>
+                                            <p><strong class="text-primary">City:</strong> <?php echo $service_p['City']; ?></p>
+                                            <span>
+                                                <?php echo $service_p['Service_Desc']; ?>
+                                            </span>
+                                            <hr>
+                                            <?php
+                                            $lid = $_SESSION["l_id"];
+                                            $_SESSION["provider_id"] = $_GET["id"];
+                                            $pid = $_GET["id"];
 
-                                </div>
-                                <?php
-                                $lid = $_SESSION["l_id"];
-                                $_SESSION["provider_id"] = $_GET["id"];
-                                $pid = $_GET["id"];
+                                            //booked dates
+                                            $bookeddates = array();
 
-                                //booked dates
-                                $bookeddates = array();
+                                            // Prepare the SQL query to fetch the appointment dates
+                                            $sql = "SELECT * FROM `tbl_service_request` where `Provider_ID` =$pid";
 
-                                // Prepare the SQL query to fetch the appointment dates
-                                $sql = "SELECT * FROM `tbl_service_request` where `Provider_ID` =$pid";
-
-                                // Execute the SQL query
-                                $result = mysqli_query($con, $sql);
+                                            // Execute the SQL query
+                                            $result = mysqli_query($con, $sql);
 
 
-                                while ($dates = mysqli_fetch_array($result)) {
-                                    // Split the appointment dates string into an array
-                                    array_push($bookeddates,$dates['Appointment_Date']);
-                                }
+                                            while ($dates = mysqli_fetch_array($result)) {
+                                                // Split the appointment dates string into an array
+                                                array_push($bookeddates, $dates['Appointment_Date']);
+                                            }
 
-                                //address fetching
-                                $query1 = "SELECT * FROM `tbl_address` WHERE `User_ID`='$lid'";
-                                $result4 = mysqli_query($con, $query1);
+                                            //address fetching
+                                            $query1 = "SELECT * FROM `tbl_address` WHERE `User_ID`='$lid'";
+                                            $result4 = mysqli_query($con, $query1);
 
-                                //unavailable dates fetching
-                                $unavailable_dates = array();
-                                $query = "SELECT * FROM `tbl_service_provider_availability` WHERE `Provider_ID`='$pid'";
-                                $result3 = mysqli_query($con, $query);
-                                $availability = mysqli_fetch_array($result3);
+                                            //unavailable dates fetching
+                                            $unavailable_dates = array();
+                                            $query = "SELECT * FROM `tbl_service_provider_availability` WHERE `Provider_ID`='$pid'";
+                                            $result3 = mysqli_query($con, $query);
+                                            $availability = mysqli_fetch_array($result3);
 
-                                if (isset($availability['Unavailable Dates'])) {
-                                    $dates_string = $availability['Unavailable Dates'];
-                                    $dates_array = explode(',', $dates_string);
-                                    $dates_array=array_merge($dates_array,$bookeddates);
-                                    foreach ($dates_array as $date) {
-                                        $unix_timestamp = strtotime($date);
-                                        $formatted_date = date('Y-m-d', $unix_timestamp);
-                                        array_push($unavailable_dates, $formatted_date);
-                                    }
-                                }
-                                $min_time = $availability['Workday_Start']; // set the minimum time
-                                $max_time = $availability['Workday_End']; // set the maximum time
-                                ?>
-                                <div class="d-flex flex-column ">
-                                    <div clas="row px-5">
-                                        <div class="container-fluid px-5 my-5">
-                                            <form class="mx-auto" action="book_now_submit.php" method="POST">
+                                            if (isset($availability['Unavailable Dates'])) {
+                                                $dates_string = $availability['Unavailable Dates'];
+                                                $dates_array = explode(',', $dates_string);
+                                                $dates_array = array_merge($dates_array, $bookeddates);
+                                                foreach ($dates_array as $date) {
+                                                    $unix_timestamp = strtotime($date);
+                                                    $formatted_date = date('Y-m-d', $unix_timestamp);
+                                                    array_push($unavailable_dates, $formatted_date);
+                                                }
+                                            }
+                                            $min_time = $availability['Workday_Start']; // set the minimum time
+                                            $max_time = $availability['Workday_End']; // set the maximum time
+                                            ?>
+                                            <form action="book_now_submit.php" method="POST">
                                                 <div class="form-group">
-                                                    <label for="date">Select your Address:</label>
-                                                    <select class="form-select" name="address" required>
+                                                    <label for="address">Select Address</label>
+                                                    <select class="form-control" id="address" name="address">
                                                         <?php
 
                                                         $count = 1;
@@ -243,23 +234,22 @@ if (isset($_SESSION["l_id"])) {
                                                             </option>
                                                         <?php } ?>
                                                     </select>
+                                                    <button type="button" onclick="location.href='add_address_book.php'" class="btn btn-secondary mt-3">Add New Address</button>
                                                 </div>
-                                                <button type="button" onclick="location.href='add_address_book.php'" class="btn btn-secondary">Add New Address</button>
-                                                <div class="form-group mt-2">
+                                                <div class="form-group">
+                                                    <label for="description">Work Description</label>
+                                                    <textarea class="form-control" id="description" style="resize:none;" name="description" required></textarea>
+                                                </div>
+                                                <div class="form-group">
                                                     <label for="date-picker">Appoinment Date</label>
                                                     <input type="text" class="form-control" id="date-picker" placeholder="Select dates" name="appoinmentdate" required>
                                                 </div>
-                                                <div class="form-group mt-2">
+                                                <div class="form-group">
                                                     <label for="time-picker">Select a time:</label>
                                                     <input type="text" placeholder="Select start time" id="time-picker" class="flatpickr form-control" name="time_start" required>
-
-                                                </div>
-                                                <div class="form-group mt-2">
-                                                    <label for="description">Description of Work:</label>
-                                                    <textarea class="form-control" name="description" id="description" style="resize:none;" required></textarea>
                                                 </div>
                                                 <input type="hidden" name="service_id" id="service_id" value="<?php echo $service_p['Service_ID'] ?>">
-                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                <button type="submit" class="btn btn-primary">Book Now</button>
                                             </form>
                                             <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
@@ -305,12 +295,10 @@ if (isset($_SESSION["l_id"])) {
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
-
                         </div>
                     </div>
+                </div>
 
             </section>
             <section class="section bg-overlay mt-5">
@@ -386,8 +374,13 @@ if (isset($_SESSION["l_id"])) {
             header("location:signin.php");
         }
     } else {
-        $_SESSION['Check_login'] = "BOOK";
-        header("location:signin.php");
+        if (!isset($_SESSION["l_id"])) {
+            $_SESSION['Check_login'] = "BOOK";
+            header("location:signin.php");
+        }
+        if (!isset($_REQUEST["id"])) {
+            header("location:services.php");
+        }
     }
 ?>
 
