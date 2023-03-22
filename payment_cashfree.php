@@ -1,7 +1,10 @@
 <?php
+session_start();
+include("connection.php");
 require_once('vendor/autoload.php');
 
 $client = new \GuzzleHttp\Client();
+$pid=$_POST['pid'];
 $email=$_POST['email'];
 $name=$_POST['name'];
 $price=$_POST['price'];
@@ -25,6 +28,10 @@ $responseData = json_decode($responseBody, true);
 
 // Get the payment link from the response data
 $paymentLink = $responseData['link_url'];
+$LinkID = $responseData['link_id'];
+
+$query = "UPDATE `tbl_payment` SET `Gateway_Order_ID`='$LinkID' WHERE `Payment_ID`=$pid";
+    $result = mysqli_query($con, $query);
 
 // Redirect the user to the payment link
 header("Location: $paymentLink");

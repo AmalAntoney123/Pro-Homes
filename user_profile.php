@@ -367,56 +367,17 @@
                         <table class="table table-striped table-hover">
                           <?php
                           $lid = $_SESSION["l_id"];
-                          $query = "SELECT 
-                          p.`Payment_ID`, 
-                          p.`User_ID` AS payment_user_id, 
-                          p.`Request_ID`, 
-                          p.`Provider_ID`, 
-                          p.`Amount`, 
-                          p.`Payment_Status`, 
-                          p.`Payment_Request_Date`, 
-                          p.`Payment_Date`, 
-                          sr.`User_ID` AS sr_user_id, 
-                          sr.`Provider_ID` AS sr_provider_id, 
-                          sr.`Serivce_ID`, 
-                          sr.`Address_ID`, 
-                          sr.`Service_Description`, 
-                          sr.`Appointment_Date`, 
-                          sr.`Appoinment_Start_Time`, 
-                          sr.`Appoinment_End_Time`, 
-                          sr.`Status`, 
-                          sp.`User_ID` AS sp_user_id, 
-                          sp.`Service_ID` AS sp_service_id, 
-                          sp.`Provider_ID` AS sp_provider_id, 
-                          sp.`Address`, 
-                          sp.`Service_Desc`, 
-                          sp.`Qualification_File`, 
-                          sp.`Insurance_File`, 
-                          sp.`Certificate_File`, 
-                          sp.`Price`, 
-                          sp.`Verification_status`, 
-                          u.`User_ID` AS user_id, 
-                          u.`First_Name`, 
-                          u.`Last_Name`, 
-                          u.`Username`, 
-                          u.`Email`, 
-                          u.`Password`, 
-                          u.`Phone_Number`, 
-                          u.`Profile_Picture`, 
-                          u.`City`, 
-                          u.`User_Type`, 
-                          u.`Register_Date`, 
-                          u.`Verification_status` AS user_verification_status, 
-                          u.`User_Status`, 
-                          s.`Service_ID` AS service_id, 
-                          s.`Service_Name`, 
-                          s.`Description` AS service_description
-                      FROM 
-                          `tbl_service_request` AS sr 
-                          LEFT JOIN `tbl_payment` AS p ON p.`Request_ID` = sr.`Request_ID` AND sr.User_ID = $lid
-                          JOIN `tbl_service_provider` AS sp ON p.`Provider_ID` = sp.`Provider_ID` 
-                          JOIN `tbl_user` AS u ON sp.`User_ID` = u.`User_ID` 
-                          JOIN `tbl_services` AS s ON sp.`Service_ID` = s.`Service_ID`;";
+                          $query = "SELECT sr.Request_ID, sr.User_ID, sr.Provider_ID, sr.Serivce_ID, sr.Address_ID, sr.Service_Description, sr.Appointment_Date, sr.Appoinment_Start_Time, sr.Appoinment_End_Time, sr.Status, 
+                          p.Payment_ID, p.Amount, p.Payment_Status, p.Payment_Request_Date, p.Payment_Date,
+                          sp.User_ID AS Provider_User_ID, sp.Address, sp.Service_Desc, sp.Qualification_File, sp.Insurance_File, sp.Certificate_File, sp.Price, sp.Verification_status,
+                          s.Service_Name, s.Description,
+                          u.User_ID AS Provider_User_ID, u.First_Name, u.Last_Name, u.Username, u.Email, u.Password, u.Phone_Number, u.Profile_Picture, u.City, u.User_Type, u.Last_Log_Date, u.Register_Date, u.Verification_status, u.User_Status
+                   FROM tbl_service_request AS sr
+                   LEFT JOIN tbl_payment AS p ON sr.Request_ID = p.Request_ID
+                   LEFT JOIN tbl_service_provider AS sp ON sr.Provider_ID = sp.Provider_ID
+                   LEFT JOIN tbl_services AS s ON sp.Service_ID = s.Service_ID
+                   LEFT JOIN tbl_user AS u ON sp.User_ID = u.User_ID
+                   WHERE sr.User_ID = $lid;";
                           $result4 = mysqli_query($con, $query);
                           $count = 1;
                           if (mysqli_num_rows($result4) == 0) {
@@ -433,13 +394,23 @@
                                 <?php echo $payment['Service_Name'] ?> on
                                 <?php echo $payment['Appointment_Date'] ?>
                               </td>
-                              <td class="text-success">
+                              <td style="color:#32b51b">
                                 ₹<?php echo $payment['Amount'] ?>
                               <td>
                               <td>
                                 <form method="POST" action="payment_cashfree.php">
-                                <?php if ($payment['Status'] != "completed"){ echo $payment['Status']?>
-                                <?php }else{?><button type="submit" class="btn btn-sm btn-outline-primary"><?=$payment['Status']?></button> <?php } ?>
+                                  <?php if ($payment['Status'] != "completed") {
+                                    echo ucfirst($payment['Status']) ?>
+                                    <?php } else {
+                                    if ($payment['Payment_Status'] == "paid") echo "Paid";
+                                    else { ?>
+                                      <input type="hidden" name="pid" value="<?= $payment['Payment_ID'] ?>" />
+                                      <input type="hidden" name="email" value="<?= $mail ?>" />
+                                      <input type="hidden" name="name" value="<?php echo $fname . ' ' . $lname ?>" />
+                                      <input type="hidden" name="price" value="<?= $payment['Amount'] ?>" />
+                                      <input type="hidden" name="phone" value="<?= $phone ?>" />
+                                      <button type="submit" class="btn btn-sm btn-outline-primary">Pay Now</button> <?php }
+                                                                                                                } ?>
                                 </form>
                               </td>
                             </tr>

@@ -28,7 +28,7 @@ if ($row['Status'] == $code) {
     $price_ph = $provider['Price'];
 
     $duration = ($end - $start) / 3600;
-    $total_cost = round($duration * $price_ph,3);
+    $total_cost = round($duration * $price_ph,2);
 
 
     $query1 = "INSERT INTO `tbl_payment`(`User_ID`, `Request_ID`, `Provider_ID`, `Amount`, `Payment_Status`) 
