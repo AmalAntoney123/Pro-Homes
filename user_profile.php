@@ -412,8 +412,8 @@
                           s.`Service_Name`, 
                           s.`Description` AS service_description
                       FROM 
-                          `tbl_payment` AS p 
-                          JOIN `tbl_service_request` AS sr ON p.`Request_ID` = sr.`Request_ID`  AND p.User_ID = $lid
+                          `tbl_service_request` AS sr 
+                          LEFT JOIN `tbl_payment` AS p ON p.`Request_ID` = sr.`Request_ID` AND sr.User_ID = $lid
                           JOIN `tbl_service_provider` AS sp ON p.`Provider_ID` = sp.`Provider_ID` 
                           JOIN `tbl_user` AS u ON sp.`User_ID` = u.`User_ID` 
                           JOIN `tbl_services` AS s ON sp.`Service_ID` = s.`Service_ID`;";
@@ -437,8 +437,10 @@
                                 ₹<?php echo $payment['Amount'] ?>
                               <td>
                               <td>
-                                <?php if ($payment['Payment_Status'] != "completed"){ ?><button onclick="location.href='edit_address.php?token=<?php echo $address['Address_ID'] ?>'" class="btn btn-sm btn-outline-primary">Pay</button>
-                                <?php }else{?>Paid <?php } ?>
+                                <form method="POST" action="payment_cashfree.php">
+                                <?php if ($payment['Status'] != "completed"){ echo $payment['Status']?>
+                                <?php }else{?><button type="submit" class="btn btn-sm btn-outline-primary"><?=$payment['Status']?></button> <?php } ?>
+                                </form>
                               </td>
                             </tr>
                           <?php $count += 1;

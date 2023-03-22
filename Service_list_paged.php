@@ -6,7 +6,7 @@ if(isset($_SESSION['l_id']))
 include("connection.php");
 
 // number of records per page
-$recordsPerPage = 5;
+$recordsPerPage = 10;
 
 // get current page number from URL parameter
 if (isset($_GET["page"])) {
