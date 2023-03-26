@@ -59,6 +59,6 @@ if ($paymentLink!="PAID")
 else{
     $query = "UPDATE `tbl_payment` SET `Payment_Status`='paid',`Payment_Date`=now() WHERE `Gateway_Order_ID`='$payment_id'";
     $result = mysqli_query($con, $query);
-    header('location:user_profile.php');
+    header('location:review.php?token='.urlencode(base64_encode($payment_id)));
 }
     

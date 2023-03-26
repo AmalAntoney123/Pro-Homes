@@ -1,41 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bootstrap Toast Notification</title>
-    <!-- Bootstrap CSS CDN -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-  </head>
-  <body>
-    <div class="container mt-5">
-      <button class="btn btn-primary" onclick="showToast()">Show Toast</button>
-    </div>
-    
-    <!-- Bootstrap JS CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <script>
-      function showToast() {
-        var toastEl = document.getElementById('liveToast');
-        var toast = new bootstrap.Toast(toastEl);
-        toast.show();
-      }
-    </script>
-    
-    <!-- Toast notification -->
-    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
-      <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-          <img src="https://via.placeholder.com/20" class="rounded me-2" alt="...">
-          <strong class="me-auto">Bootstrap</strong>
-          <small>just now</small>
-          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-          Hello, world! This is a toast message.
-        </div>
+<html>
+<head>
+  <title>Review Page</title>
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <style>
+    /* custom CSS for star rating system */
+    input[type="radio"].star:checked ~ label:before {
+      content: '\f005';
+      font-family: 'FontAwesome';
+      color: #fd4;
+      font-size: 2em;
+    }
+
+    label:before {
+      content: '\f006';
+      font-family: 'FontAwesome';
+      font-size: 2em;
+    }
+
+    label {
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    input[type="radio"].star {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <h1>Leave a Review</h1>
+    <form id="review-form" method="POST">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" name="name" required>
       </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="review">Review:</label>
+        <textarea class="form-control" id="review" name="review" rows="5" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="rating">Rating:</label>
+        <br>
+        <input type="radio" id="star-5" name="rating" class="star" value="5">
+        <label for="star-5" title="5 stars"></label>
+        <input type="radio" id="star-4" name="rating" class="star" value="4">
+        <label for="star-4" title="4 stars"></label>
+        <input type="radio" id="star-3" name="rating" class="star" value="3">
+        <label for="star-3" title="3 stars"></label>
+        <input type="radio" id="star-2" name="rating" class="star" value="2">
+        <label for="star-2" title="2 stars"></label>
+        <input type="radio" id="star-1" name="rating" class="star" value="1">
+        <label for="star-1" title="1 star"></label>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <div id="success-message" class="alert alert-success mt-3" style="display: none;">
+      Thanks for your review!
     </div>
-  </body>
-</html>
+  </div>
+
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#review-form').submit(function(event) {
+        event.preventDefault();
+        var form = $(this);
+        var formData = form.serialize();
+        $.ajax({
+          type: 'POST',
+          url: 'process-review.php',
+          data: formData,
+          success: function(data) {
+            form.trigger('reset');
+            $('#success-message').fadeIn().delay(3000).fadeOut();
+          }
+        });
+      });
+    });
+  </script>
+  </body></html>
