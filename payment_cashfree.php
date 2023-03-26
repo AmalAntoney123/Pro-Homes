@@ -2,7 +2,7 @@
 session_start();
 include("connection.php");
 require_once('vendor/autoload.php');
-
+  
 $client = new \GuzzleHttp\Client();
 $pid=$_POST['pid'];
 $email=$_POST['email'];

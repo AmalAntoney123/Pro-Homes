@@ -1,7 +1,7 @@
 <?php
-$lid=9999;
-if(isset($_SESSION['l_id']))
-    $lid=$_SESSION['l_id'];
+$lid = 9999;
+if (isset($_SESSION['l_id']))
+    $lid = $_SESSION['l_id'];
 // connect to database
 include("connection.php");
 
@@ -61,7 +61,7 @@ if (isset($_REQUEST['pricefilter'])) {
 if (isset($_SESSION['price_filter'])) {
     // retrieve filter value from session
     $price_filter = $_SESSION['price_filter'];
-    $sql .= ' AND sp.Price > ' . $price_filter ;
+    $sql .= ' AND sp.Price > ' . $price_filter;
 }
 
 //Service Filter
@@ -83,7 +83,7 @@ if (isset($_REQUEST['sub_unset'])) {
     unset($_SESSION['price_filter']);
     unset($_REQUEST['city']);
     unset($_REQUEST['service_filter']);
-    unset($_REQUEST['price_filter']);  
+    unset($_REQUEST['price_filter']);
 
     echo '<script>location.href="services.php";</script>';
 }
@@ -107,15 +107,38 @@ if (mysqli_num_rows($result) > 0) {
         $output .= '<div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" style="width: 100%; height: 200px;object-fit: cover;" src="uploaded files/Profile Pictures/' . $row['Profile_Picture'] . '"></div>';
         $output .= '<div class="col-md-6 mt-1">';
         $output .= '<h5>' . $row['First_Name'] . ' ' . $row['Last_Name'] . '</h5>';
-        $output .= '<div class="d-flex flex-row"><div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>310</span></div>';
-        $output .= '<div class="mt-1 mb-1 spec-1"><span>' . $row['Service_Name'] . '</span><span class="dot"></span><span></span><span class="dot"></span><span> ✓<br></span></div>';
+
+        $crnt_pid = $row['Provider_ID'];
+        // Retrieve the rating data from the database
+        $query3 = "SELECT AVG(Rating) AS AvgRating, COUNT(Rating) AS TotalRatings FROM tbl_service_provider_ratings WHERE Provider_ID = $crnt_pid";
+        $result3 = mysqli_query($con, $query3);
+        $rating = mysqli_fetch_array($result3);
+        $avg_rating = $rating['AvgRating'];
+        $total_ratings = $rating['TotalRatings'];
+
+        // Convert the average rating to stars
+        $star_rating = '';
+        for ($i = 1; $i <= 5; $i++) {
+            if ($i <= round($avg_rating)) {
+                $star_rating .= '<i class="fa fa-star" style="color:gold;border:5;"></i>';
+            } else {
+                $star_rating .= '<i class="far fa-star"></i>';
+            }
+        }
+        $avg_rating=round($avg_rating,2);
+        // Display the rating and total number of ratings
+        $output .= '<div class="d-flex flex-row"><div class="ratings mr-2">' . $star_rating . '</div><span>' . $total_ratings . '</span></div>';
+
+
+
+        $output .= '<div class="mt-1 mb-1 spec-1"><span>' . $row['Service_Name'] . '</span><span> ✓<br></span></div>';
         $output .= '<div class="mt-1 mb-1 spec-1"><span class="text-info"><h5>City: ' . $row['City'] . '</h5></span></div>';
         $output .= '<p class="text-justify text-truncate para mb-0">' . $row['Service_Desc'] . '<br><br></p>';
         $output .= '</div>';
         $output .= '<div class="align-items-center align-content-center col-md-3 border-left mt-1">';
         $output .= '<div class="d-flex flex-row align-items-center"><h4 class="mr-1">' . $row['Price'] . '</h4><span class="">/ hr</span></div><h6 class="text-success">Blank</h6>';
         $output .= '<div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#providerModal' . $row['User_ID'] . '">Details</button>
-                        <button class="btn btn-outline-primary btn-sm mt-2" type="button" onclick="location.href=`book_now.php?id='.$row['Provider_ID'].'`">Book Now</button></div>';
+                        <button class="btn btn-outline-primary btn-sm mt-2" type="button" onclick="location.href=`book_now.php?id=' . $row['Provider_ID'] . '`">Book Now</button></div>';
         $output .= '</div></div>';
         $output .= '<div class="modal fade" id="providerModal' . $row['User_ID'] . '" tabindex="-1" role="dialog" aria-labelledby="providerModalLabel"
     aria-hidden="true">
@@ -134,7 +157,7 @@ if (mysqli_num_rows($result) > 0) {
                         <img src="uploaded files/Profile Pictures/' . $row['Profile_Picture'] . '" class="img-fluid rounded mb-2" style="width: 100%; height: 200px;object-fit: cover;"
                             alt=" ">
                         <!-- Book Now button -->
-                        <button type="button" class="btn btn-primary btn-block mt-3" onclick="location.href=`book_now.php?id='.$row['Provider_ID'].'`">Book Now</button>
+                        <button type="button" class="btn btn-primary btn-block mt-3" onclick="location.href=`book_now.php?id=' . $row['Provider_ID'] . '`">Book Now</button>
                     </div>
                     <div class="col-8">
                         <!-- Name and description -->
@@ -148,44 +171,33 @@ if (mysqli_num_rows($result) > 0) {
                 <div class="row">
                     <div class="col-12">
                         <!-- Reviews -->
-                        <h5><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                class="far fa-star"></i> 4.0</h5>
-                        <div class="reviews-wrapper" style="height: 200px; overflow-y: scroll;">
-                            <div class="card mb-2">
-                                <div class="card-body">
-                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
-                                        sodales
-                                        libero a arcu faucibus, vel consectetur sapien blandit.</p>
-                                    <small class="text-muted">Reviewer Name</small>
-                                </div>
-                            </div>
-                            <div class="card mb-2">
-                                <div class="card-body">
-                                    <p class="mb-0">Sed ut euismod mi. Donec ut pharetra quam. Fusce eu felis est.
-                                        Nullam
-                                        non malesuada ipsum.</p>
-                                    <small class="text-muted">Reviewer Name</small>
-                                </div>
-                            </div>
-                            <div class="card mb-2">
-                                <div class="card-body">
-                                    <p class="mb-0">Sed ut euismod mi. Donec ut pharetra quam. Fusce eu felis est.
-                                        Nullam
-                                        non malesuada ipsum.</p>
-                                    <small class="text-muted">Reviewer Name</small>
-                                </div>
-                            </div>
-                            <div class="card mb-2">
-                                <div class="card-body">
-                                    <p class="mb-0">Sed ut euismod mi. Donec ut pharetra quam. Fusce eu felis est.
-                                        Nullam
-                                        non malesuada ipsum.</p>
-                                    <small class="text-muted">Reviewer Name</small>
-                                </div>
-                            </div>
-                            <!-- add more reviews here -->
-                        </div>
+                        <h5>'.$star_rating.' '.$avg_rating.'</h5>
+                        <div class="reviews-wrapper" style="height: 200px; overflow-y: scroll;">';
+
+        // Fetch the reviews from the database
+        $reviews_query = "SELECT r.Rating_ID, r.Provider_ID, r.User_ID, r.Rating, r.Review, r.Review_Date,
+        u.First_Name, u.Last_Name, u.Email, u.Phone_Number, u.Profile_Picture, u.City, u.User_Type
+ FROM tbl_service_provider_ratings r
+ JOIN tbl_user u
+ ON r.User_ID = u.User_ID
+ WHERE r.Provider_ID = $crnt_pid";
+        $reviews_result = mysqli_query($con, $reviews_query);
+
+        // Display the reviews
+        while ($review_row = mysqli_fetch_assoc($reviews_result)) {
+            $date = $review_row['Review_Date'];
+$formatted_date = date("Y-m-d", strtotime($date));
+echo $formatted_date;
+            $output .= '<div class="card mb-2">
+                <div class="card-body">
+                <small class="text-muted">'.$review_row['First_Name'].' '.$review_row['Last_Name'].'</small>
+                    <p class="mb-0">' . $review_row['Review'] . '</p>
+                    <small class="text-muted">' . $formatted_date . '</small>
+                </div>
+            </div>';
+        }
+
+        $output .= '</div>
                     </div>
                 </div>
             </div>
@@ -239,4 +251,3 @@ $output .= '</div>';
 echo $output;
 
 mysqli_close($con);
-?>

@@ -1,5 +1,6 @@
 {
     "require": {
-        "cashfree/cashfree-pg-sdk-php": "^2.0"
+        "cashfree/cashfree-pg-sdk-php": "^2.0",
+        "guzzlehttp/guzzle": "^7.5"
     }
 }
