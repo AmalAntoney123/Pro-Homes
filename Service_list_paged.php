@@ -125,7 +125,7 @@ if (mysqli_num_rows($result) > 0) {
                 $star_rating .= '<i class="far fa-star"></i>';
             }
         }
-        $avg_rating=round($avg_rating,2);
+        $avg_rating = round($avg_rating, 2);
         // Display the rating and total number of ratings
         $output .= '<div class="d-flex flex-row"><div class="ratings mr-2">' . $star_rating . '</div><span>' . $total_ratings . '</span></div>';
 
@@ -140,18 +140,17 @@ if (mysqli_num_rows($result) > 0) {
         $output .= '<div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#providerModal' . $row['User_ID'] . '">Details</button>
                         <button class="btn btn-outline-primary btn-sm mt-2" type="button" onclick="location.href=`book_now.php?id=' . $row['Provider_ID'] . '`">Book Now</button></div>';
         $output .= '</div></div>';
-        $output .= '<div class="modal fade" id="providerModal' . $row['User_ID'] . '" tabindex="-1" role="dialog" aria-labelledby="providerModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:800px;margin: 0.75rem auto;">
-        <div class="modal-content bg-light text-dark">
-            <div class="modal-header bg-primary">
-                <h5 class="modal-title text-light" id="providerModalLabel">' . $row['First_Name'] . ' ' . $row['Last_Name'] . '</h5>
-                <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
+        $output .= '<div class="modal fade" id="providerModal' . $row['User_ID'] . '" tabindex="-1" role="dialog" aria-labelledby="providerModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:800px;margin: 0.75rem auto;">
+                        <div class="modal-content bg-light text-dark">
+                            <div class="modal-header bg-primary">
+                                <h5 class="modal-title text-light" id="providerModalLabel">' . $row['First_Name'] . ' ' . $row['Last_Name'] . '</h5>
+                                <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        <div class="modal-body">
+                    <div class="row">
                     <div class="col-4">
                         <!-- Profile picture -->
                         <img src="uploaded files/Profile Pictures/' . $row['Profile_Picture'] . '" class="img-fluid rounded mb-2" style="width: 100%; height: 200px;object-fit: cover;"
@@ -167,37 +166,49 @@ if (mysqli_num_rows($result) > 0) {
                         <p class="mt-2"><strong>City:</strong>' . $row['City'] . '</p>
                     </div>
                 </div>
-                <hr class="bg-light">
-                <div class="row">
-                    <div class="col-12">
-                        <!-- Reviews -->
-                        <h5>'.$star_rating.' '.$avg_rating.'</h5>
-                        <div class="reviews-wrapper" style="height: 200px; overflow-y: scroll;">';
-
-        // Fetch the reviews from the database
+                <hr class="bg-light"><div class="row">
+                <div class="col-12">
+                <!-- Reviews -->
+                    <h5>' . $star_rating . ' ' . $avg_rating . '</h5>
+                    <div class="reviews-wrapper" style="height: 200px; overflow-y: scroll;">';
+                    // Fetch the reviews from the database
         $reviews_query = "SELECT r.Rating_ID, r.Provider_ID, r.User_ID, r.Rating, r.Review, r.Review_Date,
-        u.First_Name, u.Last_Name, u.Email, u.Phone_Number, u.Profile_Picture, u.City, u.User_Type
- FROM tbl_service_provider_ratings r
- JOIN tbl_user u
- ON r.User_ID = u.User_ID
- WHERE r.Provider_ID = $crnt_pid";
+                            u.First_Name, u.Last_Name, u.Email, u.Phone_Number, u.Profile_Picture, u.City, u.User_Type
+                            FROM tbl_service_provider_ratings r
+                            JOIN tbl_user u
+                            ON r.User_ID = u.User_ID
+                            WHERE r.Provider_ID = $crnt_pid";
         $reviews_result = mysqli_query($con, $reviews_query);
 
         // Display the reviews
         while ($review_row = mysqli_fetch_assoc($reviews_result)) {
             $date = $review_row['Review_Date'];
-$formatted_date = date("Y-m-d", strtotime($date));
-echo $formatted_date;
+            $formatted_date = date("Y-m-d", strtotime($date));
+            $output .= '';
+
+            $rating2 = $review_row['Rating'];
+            $checked_stars = '';
+            $unchecked_stars = '';
+        
+            for ($i = 1; $i <= 5; $i++) {
+                if ($i <= $rating2) {
+                    $checked_stars .= '<span class="fas fa-star checked"></span>';
+                } else {
+                    $unchecked_stars .= '<span class="far fa-star"></span>';
+                }
+            }
+
             $output .= '<div class="card mb-2">
-                <div class="card-body">
-                <small class="text-muted">'.$review_row['First_Name'].' '.$review_row['Last_Name'].'</small>
-                    <p class="mb-0">' . $review_row['Review'] . '</p>
-                    <small class="text-muted">' . $formatted_date . '</small>
-                </div>
-            </div>';
+                            <div class="card-body">
+                                <small class="text-muted">' . $review_row['First_Name'] . ' ' . $review_row['Last_Name'] . '</small>
+                                <div class="rating">' . $checked_stars . $unchecked_stars . '</div>
+                                <p class="mb-0">' . $review_row['Review'] . '</p>
+                                <small class="text-muted">' . $formatted_date . '</small>
+                            </div>
+                        </div>';
         }
 
-        $output .= '</div>
+        $output .= '    </div>  
                     </div>
                 </div>
             </div>

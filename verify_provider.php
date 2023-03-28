@@ -1,5 +1,7 @@
 <?php
+
 session_start();
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -8,51 +10,53 @@ require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
 
 include("connection.php");
-$pid = $_GET['sp_id'];
-$query = "UPDATE `tbl_service_provider` SET `Verification_status`='verfied' WHERE `provider_id`='$pid'";
-$result = mysqli_query($con, $query);
 
-$query = "SELECT * FROM `tbl_service_provider` WHERE `provider_id`='$pid'";
-$result = mysqli_query($con, $query);
-$row = mysqli_fetch_array($result);
-$uid = $row['User_ID'];
+try {
+  $pid = $_GET['sp_id'];
+  $query = "UPDATE `tbl_service_provider` SET `Verification_status`='verfied' WHERE `provider_id`='$pid'";
+  $result = mysqli_query($con, $query);
 
-$query = "UPDATE `tbl_user` SET `User_Type`='provider' WHERE `User_ID`='$uid'";
-$result = mysqli_query($con, $query);
+  $query = "SELECT * FROM `tbl_service_provider` WHERE `provider_id`='$pid'";
+  $result = mysqli_query($con, $query);
+  $row = mysqli_fetch_array($result);
+  $uid = $row['User_ID'];
 
-$query = "SELECT * FROM `tbl_user` WHERE `User_ID`='$uid'";
-$result = mysqli_query($con, $query);
-$row = mysqli_fetch_array($result);
+  $query = "UPDATE `tbl_user` SET `User_Type`='provider' WHERE `User_ID`='$uid'";
+  $result = mysqli_query($con, $query);
 
-$mail1=$row['Email'];
-//mailer
-try_again:
+  $query = "SELECT * FROM `tbl_user` WHERE `User_ID`='$uid'";
+  $result = mysqli_query($con, $query);
+  $row = mysqli_fetch_array($result);
 
-$fname = $row['First_Name'];
-$lname = $row['Last_Name'];
+  $mail1 = $row['Email'];
+  //mailer
+  try_again:
 
-$mail = new PHPMailer;
+  $fname = $row['First_Name'];
+  $lname = $row['Last_Name'];
 
-// Set up SMTP configuration
-$mail->isHTML(true);
-$mail->isSMTP();
-$mail->Host = 'smtp.gmail.com';
-$mail->SMTPAuth = true;
-$mail->Username = 'mail.prohomes@gmail.com';
-$mail->Password = 'soxizaywlhblgsqu';
-$mail->SMTPSecure = 'tls';
-$mail->Port = 587;
+  $mail = new PHPMailer;
 
-$ffname = ucfirst($fname);
-$llname = ucfirst($lname);
+  // Set up SMTP configuration
+  $mail->isHTML(true);
+  $mail->isSMTP();
+  $mail->Host = 'smtp.gmail.com';
+  $mail->SMTPAuth = true;
+  $mail->Username = 'mail.prohomes@gmail.com';
+  $mail->Password = 'soxizaywlhblgsqu';
+  $mail->SMTPSecure = 'tls';
+  $mail->Port = 587;
 
-$fullname = "$ffname $llname";
+  $ffname = ucfirst($fname);
+  $llname = ucfirst($lname);
 
-// Set up email details
-$mail->setFrom('mail.prohomes@gmail.com', 'Pro Homes');
-$mail->addAddress($mail1, $fullname);
-$mail->Subject = 'Service Provider request Update';
-$mail->Body = '<!doctype html>
+  $fullname = "$ffname $llname";
+
+  // Set up email details
+  $mail->setFrom('mail.prohomes@gmail.com', 'Pro Homes');
+  $mail->addAddress($mail1, $fullname);
+  $mail->Subject = 'Service Provider request Update';
+  $mail->Body = '<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -158,10 +162,15 @@ $mail->Body = '<!doctype html>
 </html>
 ';
 
-if (!$mail->send()) {
+  if (!$mail->send()) {
     goto try_again;
-} else {
+  } else {
     header("Location: admin_verify_request.php");
+  }
+  mysqli_close($con);
+} catch (Exception $e) {
+  // Redirect the user to a 404 page
+  header("Location: 404.html");
+  exit();
 }
-mysqli_close($con);
 ?>

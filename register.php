@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -8,53 +9,58 @@ require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
 include("connection.php");
 
+try {
+  $fname = trim($_POST["fname"]);
+  $lname = trim($_POST["lname"]);
+  $uname = trim($_POST["uname"]);
+  $mail1 = trim($_POST["email"]);
+  $pass = trim($_POST["pass"]);
+  $hashed_pass = password_hash($pass, PASSWORD_DEFAULT);
 
-$fname = trim($_POST["fname"]);
-$lname = trim($_POST["lname"]);
-$uname = trim($_POST["uname"]);
-$mail1 = trim($_POST["email"]);
-$pass = trim($_POST["pass"]);
-$hashed_pass = password_hash($pass, PASSWORD_DEFAULT);
+  $phone = $_POST["phone"];
+  $pic = $_FILES["p_pic"]["name"];
+  $city = $_POST["city"];
+  $code = rand(10000, 99999);
 
-$phone = $_POST["phone"];
-$pic = $_FILES["p_pic"]["name"];
-$city = $_POST["city"];
-$code = rand(10000, 99999);
-
-$query = "INSERT INTO `tbl_user`(`First_Name`, `Last_Name`, `Username`, `Email`, `Password`, `Phone_Number`, `Profile_Picture`, `City`, `User_Type`, `Verification_status`) 
+  $query = "INSERT INTO `tbl_user`(`First_Name`, `Last_Name`, `Username`, `Email`, `Password`, `Phone_Number`, `Profile_Picture`, `City`, `User_Type`, `Verification_status`) 
 VALUES ('$fname','$lname','$uname','$mail1','$hashed_pass','$phone','$pic','$city','Customer','$code')";
-$result = mysqli_query($con, $query);
+  $result = mysqli_query($con, $query);
+  if (!$result) {
+    // Redirect to 404 page
+    header("Location: 404.html");
+    exit();
+  }
+  
+  if ($result) {
+    $target = "uploaded files/Profile Pictures/" . $pic;
+    move_uploaded_file($_FILES["p_pic"]["tmp_name"], $target);
+  }
+  try_again:
 
-if ($result) {
-$target = "uploaded files/Profile Pictures/" . $pic;
-move_uploaded_file($_FILES["p_pic"]["tmp_name"], $target);
-}
-try_again:
 
+  //mailer start
+  $mail = new PHPMailer;
 
-//mailer start
-$mail = new PHPMailer;
+  // Set up SMTP configuration
+  $mail->isHTML(true);
+  $mail->isSMTP();
+  $mail->Host = 'smtp.gmail.com';
+  $mail->SMTPAuth = true;
+  $mail->Username = 'mail.prohomes@gmail.com';
+  $mail->Password = 'soxizaywlhblgsqu';
+  $mail->SMTPSecure = 'tls';
+  $mail->Port = 587;
 
-// Set up SMTP configuration
-$mail->isHTML(true);
-$mail->isSMTP();
-$mail->Host = 'smtp.gmail.com';
-$mail->SMTPAuth = true;
-$mail->Username = 'mail.prohomes@gmail.com';
-$mail->Password = 'soxizaywlhblgsqu';
-$mail->SMTPSecure = 'tls';
-$mail->Port = 587;
+  $ffname = ucfirst($fname);
+  $llname = ucfirst($lname);
 
-$ffname = ucfirst($fname);
-$llname = ucfirst($lname);
+  $fullname = "$ffname $llname";
 
-$fullname = "$ffname $llname";
-
-// Set up email details
-$mail->setFrom('mail.prohomes@gmail.com', 'Pro Homes');
-$mail->addAddress($mail1, $fullname);
-$mail->Subject = 'Verification Code Pro Homes';
-$mail->Body = '<!doctype html>
+  // Set up email details
+  $mail->setFrom('mail.prohomes@gmail.com', 'Pro Homes');
+  $mail->addAddress($mail1, $fullname);
+  $mail->Subject = 'Verification Code Pro Homes';
+  $mail->Body = '<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -153,11 +159,16 @@ $mail->Body = '<!doctype html>
   </body>
 </html>';
 
-if (!$mail->send()) {
-  goto try_again;
-} else {
-  $_SESSION['uname'] = $uname;
-  header("Location: validate_email.php");
+  if (!$mail->send()) {
+    goto try_again;
+  } else {
+    $_SESSION['uname'] = $uname;
+    header("Location: validate_email.php");
+  }
+} catch (Exception $e) {
+  // Redirect the user to a 404 page
+  header("Location: 404.html");
+  exit();
 }
-
+?>
 ?>
