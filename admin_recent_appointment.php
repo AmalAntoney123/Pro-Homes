@@ -17,7 +17,7 @@ if (isset($_SESSION["l_id"])) {
     }
     if ($row["User_Type"] != "Admin")
         header("location:signin.php");
-    ?>
+?>
 
     <!DOCTYPE html>
     <html lang="en">
@@ -47,7 +47,7 @@ if (isset($_SESSION["l_id"])) {
 
         <!-- Customized Bootstrap Stylesheet -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="assets/css/scrollbar.css"/>
+        <link rel="stylesheet" href="assets/css/scrollbar.css" />
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
         <link rel="stylesheet" href="assets/css/ollie.css">
@@ -60,40 +60,48 @@ if (isset($_SESSION["l_id"])) {
         </style>
 
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <link
-            href="https://cdn.datatables.net/v/bs4/dt-1.13.2/b-2.3.4/cr-1.6.1/date-1.3.0/fh-3.3.1/r-2.4.0/sc-2.1.0/sb-1.4.0/sp-2.1.1/sl-1.6.0/sr-1.2.1/datatables.min.css" />
+        <link href="https://cdn.datatables.net/v/bs4/dt-1.13.2/b-2.3.4/cr-1.6.1/date-1.3.0/fh-3.3.1/r-2.4.0/sc-2.1.0/sb-1.4.0/sp-2.1.1/sl-1.6.0/sr-1.2.1/datatables.min.css" />
 
-        <script
-            src="https://cdn.datatables.net/v/bs4/dt-1.13.2/b-2.3.4/cr-1.6.1/date-1.3.0/fh-3.3.1/r-2.4.0/sc-2.1.0/sb-1.4.0/sp-2.1.1/sl-1.6.0/sr-1.2.1/datatables.min.js"></script>
+        <script src="https://cdn.datatables.net/v/bs4/dt-1.13.2/b-2.3.4/cr-1.6.1/date-1.3.0/fh-3.3.1/r-2.4.0/sc-2.1.0/sb-1.4.0/sp-2.1.1/sl-1.6.0/sr-1.2.1/datatables.min.js"></script>
 
         <script>
-            $(document).ready(function () {
-                $('#tbl_servie_prov').DataTable();
+            $(document).ready(function() {
+                $('#tbl_user_mgt').DataTable();
+            });
+            $(document).ready(function() {
+                $('.toggle-switch').on('change', function() {
+                    var userId = $(this).data('userid');
+                    var isEnabled = $(this).prop('checked');
+                    $.ajax({
+                        type: 'POST',
+                        url: 'update-status.php',
+                        data: {
+                            id: userId,
+                            enabled: isEnabled ? 1 : 0 // convert boolean to integer
+                        },
+                        success: function(response) {},
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            // handle error response
+                        }
+                    });
+                });
             });
         </script>
         <script>
             //Load table
-            $(document).ready(function () {
-                // load the initial table data
-                load_data();
-                function load_data() {
-                    $.ajax({
-                        url: "fetch_verification_table.php",
-                        method: "POST",
-                        success: function (data) {
-                            $('#tbl_servie_prov').html(data);
-                        }
-                    });
-                }
-            });
-
-        </script>
-        <script>
-            function disableSubmit() {
-                document.getElementById("sub").disabled = true;
-                $('#signup_loader').show()
-                $('.signup_text').hide()
-            }
+            // $(document).ready(function () {
+            //     // load the initial table data
+            //     load_data();
+            //     function load_data() {
+            //         $.ajax({
+            //             url: "fetch_user_table.php",
+            //             method: "POST",
+            //             success: function (data) {
+            //                 $('#tbl_user_mgt').html(data);
+            //             }
+            //         });
+            //     }
+            // });
         </script>
 
     </head>
@@ -101,8 +109,7 @@ if (isset($_SESSION["l_id"])) {
     <body>
         <div class="container-xxl position-relative bg-white d-flex p-0">
             <!-- Spinner Start -->
-            <div id="spinner"
-                class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
                 <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
@@ -118,10 +125,8 @@ if (isset($_SESSION["l_id"])) {
                     </a>
                     <div class="d-flex align-items-center ms-4 mb-4">
                         <div class="position-relative">
-                            <img class="rounded-circle" src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt=""
-                                style="width: 40px; height: 40px; object-fit:cover;">
-                            <div
-                                class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
+                            <img class="rounded-circle" src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt="" style="width: 40px; height: 40px; object-fit:cover;">
+                            <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                             </div>
                         </div>
                         <div class="ms-3">
@@ -132,20 +137,17 @@ if (isset($_SESSION["l_id"])) {
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
-                        <a href="admin_index.php" class="nav-item nav-link"><i
-                                class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                        <a href="admin_index.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i
-                                    class="fa fa-briefcase me-2"></i>Services</a>
-                            <div class="dropdown-menu bg-transparent border-0 active">
-                                <a href="verify_request.php" class="dropdown-item active">Verify Providers</a>
-                                <a href="admin_recent_appointment.php" class="dropdown-item">Recent Appoinments</a>
+                            <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="fa fa-briefcase me-2"></i>Services</a>
+                            <div class="dropdown-menu bg-transparent border-0">
+                                <a href="admin_verify_request.php" class="dropdown-item">Verify Providers</a>
+                                <a href="admin_recent_appointment.php" class="dropdown-item active">Recent Appoinments</a>
                                 <a href="admin_list_provider.php" class="dropdown-item">List Providers</a>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                    class="fa fa-user me-2"></i>Users</a>
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-user me-2"></i>Users</a>
                             <div class="dropdown-menu bg-transparent border-0">
                                 <a href="admin_manage_user.php" class="dropdown-item">Manage Users</a>
                                 <a href="signup.html" class="dropdown-item">Feedbacks</a>
@@ -153,8 +155,7 @@ if (isset($_SESSION["l_id"])) {
                             </div>
                         </div>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                    class="fa fa-file me-2"></i>Pages</a>
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-file me-2"></i>Pages</a>
                             <div class="dropdown-menu bg-transparent border-0">
                                 <a href="index.php" class="dropdown-item">Home</a>
                                 <a href="signin.php" class="dropdown-item">Signin</a>
@@ -187,8 +188,7 @@ if (isset($_SESSION["l_id"])) {
                             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                                 <a href="#" class="dropdown-item">
                                     <div class="d-flex align-items-center">
-                                        <img class="rounded-circle" src="img/user.jpg" alt=""
-                                            style="width: 40px; height: 40px;">
+                                        <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
                                         <div class="ms-2">
                                             <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                             <small>15 minutes ago</small>
@@ -198,8 +198,7 @@ if (isset($_SESSION["l_id"])) {
                                 <hr class="dropdown-divider">
                                 <a href="#" class="dropdown-item">
                                     <div class="d-flex align-items-center">
-                                        <img class="rounded-circle" src="img/user.jpg" alt=""
-                                            style="width: 40px; height: 40px;">
+                                        <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
                                         <div class="ms-2">
                                             <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                             <small>15 minutes ago</small>
@@ -209,8 +208,7 @@ if (isset($_SESSION["l_id"])) {
                                 <hr class="dropdown-divider">
                                 <a href="#" class="dropdown-item">
                                     <div class="d-flex align-items-center">
-                                        <img class="rounded-circle" src="img/user.jpg" alt=""
-                                            style="width: 40px; height: 40px;">
+                                        <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
                                         <div class="ms-2">
                                             <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                             <small>15 minutes ago</small>
@@ -247,9 +245,7 @@ if (isset($_SESSION["l_id"])) {
                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <img class="rounded-circle me-lg-2"
-                                    src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt=""
-                                    style="width: 40px; height: 40px; object-fit:cover;">
+                                <img class="rounded-circle me-lg-2" src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt="" style="width: 40px; height: 40px; object-fit:cover;">
                                 <span class="d-none d-lg-inline-flex">
                                     <?php echo "$fname $lname"; ?>
                                 </span>
@@ -264,15 +260,57 @@ if (isset($_SESSION["l_id"])) {
                 </nav>
                 <!-- Navbar End -->
 
-
+                <?php
+                $query = "SELECT r.Appointment_Date, r.Service_Description, p.Amount, p.Payment_Status, u.First_Name, u.Last_Name
+                FROM tbl_service_request r
+                    JOIN tbl_payment p ON r.Request_ID = p.Request_ID
+                    JOIN tbl_service_provider s ON r.Provider_ID = s.Provider_ID
+                    JOIN tbl_user u ON r.User_ID = u.User_ID
+                        WHERE r.Status = 'completed'";
+                $result = mysqli_query($con, $query);
+                ?>
                 <!-- Blank Start -->
                 <div class="container-fluid pt-4 px-4">
-                    <div class="row vh-100 rounded align-items-center justify-content-center mx-0">
-                        <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">Verification Requests</h6>
-                            <table class="table table-striped table-hover" id="tbl_servie_prov">
-
-                            </table>
+                    <div class="row  rounded align-items-center justify-content-center mx-0">
+                        <div class="bg-light text-center rounded p-4 mt-4">
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <h6 class="mb-0">Recent Services</h6>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                                    <thead>
+                                        <tr class="text-dark">
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Invoice</th>
+                                            <th scope="col">Customer</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        // Display data in table rows
+                                        if ($result->num_rows > 0) {
+                                            while ($row = $result->fetch_assoc()) {
+                                        ?>
+                                                <tr>
+                                                    <td><?php echo $row["Appointment_Date"]; ?></td>
+                                                    <td><?php echo "INV-" . rand(1000, 9999); ?></td>
+                                                    <td><?php echo $row["First_Name"] . " " . $row["Last_Name"]; ?></td>
+                                                    <td><?php echo "$" . $row["Amount"]; ?></td>
+                                                    <td><?php echo $row["Payment_Status"]; ?></td>
+                                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                                                </tr>
+                                        <?php
+                                            }
+                                        } else {
+                                            echo "<tr><td colspan='6'>No sales found.</td></tr>";
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -318,7 +356,7 @@ if (isset($_SESSION["l_id"])) {
 
     </html>
 
-    <?php
+<?php
 } else {
     header("location:signin.php");
 }

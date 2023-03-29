@@ -17,11 +17,11 @@ if (isset($_SESSION["l_id"])) {
     }
     if ($row["User_Type"] != "Admin")
         header("location:signin.php");
-    ?>
+?>
     <style>
         .dropdown-item:hover,
         .dropdown-item:focus {
-            background-color: white!important;
+            background-color: white !important;
         }
     </style>
     <!DOCTYPE html>
@@ -52,7 +52,7 @@ if (isset($_SESSION["l_id"])) {
 
         <!-- Customized Bootstrap Stylesheet -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="assets/css/scrollbar.css"/>
+        <link rel="stylesheet" href="assets/css/scrollbar.css" />
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
         <link rel="stylesheet" href="assets/css/ollie.css">
@@ -61,8 +61,7 @@ if (isset($_SESSION["l_id"])) {
     <body>
         <div class="container-xxl position-relative bg-white d-flex p-0">
             <!-- Spinner Start -->
-            <div id="spinner"
-                class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
                 <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
@@ -78,10 +77,8 @@ if (isset($_SESSION["l_id"])) {
                     </a>
                     <div class="d-flex align-items-center ms-4 mb-4">
                         <div class="position-relative">
-                            <img class="rounded-circle" src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt=""
-                                style="width: 40px; height: 40px; object-fit:cover;">
-                            <div
-                                class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
+                            <img class="rounded-circle" src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt="" style="width: 40px; height: 40px; object-fit:cover;">
+                            <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                             </div>
                         </div>
                         <div class="ms-3">
@@ -92,20 +89,17 @@ if (isset($_SESSION["l_id"])) {
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
-                        <a href="admin_index.php" class="nav-item nav-link active"><i
-                                class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                        <a href="admin_index.php" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                    class="fa fa-briefcase me-2"></i>Services</a>
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-briefcase me-2"></i>Services</a>
                             <div class="dropdown-menu bg-transparent border-0">
                                 <a href="admin_verify_request.php" class="dropdown-item">Verify Providers</a>
-                                <a href="typography.html" class="dropdown-item">Recent Appoinments</a>
+                                <a href="admin_recent_appointment.php" class="dropdown-item">Recent Appoinments</a>
                                 <a href="element.html" class="dropdown-item">List Providers</a>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                    class="fa fa-user me-2"></i>Users</a>
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-user me-2"></i>Users</a>
                             <div class="dropdown-menu bg-transparent border-0">
                                 <a href="admin_manage_user.php" class="dropdown-item">Manage Users</a>
                                 <a href="#" class="dropdown-item">Feedbacks</a>
@@ -113,9 +107,8 @@ if (isset($_SESSION["l_id"])) {
                             </div>
                         </div>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                    class="fa fa-file me-2"></i>Pages</a>
-                            <div class="dropdown-menu bg-transparent border-0">               
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-file me-2"></i>Pages</a>
+                            <div class="dropdown-menu bg-transparent border-0">
                                 <a href="index.php" class="dropdown-item">Home</a>
                                 <a href="signin.php" class="dropdown-item">Signin</a>
                                 <a href="signup.html" class="dropdown-item">Signup</a>
@@ -148,8 +141,7 @@ if (isset($_SESSION["l_id"])) {
                             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                                 <a href="#" class="dropdown-item">
                                     <div class="d-flex align-items-center">
-                                        <img class="rounded-circle" src="img/user.jpg" alt=""
-                                            style="width: 40px; height: 40px;">
+                                        <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
                                         <div class="ms-2">
                                             <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                             <small>15 minutes ago</small>
@@ -159,8 +151,7 @@ if (isset($_SESSION["l_id"])) {
                                 <hr class="dropdown-divider">
                                 <a href="#" class="dropdown-item">
                                     <div class="d-flex align-items-center">
-                                        <img class="rounded-circle" src="img/user.jpg" alt=""
-                                            style="width: 40px; height: 40px;">
+                                        <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
                                         <div class="ms-2">
                                             <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                             <small>15 minutes ago</small>
@@ -170,8 +161,7 @@ if (isset($_SESSION["l_id"])) {
                                 <hr class="dropdown-divider">
                                 <a href="#" class="dropdown-item">
                                     <div class="d-flex align-items-center">
-                                        <img class="rounded-circle" src="img/user.jpg" alt=""
-                                            style="width: 40px; height: 40px;">
+                                        <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
                                         <div class="ms-2">
                                             <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                             <small>15 minutes ago</small>
@@ -208,9 +198,7 @@ if (isset($_SESSION["l_id"])) {
                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <img class="rounded-circle me-lg-2"
-                                    src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt=""
-                                    style="width: 40px; height: 40px; object-fit:cover;">
+                                <img class="rounded-circle me-lg-2" src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt="" style="width: 40px; height: 40px; object-fit:cover;">
                                 <span class="d-none d-lg-inline-flex">
                                     <?php echo "$fname $lname"; ?>
                                 </span>
@@ -228,47 +216,100 @@ if (isset($_SESSION["l_id"])) {
 
                 <!-- Blank Start -->
                 <div class="container-fluid pt-4 px-4">
-                    
-                <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <?php 
-                        $query="SELECT * FROM `tbl_user` WHERE `User_Type` NOT LIKE 'Admin'";
-                        $result=mysqli_query($con,$query);
-                        $users_count=mysqli_num_rows($result);
-                        $query="SELECT * FROM `tbl_user` WHERE `User_Type` LIKE 'provider'";
-                        $result=mysqli_query($con,$query);
-                        $provider_count=mysqli_num_rows($result);
-                    ?>
-                    <div class="col-sm-6 col-xl-4">
-                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-line fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Total Users</p>
-                                <h6 class="mb-0"><?php echo $users_count; ?></h6>
+
+                    <div class="container-fluid pt-4 px-4">
+                        <div class="row g-4">
+                            <?php
+                            $query = "SELECT * FROM `tbl_user` WHERE `User_Type` NOT LIKE 'Admin'";
+                            $result = mysqli_query($con, $query);
+                            $users_count = mysqli_num_rows($result);
+
+                            $query = "SELECT * FROM `tbl_user` WHERE `User_Type` LIKE 'provider'";
+                            $result = mysqli_query($con, $query);
+                            $provider_count = mysqli_num_rows($result);
+
+                            $query = "SELECT * FROM `tbl_service_request` WHERE `Status` LIKE 'completed'";
+                            $result = mysqli_query($con, $query);
+                            $service_count = mysqli_num_rows($result);
+
+                            $query = "SELECT r.Appointment_Date, r.Service_Description, p.Amount, p.Payment_Status, u.First_Name, u.Last_Name
+                                        FROM tbl_service_request r
+                                            JOIN tbl_payment p ON r.Request_ID = p.Request_ID
+                                            JOIN tbl_service_provider s ON r.Provider_ID = s.Provider_ID
+                                            JOIN tbl_user u ON r.User_ID = u.User_ID
+                                                WHERE r.Status = 'completed' LIMIT 5";
+                            $result = mysqli_query($con, $query);
+                            ?>
+                            <div class="col-sm-6 col-xl-4">
+                                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                                    <i class="fa fa-chart-line fa-3x text-primary"></i>
+                                    <div class="ms-3">
+                                        <p class="mb-2">Total Users</p>
+                                        <h6 class="mb-0"><?php echo $users_count; ?></h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-xl-4">
+                                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                                    <i class="fa fa-chart-bar fa-3x text-primary"></i>
+                                    <div class="ms-3">
+                                        <p class="mb-2">Total Service Providers</p>
+                                        <h6 class="mb-0"><?php echo $provider_count; ?></h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-xl-4">
+                                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                                    <i class="fa fa-chart-area fa-3x text-primary"></i>
+                                    <div class="ms-3">
+                                        <p class="mb-2">Total Services</p>
+                                        <h6 class="mb-0"><?= $service_count ?></h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-light text-center rounded p-4 mt-4">
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <h6 class="mb-0">Recent Services</h6>
+                                <a href="admin_recent_appointment.php">Show All</a>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                                    <thead>
+                                        <tr class="text-dark">
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Invoice</th>
+                                            <th scope="col">Customer</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        // Display data in table rows
+                                        if ($result->num_rows > 0) {
+                                            while ($row = $result->fetch_assoc()) {
+                                        ?>
+                                                <tr>
+                                                    <td><?php echo $row["Appointment_Date"]; ?></td>
+                                                    <td><?php echo "INV-" . rand(1000, 9999); ?></td>
+                                                    <td><?php echo $row["First_Name"] . " " . $row["Last_Name"]; ?></td>
+                                                    <td><?php echo "$" . $row["Amount"]; ?></td>
+                                                    <td><?php echo $row["Payment_Status"]; ?></td>
+                                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                                                </tr>
+                                        <?php
+                                            }
+                                        } else {
+                                            echo "<tr><td colspan='6'>No sales found.</td></tr>";
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-xl-4">
-                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-bar fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Total Service Providers</p>
-                                <h6 class="mb-0"><?php echo $provider_count; ?></h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-xl-4">
-                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-area fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Total Services</p>
-                                <h6 class="mb-0">0</h6>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
                 </div>
                 <!-- Blank End -->
 
