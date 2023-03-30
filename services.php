@@ -193,27 +193,37 @@ include("connection.php"); ?>
           <div class="p-3">
             <!-- Sidebar (desktop) -->
             <div class="btn-group-vertical mb-3 collapse d-md-block justify-content-center" style="height: 200vh;">
+
               <form action="#" method="GET">
                 <h3>Filters</h3>
+                <hr>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="searchBar" name="search" placeholder="Search...">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="submit" name="sub_search">Search</button>
+                    </div>
+                  </div>
+                </div>
                 <hr>
                 <h5>City</h5>
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="kochi" id="defaultCheck1" name="city[]" <?php
-                                                                                                                  if (isset($_SESSION['city_filter']) && in_array('kochi', $_SESSION['city_filter']))
+                                                                                                                  if (isset($_REQUEST['city']) && in_array('kochi', $_REQUEST['city']))
                                                                                                                     echo "checked" ?>>
                   <label class="form-check-label" for="defaultCheck1">
                     Kochi
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="kottayam" id="defaultCheck2" name="city[]" <?php if (isset($_SESSION['city_filter']) && in_array('kottayam', $_SESSION['city_filter']))
+                  <input class="form-check-input" type="checkbox" value="kottayam" id="defaultCheck2" name="city[]" <?php if (isset($_REQUEST['city']) && in_array('kottayam', $_REQUEST['city']))
                                                                                                                       echo "checked" ?>>
                   <label class="form-check-label" for="defaultCheck2">
                     Kottayam
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="trivandrum" id="defaultCheck3" name="city[]" <?php if (isset($_SESSION['city_filter']) && in_array('trivandrum', $_SESSION['city_filter']))
+                  <input class="form-check-input" type="checkbox" value="trivandrum" id="defaultCheck3" name="city[]" <?php if (isset($_REQUEST['city']) && in_array('trivandrum', $_REQUEST['city']))
                                                                                                                         echo "checked" ?>>
                   <label class="form-check-label" for="defaultCheck3">
                     Trivandrum
@@ -221,7 +231,7 @@ include("connection.php"); ?>
                 </div>
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="calicut" id="defaultCheck4" name="city[]" <?php
-                                                                                                                    if (isset($_SESSION['city_filter']) && in_array('calicut', $_SESSION['city_filter']))
+                                                                                                                    if (isset($_REQUEST['city']) && in_array('calicut', $_REQUEST['city']))
                                                                                                                       echo "checked" ?>>
                   <label class="form-check-label" for="defaultCheck4">
                     Calicut
@@ -230,13 +240,13 @@ include("connection.php"); ?>
                 <hr>
                 <h5>Price Range</h5>
                 <div class="form-group">
-                  <input type="range" value="<?php if (isset($_SESSION['price_filter']))
-                                                echo $_SESSION['price_filter'];
+                  <input type="range" value="<?php if (isset($_REQUEST['pricefilter']))
+                                                echo $_REQUEST['pricefilter'];
                                               else
                                                 echo '0' ?>" class="form-control-range" id="priceRange" min="0" step="50" max="2000" name="pricefilter" oninput="this.nextElementSibling.value = this.value">
                   <output id="rangeValue">
-                    <?php if (isset($_SESSION['price_filter']))
-                      echo $_SESSION['price_filter']; ?>
+                    <?php if (isset($_REQUEST['pricefilter']))
+                      echo $_REQUEST['pricefilter']; ?>
                   </output><span>₹</span>
                 </div>
                 <hr>
@@ -247,7 +257,7 @@ include("connection.php"); ?>
 
                   <?php echo '<div class="form-check">
                                   <input class="form-check-input" name="service_filter[]" type="checkbox" value="' . $tbl_service['Service_Name'] . '" id="sizeCheck3" ';
-                  if (isset($_SESSION['service_filter']) && in_array($tbl_service['Service_Name'], $_SESSION['service_filter']))
+                  if (isset($_REQUEST['service_filter']) && in_array($tbl_service['Service_Name'], $_REQUEST['service_filter']))
                     echo "checked";
                   echo '>
                                   <label class="form-check-label" for="sizeCheck3">
@@ -272,27 +282,36 @@ include("connection.php"); ?>
             <!-- Sidebar (mobile) -->
             <div class="collapse d-lg-none w-100" id="sidebar">
               <div class="btn-group-vertical">
+                <div class="form-group">
+                  <label for="searchBar">Search:</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="searchBar" name="search" placeholder="Search...">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="submit" name="sub_search">Search</button>
+                    </div>
+                  </div>
+                </div>
                 <form action="#" method="GET">
                   <h3>Filters</h3>
                   <hr>
                   <h5>City</h5>
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="kochi" id="defaultCheck1" name="city[]" <?php
-                                                                                                                    if (isset($_SESSION['city_filter']) && in_array('kochi', $_SESSION['city_filter']))
+                                                                                                                    if (isset($_REQUEST['city']) && in_array('kochi', $_REQUEST['city']))
                                                                                                                       echo "checked" ?>>
                     <label class="form-check-label" for="defaultCheck1">
                       Kochi
                     </label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="kottayam" id="defaultCheck2" name="city[]" <?php if (isset($_SESSION['city_filter']) && in_array('kottayam', $_SESSION['city_filter']))
+                    <input class="form-check-input" type="checkbox" value="kottayam" id="defaultCheck2" name="city[]" <?php if (isset($_REQUEST['city']) && in_array('kottayam', $_REQUEST['city']))
                                                                                                                         echo "checked" ?>>
                     <label class="form-check-label" for="defaultCheck2">
                       Kottayam
                     </label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="trivandrum" id="defaultCheck3" name="city[]" <?php if (isset($_SESSION['city_filter']) && in_array('trivandrum', $_SESSION['city_filter']))
+                    <input class="form-check-input" type="checkbox" value="trivandrum" id="defaultCheck3" name="city[]" <?php if (isset($_REQUEST['city']) && in_array('trivandrum', $_REQUEST['city']))
                                                                                                                           echo "checked" ?>>
                     <label class="form-check-label" for="defaultCheck3">
                       Trivandrum
@@ -300,7 +319,7 @@ include("connection.php"); ?>
                   </div>
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="calicut" id="defaultCheck4" name="city[]" <?php
-                                                                                                                      if (isset($_SESSION['city_filter']) && in_array('calicut', $_SESSION['city_filter']))
+                                                                                                                      if (isset($_REQUEST['city']) && in_array('calicut', $_REQUEST['city']))
                                                                                                                         echo "checked" ?>>
                     <label class="form-check-label" for="defaultCheck4">
                       Calicut
@@ -309,13 +328,13 @@ include("connection.php"); ?>
                   <hr>
                   <h5>Price Range</h5>
                   <div class="form-group">
-                    <input type="range" value="<?php if (isset($_SESSION['price_filter']))
-                                                  echo $_SESSION['price_filter'];
+                    <input type="range" value="<?php if (isset($_REQUEST['pricefilter']))
+                                                  echo $_REQUEST['pricefilter'];
                                                 else
                                                   echo '0' ?>" class="form-control-range" id="priceRange" min="0" step="50" max="2000" name="pricefilter" oninput="this.nextElementSibling.value = this.value">
                     <output id="rangeValue">
-                      <?php if (isset($_SESSION['price_filter']))
-                        echo $_SESSION['price_filter']; ?>
+                      <?php if (isset($_REQUEST['pricefilter']))
+                        echo $_REQUEST['pricefilter']; ?>
                     </output><span>₹</span>
                   </div>
                   <hr>
@@ -326,7 +345,7 @@ include("connection.php"); ?>
 
                     <?php echo '<div class="form-check">
                                   <input class="form-check-input" name="service_filter[]" type="checkbox" value="' . $tbl_service['Service_Name'] . '" id="sizeCheck3" ';
-                    if (isset($_SESSION['service_filter']) && in_array($tbl_service['Service_Name'], $_SESSION['service_filter']))
+                    if (isset($_REQUEST['service_filter']) && in_array($tbl_service['Service_Name'], $_REQUEST['service_filter']))
                       echo "checked";
                     echo '>
                                   <label class="form-check-label" for="sizeCheck3">
@@ -362,7 +381,7 @@ include("connection.php"); ?>
               Price <i class="fas fa-sort"></i>
             </label>
           </div>
- 
+
           <!-- Main content -->
           <!-- Product Listing -->
           <div class="col-12">
