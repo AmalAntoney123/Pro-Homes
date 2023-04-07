@@ -295,7 +295,7 @@ if (isset($_SESSION["l_id"])) {
                                                     <td><?php echo $row["Appointment_Date"]; ?></td>
                                                     <td><?php echo "INV-" . rand(1000, 9999); ?></td>
                                                     <td><?php echo $row["First_Name"] . " " . $row["Last_Name"]; ?></td>
-                                                    <td><?php echo "$" . $row["Amount"]; ?></td>
+                                                    <td><?php echo "₹" . $row["Amount"]; ?></td>
                                                     <td><?php echo $row["Payment_Status"]; ?></td>
                                                     <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
                                                 </tr>

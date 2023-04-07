@@ -110,7 +110,9 @@
             <li class="nav-item">
               <a class="nav-link mt-2" href="index.php">Home</a>
             </li>
-
+            <li class="nav-item">
+              <a class="nav-link mt-2" href="services.php">Find Service</a>
+            </li>
 
             <div class="nav-item dropdown ">
               <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">

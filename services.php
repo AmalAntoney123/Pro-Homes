@@ -367,7 +367,7 @@ include("connection.php"); ?>
           </div>
         </div>
         <div class="col-lg-9 col-md-9">
-          <div class="btn-group btn-group-toggle d-flex justify-content-center" data-toggle="buttons">
+          <!-- <div class="btn-group btn-group-toggle d-flex justify-content-center" data-toggle="buttons">
             <label class="btn btn-secondary rounded-0 active mr-2">
               <input type="radio" name="options" id="option1" autocomplete="off" checked>
               Name <i class="fas fa-sort"></i>
@@ -380,7 +380,7 @@ include("connection.php"); ?>
               <input type="radio" name="options" id="option3" autocomplete="off">
               Price <i class="fas fa-sort"></i>
             </label>
-          </div>
+          </div> -->
 
           <!-- Main content -->
           <!-- Product Listing -->

@@ -298,7 +298,7 @@ if (isset($_SESSION["l_id"])) {
                                             $output .= '<td>' . $row['Appointment_Date'] . '</td>';
                                             $output .= '<td>' . $row['Appoinment_Start_Time'] . '</td>';
                                             $output .= '<td>' . $row['Appoinment_End_Time'] . '</td>';
-                                            $output .= '<td>' . $row['Amount'] . '</td>';
+                                            $output .= '<td>₹ ' . $row['Amount'] . '</td>';
                                             $output .= '<td>' . $row['Payment_Status'] . '</td>';
                                             $output .= '</tr>';
                                             $count++;

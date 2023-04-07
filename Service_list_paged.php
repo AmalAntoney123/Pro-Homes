@@ -142,7 +142,7 @@ if(isset($_REQUEST['sub_unset']))
             $output .= '<p class="text-justify text-truncate para mb-0">' . $row['Service_Desc'] . '<br><br></p>';
             $output .= '</div>';
             $output .= '<div class="align-items-center align-content-center col-md-3 border-left mt-1">';
-            $output .= '<div class="d-flex flex-row align-items-center"><h4 class="mr-1">' . $row['Price'] . '</h4><span class="">/ hr</span></div><h6 class="text-success">Blank</h6>';
+            $output .= '<div class="d-flex flex-row align-items-center"><h4 class="mr-1">' . $row['Price'] . '</h4><span class="">/ hr</span></div><h6 class="text-success"></h6>';
             $output .= '<div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#providerModal' . $row['User_ID'] . '">Details</button>
                             <button class="btn btn-outline-primary btn-sm mt-2" type="button" onclick="location.href=`book_now.php?id=' . $row['Provider_ID'] . '`">Book Now</button></div>';
             $output .= '</div></div>';

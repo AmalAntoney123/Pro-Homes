@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>ProHomes - House services</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="icon" href="assets/imgs/Logo.png" type="image/icon type">
 
     <!-- font icons -->
@@ -28,7 +27,7 @@
 
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $("#address-form").validate({
                 rules: {
                     pincode: {
@@ -99,17 +98,18 @@
     <nav id="scrollspy" class="navbar navbar-black bg-light navbar-expand-lg ">
         <div class="container">
             <a class="navbar-brand" href="index.php"><img src="assets/imgs/logo.png" alt="" class="brand-img"></a>
-            <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse"
-                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
+            <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon navbar-light"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link mt-2" href="services.php">Find Service</a>
+                    </li>
                     <?php
                     if (isset($_SESSION["l_id"])) {
-                        ?>
+                    ?>
                         <li class="nav-item">
                             <a class="nav-link mt-2" href="index.php">Home</a>
                         </li>
@@ -120,9 +120,7 @@
                                 <span class="d-none d-lg-inline-flex">
                                     <?php echo "$fname $lname"; ?>
                                 </span>
-                                <img class="rounded-circle ml-2 me-lg-2"
-                                    src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt=""
-                                    style="width: 40px; height: 40px; object-fit:cover;">
+                                <img class="rounded-circle ml-2 me-lg-2" src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt="" style="width: 40px; height: 40px; object-fit:cover;">
 
                             </a>
                             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
@@ -132,16 +130,16 @@
                             </div>
                         </div>
 
-                        <?php
+                    <?php
                     } else {
-                        ?>
+                    ?>
                         <li class="nav-item">
                             <a class="nav-link pb-2" href="index.php">Home</a>
                         </li>
                         <li class="nav-item ml-0 ml-lg-4">
                             <a class="nav-link btn btn-primary" href="signin.php">Login</a>
                         </li>
-                        <?php
+                    <?php
                     }
                     ?>
                 </ul>
@@ -151,7 +149,7 @@
 
     <?php
     if (isset($_SESSION["l_id"])) {
-        ?>
+    ?>
 
         <section>
             <div class="container">
@@ -167,8 +165,7 @@
                                                 <label for="house" class="col-md-4 col-lg-3 col-form-label">House/Flat
                                                     No:</label>
                                                 <div class="col-md-8 col-lg-9">
-                                                    <input name="house" type="text"
-                                                        class="form-control" id="house" required>
+                                                    <input name="house" type="text" class="form-control" id="house" required>
                                                     <div id="house-error" class="invalid-feedback"></div>
                                                 </div>
                                             </div>
@@ -176,8 +173,7 @@
                                             <div class="row mb-3">
                                                 <label for="street" class="col-md-4 col-lg-3 col-form-label">Street</label>
                                                 <div class="col-md-8 col-lg-9">
-                                                    <input name="street"
-                                                        type="text" class="form-control" id="street" required>
+                                                    <input name="street" type="text" class="form-control" id="street" required>
                                                     <div id="street-error" class="invalid-feedback"></div>
                                                 </div>
                                             </div>
@@ -196,27 +192,22 @@
                                             <div class="row mb-3">
                                                 <label for="state" class="col-md-4 col-lg-3 col-form-label">State</label>
                                                 <div class="col-md-8 col-lg-9">
-                                                    <input name="state" type="text" class="form-control" id="state"
-                                                        required>
+                                                    <input name="state" type="text" class="form-control" id="state" required>
                                                     <div id="state-error" class="invalid-feedback"></div>
                                                 </div>
                                             </div>
 
                                             <div class="row mb-3">
-                                                <label for="locality"
-                                                    class="col-md-4 col-lg-3 col-form-label">Locality</label>
+                                                <label for="locality" class="col-md-4 col-lg-3 col-form-label">Locality</label>
                                                 <div class="col-md-8 col-lg-9">
-                                                    <input name="locality" type="text" class="form-control" id="locality"
-                                                        required>
+                                                    <input name="locality" type="text" class="form-control" id="locality" required>
                                                     <div id="locality-error" class="invalid-feedback"></div>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
-                                                <label for="landmark"
-                                                    class="col-md-4 col-lg-3 col-form-label">Landmark</label>
+                                                <label for="landmark" class="col-md-4 col-lg-3 col-form-label">Landmark</label>
                                                 <div class="col-md-8 col-lg-9">
-                                                    <input name="landmark" type="text" class="form-control" id="landmark"
-                                                        required>
+                                                    <input name="landmark" type="text" class="form-control" id="landmark" required>
                                                     <div id="landmark-error" class="invalid-feedback"></div>
                                                 </div>
                                             </div>
@@ -225,8 +216,7 @@
                                                 <label for="pincode" class="col-md-4 col-lg-3 col-form-label">Pin
                                                     Code</label>
                                                 <div class="col-md-8 col-lg-9">
-                                                    <input name="pincode" type="number" class="form-control" id="pincode"
-                                                        required>
+                                                    <input name="pincode" type="number" class="form-control" id="pincode" required>
                                                     <div id="pincode-error" class="invalid-feedback"></div>
                                                 </div>
                                             </div>
@@ -295,11 +285,11 @@
 
 
 
-    </body>
-    <?php
+</body>
+<?php
     } else {
         header("location:signin.php");
     }
-    ?>
+?>
 
 </html>

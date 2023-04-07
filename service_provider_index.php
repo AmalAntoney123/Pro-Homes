@@ -95,7 +95,7 @@ if (isset($_SESSION["l_id"])) {
                             <h6 class="mb-0">
                                 <?php echo "$fname $lname"; ?>
                             </h6>
-                            <span><?=  $service_p['Service_Name']?></span>
+                            <span><?= $service_p['Service_Name'] ?></span>
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
@@ -210,10 +210,102 @@ if (isset($_SESSION["l_id"])) {
 
                 <!-- Blank Start -->
                 <div class="container-fluid pt-4 px-4">
-                    <div class="bg-light rounded-top p-4">
 
+                    <div class="container-fluid pt-4 px-4">
+                        <div class="row g-4">
+                            <?php
+                            $pid=$service_p['Provider_ID'];
+                            $query = "SELECT * FROM `tbl_service_request` WHERE `Provider_ID`='$pid'";
+                            $result = mysqli_query($con, $query);
+                            $service_num = mysqli_num_rows($result);
+
+                            $query = "SELECT SUM(Amount) as total_amount FROM `tbl_payment` WHERE `Provider_ID`='$pid'";
+                            $result = mysqli_query($con, $query);
+                            $sp_payment = mysqli_fetch_assoc($result);
+                            $money=$sp_payment['total_amount'];
+
+                            $query = "SELECT * FROM `tbl_service_provider_ratings` WHERE `Provider_ID`='$pid'";
+                            $result = mysqli_query($con, $query);
+                            $review_count = mysqli_num_rows($result);
+
+                            $query = "SELECT r.Appointment_Date, r.Service_Description, p.Amount, p.Payment_Status, u.First_Name, u.Last_Name
+                                        FROM tbl_service_request r
+                                            JOIN tbl_payment p ON r.Request_ID = p.Request_ID
+                                            JOIN tbl_service_provider s ON r.Provider_ID = s.Provider_ID
+                                            JOIN tbl_user u ON r.User_ID = u.User_ID
+                                                WHERE r.Status = 'completed' AND r.Provider_ID = '$pid' LIMIT 5";
+                            $result = mysqli_query($con, $query);
+                            ?>
+                            <div class="col-sm-6 col-xl-4">
+                                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                                    <i class="fa fa-chart-line fa-3x text-primary"></i>
+                                    <div class="ms-3">
+                                        <p class="mb-2">Total Services</p>
+                                        <h6 class="mb-0"><?php echo $service_num; ?></h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-xl-4">
+                                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                                    <i class="fa fa-chart-bar fa-3x text-primary"></i>
+                                    <div class="ms-3">
+                                        <p class="mb-2">Total Income</p>
+                                        <h6 class="mb-0">₹ <?php echo $money; ?></h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-xl-4">
+                                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                                    <i class="fa fa-chart-area fa-3x text-primary"></i>
+                                    <div class="ms-3">
+                                        <p class="mb-2">Total Reviews</p>
+                                        <h6 class="mb-0"><?= $review_count ?></h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-light text-center rounded p-4 mt-4">
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <h6 class="mb-0">Recent Services</h6>
+                                <a href="admin_recent_appointment.php">Show All</a>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                                    <thead>
+                                        <tr class="text-dark">
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Invoice</th>
+                                            <th scope="col">Customer</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        // Display data in table rows
+                                        if ($result->num_rows > 0) {
+                                            while ($row = $result->fetch_assoc()) {
+                                        ?>
+                                                <tr>
+                                                    <td><?php echo $row["Appointment_Date"]; ?></td>
+                                                    <td><?php echo "INV-" . rand(1000, 9999); ?></td>
+                                                    <td><?php echo $row["First_Name"] . " " . $row["Last_Name"]; ?></td>
+                                                    <td><?php echo "₹" . $row["Amount"]; ?></td>
+                                                    <td><?php echo $row["Payment_Status"]; ?></td>
+                                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                                                </tr>
+                                        <?php
+                                            }
+                                        } else {
+                                            echo "<tr><td colspan='6'>No sales found.</td></tr>";
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
                 <!-- Blank End -->
 

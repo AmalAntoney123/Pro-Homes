@@ -116,6 +116,18 @@
                                     <label for="price">Hourly Rate in Rupees</label>
                                     <span class="error" id="error3"></span>
                                 </div>
+                                <div class="form-floating form-floating">
+                                    <input type="number" required name="ifsc" class="form-control" id="ifsc" placeholder=" ">
+                                    <span class="errorrate" id="errorrate"></span>
+                                    <label for="ifsc">Bank IFSC Code</label>
+                                    <span class="error" id="error3"></span>
+                                </div>
+                                <div class="form-floating form-floating">
+                                    <input type="number" required name="accno" class="form-control" id="accno" placeholder=" ">
+                                    <span class="errorrate" id="errorrate"></span>
+                                    <label for="accno">Bank Account Number</label>
+                                    <span class="error" id="error3"></span>
+                                </div>
                                 <div class="form-floating form-outline">
                                     <div class="custom-file mb-3">
                                         <input type="file" required accept="application/pdf" class="custom-file-input" id="qualification" name="qualification">

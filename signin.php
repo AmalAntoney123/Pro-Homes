@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="assets/css/scrollbar.css"/>
   <!-- font icons -->
   <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
-
+  
   <!-- owl carousel -->
   <link rel="stylesheet" href="assets/vendors/owl-carousel/css/owl.carousel.css">
   <link rel="stylesheet" href="assets/vendors/owl-carousel/css/owl.theme.default.css">

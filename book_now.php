@@ -15,7 +15,7 @@ if (isset($_SESSION["l_id"]) and isset($_REQUEST["id"])) {
         <!-- font icons -->
         <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
 
-            <link rel="stylesheet" href="assets/css/flatpicker.css" />
+        <link rel="stylesheet" href="assets/css/flatpicker.css" />
 
         <!-- Bootstrap + Ollie main styles -->
         <link rel="stylesheet" href="assets/css/ollie.css">
@@ -102,6 +102,9 @@ if (isset($_SESSION["l_id"]) and isset($_REQUEST["id"])) {
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link mt-2" href="services.php">Find Service</a>
+                        </li>
                         <?php
                         if (isset($_SESSION["l_id"])) {
                         ?>
@@ -155,7 +158,7 @@ if (isset($_SESSION["l_id"]) and isset($_REQUEST["id"])) {
                                     <div class="row">
                                         <div class="col-md-4">
                                             <img src="uploaded files/Profile Pictures/<?php echo $service_p['Profile_Picture']; ?>" alt="Service Provider Photo" class="img-fluid rounded shadow-md">
-                                                                                       
+
                                         </div>
                                         <div class="col-md-8">
                                             <h2 class="text-primary mb-2"><?php echo ucfirst($service_p['First_Name']) . ' ';
