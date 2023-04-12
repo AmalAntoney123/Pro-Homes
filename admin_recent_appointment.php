@@ -66,7 +66,7 @@ if (isset($_SESSION["l_id"])) {
 
         <script>
             $(document).ready(function() {
-                $('#tbl_user_mgt').DataTable();
+                $('#table_service').DataTable();
             });
             $(document).ready(function() {
                 $('.toggle-switch').on('change', function() {
@@ -277,7 +277,7 @@ if (isset($_SESSION["l_id"])) {
                                 <h6 class="mb-0">Recent Services</h6>
                             </div>
                             <div class="table-responsive">
-                                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                                <table class="table text-start align-middle table-bordered table-hover mb-0" id="table_service">
                                     <thead>
                                         <tr class="text-dark">
                                             <th scope="col">Date</th>
@@ -298,7 +298,7 @@ if (isset($_SESSION["l_id"])) {
                                                     <td><?php echo $row["Appointment_Date"]; ?></td>
                                                     <td><?php echo "INV-" . rand(1000, 9999); ?></td>
                                                     <td><?php echo $row["First_Name"] . " " . $row["Last_Name"]; ?></td>
-                                                    <td><?php echo "$" . $row["Amount"]; ?></td>
+                                                    <td><?php echo "₹" . $row["Amount"]; ?></td>
                                                     <td><?php echo $row["Payment_Status"]; ?></td>
                                                     <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
                                                 </tr>
@@ -310,6 +310,9 @@ if (isset($_SESSION["l_id"])) {
                                         ?>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mt-4">
+                                <a href="assets/php/generate_pdf.php" target="_blank" download>Print Services List</a>
                             </div>
                         </div>
                     </div>

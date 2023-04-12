@@ -186,7 +186,7 @@ include("connection.php"); ?>
                                         </div>
                                         <div class="form-group">
                                             <label for="review">Review:</label>
-                                            <textarea class="form-control" rows="5" id="review" name="review"></textarea>
+                                            <textarea class="form-control" rows="5" id="review" name="review" maxlength="200"></textarea>
                                         </div>
                                         <input type="hidden" name="provider_id" id="provider_id" value="<?=$service['Provider_ID']?>"/>
                                         <button type="submit" class="btn btn-primary">Submit Review</button>
