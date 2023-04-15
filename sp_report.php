@@ -99,7 +99,7 @@ if (isset($_SESSION["l_id"])) {
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
-                        <a href="service_provider_index.php" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                        <a href="service_provider_index.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-briefcase me-2"></i>Services</a>
                             <div class="dropdown-menu bg-transparent border-0">
@@ -108,7 +108,7 @@ if (isset($_SESSION["l_id"])) {
                                 <a href="Service_provider_availability.php" class="dropdown-item">Set Availability</a>
                             </div>
                         </div>
-                        <a href="sp_report.php" class="nav-item nav-link"><i class="fa fa-file-alt me-2"></i>Reports</a>
+                        <a href="sp_report.php" class="nav-item nav-link active"><i class="fa fa-file-alt me-2"></i>Reports</a>
                     </div>
                 </nav>
             </div>
@@ -206,109 +206,38 @@ if (isset($_SESSION["l_id"])) {
                     </div>
                 </nav>
                 <!-- Navbar End -->
-
-
                 <!-- Blank Start -->
                 <div class="container-fluid pt-4 px-4">
+                    <div class="bg-light rounded  align-items-center justify-content-between p-4">
+                        <form action="generate_report.php" method="post">
+                            <div class="form-group">
+                                <label for="report_type">Select Report Type:</label>
+                                <select class="form-control" name="report_type" id="report_type">
+                                    <option value="provider_ratings_report">Provider Ratings Report</option>
+                                    <option value="service_requests_report">Service Requests Report</option>
+                                    <option value="payment_report">Payment Report</option>
+                                    <option value="service_provider_profile_report">Service Provider Profile Report</option>
+                                </select>
+                            </div>
 
-                    <div class="container-fluid pt-4 px-4">
-                        <div class="row g-4">
-                            <?php
-                            $pid=$service_p['Provider_ID'];
-                            $query = "SELECT * FROM `tbl_service_request` WHERE `Provider_ID`='$pid'";
-                            $result = mysqli_query($con, $query);
-                            $service_num = mysqli_num_rows($result);
-
-                            $query = "SELECT SUM(Amount) as total_amount FROM `tbl_payment` WHERE `Provider_ID`='$pid'";
-                            $result = mysqli_query($con, $query);
-                            $sp_payment = mysqli_fetch_assoc($result);
-                            $money=$sp_payment['total_amount'];
-
-                            $query = "SELECT * FROM `tbl_service_provider_ratings` WHERE `Provider_ID`='$pid'";
-                            $result = mysqli_query($con, $query);
-                            $review_count = mysqli_num_rows($result);
-
-                            $query = "SELECT r.Appointment_Date, r.Service_Description, p.Amount, p.Payment_Status, u.First_Name, u.Last_Name
-                                        FROM tbl_service_request r
-                                            JOIN tbl_payment p ON r.Request_ID = p.Request_ID
-                                            JOIN tbl_service_provider s ON r.Provider_ID = s.Provider_ID
-                                            JOIN tbl_user u ON r.User_ID = u.User_ID
-                                                WHERE r.Status = 'completed' AND r.Provider_ID = '$pid' LIMIT 5";
-                            $result = mysqli_query($con, $query);
-                            ?>
-                            <div class="col-sm-6 col-xl-4">
-                                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                                    <i class="fa fa-chart-line fa-3x text-primary"></i>
-                                    <div class="ms-3">
-                                        <p class="mb-2">Total Services</p>
-                                        <h6 class="mb-0"><?php echo $service_num; ?></h6>
+                            <div class="form-group">
+                                <label for="date_range">Select Date Range:</label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input required type="date" class="form-control" id="start_date" name="start_date" placeholder="Start Date">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input required type="date" class="form-control" id="end_date" name="end_date" placeholder="End Date">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6 col-xl-4">
-                                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                                    <i class="fa fa-chart-bar fa-3x text-primary"></i>
-                                    <div class="ms-3">
-                                        <p class="mb-2">Total Income</p>
-                                        <h6 class="mb-0">₹ <?php echo $money; ?></h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-xl-4">
-                                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                                    <i class="fa fa-chart-area fa-3x text-primary"></i>
-                                    <div class="ms-3">
-                                        <p class="mb-2">Total Reviews</p>
-                                        <h6 class="mb-0"><?= $review_count ?></h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-light text-center rounded p-4 mt-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Recent Services</h6>
-                                <a href="sp_recent_appoinments.php">Show All</a>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table text-start align-middle table-bordered table-hover mb-0">
-                                    <thead>
-                                        <tr class="text-dark">
-                                            <th scope="col">Date</th>
-                                            <th scope="col">Invoice</th>
-                                            <th scope="col">Customer</th>
-                                            <th scope="col">Amount</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        // Display data in table rows
-                                        if ($result->num_rows > 0) {
-                                            while ($row = $result->fetch_assoc()) {
-                                        ?>
-                                                <tr>
-                                                    <td><?php echo $row["Appointment_Date"]; ?></td>
-                                                    <td><?php echo "INV-" . rand(1000, 9999); ?></td>
-                                                    <td><?php echo $row["First_Name"] . " " . $row["Last_Name"]; ?></td>
-                                                    <td><?php echo "₹" . $row["Amount"]; ?></td>
-                                                    <td><?php echo $row["Payment_Status"]; ?></td>
-                                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                                                </tr>
-                                        <?php
-                                            }
-                                        } else {
-                                            echo "<tr><td colspan='6'>No sales found.</td></tr>";
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                            
+                            <button type="submit" class="btn btn-primary">Generate Report</button>
+                        </form>
                     </div>
                 </div>
-                <!-- Blank End -->
 
+                <!-- Blank End -->
 
                 <!-- Footer Start -->
                 <div class="container-fluid pt-4 px-4">

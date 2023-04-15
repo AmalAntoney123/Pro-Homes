@@ -15,15 +15,10 @@ if (isset($_SESSION["l_id"])) {
     } else {
         $target = "default.webp";
     }
-    if ($row["User_Type"] != "provider")
+    if ($row["User_Type"] != "Admin")
         header("location:signin.php");
 ?>
-    <style>
-        .dropdown-item:hover,
-        .dropdown-item:focus {
-            background-color: white !important;
-        }
-    </style>
+
     <!DOCTYPE html>
     <html lang="en">
 
@@ -56,6 +51,49 @@ if (isset($_SESSION["l_id"])) {
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
         <link rel="stylesheet" href="assets/css/ollie.css">
+
+        <style>
+            .dropdown-item:hover,
+            .dropdown-item:focus {
+                background-color: white !important;
+            }
+        </style>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <link href="https://cdn.datatables.net/v/bs4/dt-1.13.2/b-2.3.4/cr-1.6.1/date-1.3.0/fh-3.3.1/r-2.4.0/sc-2.1.0/sb-1.4.0/sp-2.1.1/sl-1.6.0/sr-1.2.1/datatables.min.css" />
+
+        <script src="https://cdn.datatables.net/v/bs4/dt-1.13.2/b-2.3.4/cr-1.6.1/date-1.3.0/fh-3.3.1/r-2.4.0/sc-2.1.0/sb-1.4.0/sp-2.1.1/sl-1.6.0/sr-1.2.1/datatables.min.js"></script>
+
+        <script>
+            $(document).ready(function() {
+                $('#tbl_servie_prov').DataTable();
+            });
+        </script>
+        <script>
+            //Load table
+            $(document).ready(function() {
+                // load the initial table data
+                load_data();
+
+                function load_data() {
+                    $.ajax({
+                        url: "fetch_verification_table.php",
+                        method: "POST",
+                        success: function(data) {
+                            $('#tbl_servie_prov').html(data);
+                        }
+                    });
+                }
+            });
+        </script>
+        <script>
+            function disableSubmit() {
+                document.getElementById("sub").disabled = true;
+                $('#signup_loader').show()
+                $('.signup_text').hide()
+            }
+        </script>
+
     </head>
 
     <body>
@@ -81,34 +119,40 @@ if (isset($_SESSION["l_id"])) {
                             <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                             </div>
                         </div>
-                        <?php
-                        $query = "SELECT u.`User_ID`, u.`First_Name`, u.`Last_Name`, u.`Username`, u.`Email`, u.`Password`, u.`Phone_Number`, u.`Profile_Picture`, u.`City`, u.`User_Type`, u.`Last_Log_Date`, u.`Register_Date`, u.`Verification_status`, u.`User_Status`, sp.`Provider_ID`, sp.`Service_ID`, sp.`Address`, sp.`Service_Desc`, sp.`Qualification_File`, sp.`Insurance_File`, sp.`Certificate_File`, sp.`Price`, sp.`Verification_status`, s.`Service_Name`, s.`Description` 
-                        FROM `tbl_user` u 
-                        JOIN `tbl_service_provider` sp ON u.`User_ID` = sp.`User_ID` 
-                        JOIN `tbl_services` s ON sp.`Service_ID` = s.`Service_ID` 
-                        WHERE u.`User_ID` = $lid";
-                        $result = mysqli_query($con, $query);
-                        $service_p = mysqli_fetch_array($result);
-
-                        ?>
                         <div class="ms-3">
                             <h6 class="mb-0">
                                 <?php echo "$fname $lname"; ?>
                             </h6>
-                            <span><?= $service_p['Service_Name'] ?></span>
+                            <span>Admin</span>
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
-                        <a href="service_provider_index.php" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                        <a href="admin_index.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-briefcase me-2"></i>Services</a>
-                            <div class="dropdown-menu bg-transparent border-0">
-                                <a href="sp_manage_appoinmnt.php" class="dropdown-item">Manage Appoinments</a>
-                                <a href="sp_recent_appoinments.php" class="dropdown-item">Recent Appoinments</a>
-                                <a href="Service_provider_availability.php" class="dropdown-item">Set Availability</a>
+                            <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="fa fa-briefcase me-2"></i>Services</a>
+                            <div class="dropdown-menu bg-transparent border-0 active">
+                                <a href="verify_request.php" class="dropdown-item active">Verify Providers</a>
+                                <a href="admin_recent_appointment.php" class="dropdown-item">Recent Appoinments</a>
+                                <a href="admin_list_provider.php" class="dropdown-item">List Providers</a>
                             </div>
                         </div>
-                        <a href="sp_report.php" class="nav-item nav-link"><i class="fa fa-file-alt me-2"></i>Reports</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-user me-2"></i>Users</a>
+                            <div class="dropdown-menu bg-transparent border-0">
+                                <a href="admin_manage_user.php" class="dropdown-item">Manage Users</a>
+                                <a href="signup.html" class="dropdown-item">Feedbacks</a>
+                                <a href="404.html" class="dropdown-item">Complaints</a>
+                            </div>
+                        </div>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-file me-2"></i>Pages</a>
+                            <div class="dropdown-menu bg-transparent border-0">
+                                <a href="index.php" class="dropdown-item">Home</a>
+                                <a href="signin.php" class="dropdown-item">Signin</a>
+                                <a href="signup.html" class="dropdown-item">Signup</a>
+                                <a href="services.php" class="dropdown-item">Services</a>
+                            </div>
+                        </div>
                     </div>
                 </nav>
             </div>
@@ -125,7 +169,6 @@ if (isset($_SESSION["l_id"])) {
                     <a href="#" class="sidebar-toggler flex-shrink-0">
                         <i class="fa fa-bars"></i>
                     </a>
-
                     <div class="navbar-nav align-items-center ms-auto">
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -199,7 +242,7 @@ if (isset($_SESSION["l_id"])) {
                             </a>
                             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                                 <a href="user_profile.php" class="dropdown-item">My Profile</a>
-                                <a href="user_profile.php" class="dropdown-item">Settings</a>
+                                <a href="user_profile.php#profile-edit" class="dropdown-item">Settings</a>
                                 <a href="logout.php" class="dropdown-item">Log Out</a>
                             </div>
                         </div>
@@ -210,101 +253,46 @@ if (isset($_SESSION["l_id"])) {
 
                 <!-- Blank Start -->
                 <div class="container-fluid pt-4 px-4">
+                    <div class="bg-light rounded  align-items-center justify-content-between p-4">
+                        <form action="generate_report.php" method="post">
+                            <div class="form-group">
+                                <label for="report_type">Select Report Type:</label>
+                                <select class="form-control" name="report_type" id="report_type">
+                                    <option value="provider_ratings_report">Provider Ratings Report</option>
+                                    <option value="service_requests_report">Service Requests Report</option>
+                                    <option value="payment_report">Payment Report</option>
+                                    <option value="service_provider_profile_report">Service Provider Profile Report</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="service_pro">Select Service Provider</label>
+                                <select class="form-control" name="service_pro" id="service_pro">
+                                    <?php
+                                    $sql = "SELECT u.First_Name, u.Last_Name, u.Username, u.Email, u.Phone_Number, p.Provider_ID
+                                                FROM tbl_service_provider p
+                                                    JOIN tbl_user u ON p.User_ID = u.User_ID";
+                                    $result = mysqli_query($con, $sql);
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        echo '<option value="' . $row['Provider_ID'] . '">' . $row['First_Name'] . ' ' . $row['Last_Name'] . '</option>';
+                                    }
+                                    ?>
+                                </select>
+                            </div>
 
-                    <div class="container-fluid pt-4 px-4">
-                        <div class="row g-4">
-                            <?php
-                            $pid=$service_p['Provider_ID'];
-                            $query = "SELECT * FROM `tbl_service_request` WHERE `Provider_ID`='$pid'";
-                            $result = mysqli_query($con, $query);
-                            $service_num = mysqli_num_rows($result);
-
-                            $query = "SELECT SUM(Amount) as total_amount FROM `tbl_payment` WHERE `Provider_ID`='$pid'";
-                            $result = mysqli_query($con, $query);
-                            $sp_payment = mysqli_fetch_assoc($result);
-                            $money=$sp_payment['total_amount'];
-
-                            $query = "SELECT * FROM `tbl_service_provider_ratings` WHERE `Provider_ID`='$pid'";
-                            $result = mysqli_query($con, $query);
-                            $review_count = mysqli_num_rows($result);
-
-                            $query = "SELECT r.Appointment_Date, r.Service_Description, p.Amount, p.Payment_Status, u.First_Name, u.Last_Name
-                                        FROM tbl_service_request r
-                                            JOIN tbl_payment p ON r.Request_ID = p.Request_ID
-                                            JOIN tbl_service_provider s ON r.Provider_ID = s.Provider_ID
-                                            JOIN tbl_user u ON r.User_ID = u.User_ID
-                                                WHERE r.Status = 'completed' AND r.Provider_ID = '$pid' LIMIT 5";
-                            $result = mysqli_query($con, $query);
-                            ?>
-                            <div class="col-sm-6 col-xl-4">
-                                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                                    <i class="fa fa-chart-line fa-3x text-primary"></i>
-                                    <div class="ms-3">
-                                        <p class="mb-2">Total Services</p>
-                                        <h6 class="mb-0"><?php echo $service_num; ?></h6>
+                            <div class="form-group">
+                                <label for="date_range">Select Date Range:</label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input required type="date" class="form-control" id="start_date" name="start_date" placeholder="Start Date">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input required type="date" class="form-control" id="end_date" name="end_date" placeholder="End Date">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6 col-xl-4">
-                                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                                    <i class="fa fa-chart-bar fa-3x text-primary"></i>
-                                    <div class="ms-3">
-                                        <p class="mb-2">Total Income</p>
-                                        <h6 class="mb-0">₹ <?php echo $money; ?></h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-xl-4">
-                                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                                    <i class="fa fa-chart-area fa-3x text-primary"></i>
-                                    <div class="ms-3">
-                                        <p class="mb-2">Total Reviews</p>
-                                        <h6 class="mb-0"><?= $review_count ?></h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-light text-center rounded p-4 mt-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Recent Services</h6>
-                                <a href="sp_recent_appoinments.php">Show All</a>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table text-start align-middle table-bordered table-hover mb-0">
-                                    <thead>
-                                        <tr class="text-dark">
-                                            <th scope="col">Date</th>
-                                            <th scope="col">Invoice</th>
-                                            <th scope="col">Customer</th>
-                                            <th scope="col">Amount</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        // Display data in table rows
-                                        if ($result->num_rows > 0) {
-                                            while ($row = $result->fetch_assoc()) {
-                                        ?>
-                                                <tr>
-                                                    <td><?php echo $row["Appointment_Date"]; ?></td>
-                                                    <td><?php echo "INV-" . rand(1000, 9999); ?></td>
-                                                    <td><?php echo $row["First_Name"] . " " . $row["Last_Name"]; ?></td>
-                                                    <td><?php echo "₹" . $row["Amount"]; ?></td>
-                                                    <td><?php echo $row["Payment_Status"]; ?></td>
-                                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                                                </tr>
-                                        <?php
-                                            }
-                                        } else {
-                                            echo "<tr><td colspan='6'>No sales found.</td></tr>";
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+
+                            <button type="submit" class="btn btn-primary">Generate Report</button>
+                        </form>
                     </div>
                 </div>
                 <!-- Blank End -->
@@ -334,7 +322,6 @@ if (isset($_SESSION["l_id"])) {
         </div>
 
         <!-- JavaScript Libraries -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="lib/chart/chart.min.js"></script>
         <script src="lib/easing/easing.min.js"></script>
