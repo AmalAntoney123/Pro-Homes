@@ -129,9 +129,9 @@ if (isset($_SESSION["l_id"])) {
                     <div class="navbar-nav w-100">
                         <a href="admin_index.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="fa fa-briefcase me-2"></i>Services</a>
-                            <div class="dropdown-menu bg-transparent border-0 active">
-                                <a href="verify_request.php" class="dropdown-item active">Verify Providers</a>
+                            <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="fa fa-briefcase me-2"></i>Services</a>
+                            <div class="dropdown-menu bg-transparent border-0 ">
+                                <a href="verify_request.php" class="dropdown-item ">Verify Providers</a>
                                 <a href="admin_recent_appointment.php" class="dropdown-item">Recent Appoinments</a>
                                 <a href="admin_list_provider.php" class="dropdown-item">List Providers</a>
                             </div>
@@ -144,6 +144,8 @@ if (isset($_SESSION["l_id"])) {
                                 <a href="404.html" class="dropdown-item">Complaints</a>
                             </div>
                         </div>
+                        <a href="admin_report.php" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="fa fa-folder me-2"></i>Reports</a>
+
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-file me-2"></i>Pages</a>
                             <div class="dropdown-menu bg-transparent border-0">
@@ -153,6 +155,7 @@ if (isset($_SESSION["l_id"])) {
                                 <a href="services.php" class="dropdown-item">Services</a>
                             </div>
                         </div>
+
                     </div>
                 </nav>
             </div>
