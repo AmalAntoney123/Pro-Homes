@@ -1,6 +1,7 @@
 {
     "require": {
         "cashfree/cashfree-pg-sdk-php": "^2.0",
-        "guzzlehttp/guzzle": "^7.5"
+        "guzzlehttp/guzzle": "^7.5",
+        "dompdf/dompdf": "^2.0"
     }
 }
