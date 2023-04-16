@@ -453,9 +453,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             // Output PDF to browser
             $dompdf->stream('provider_ratings_report.pdf', array('Attachment' => false));
-
-
-
             break;
     }
 }
