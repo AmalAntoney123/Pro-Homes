@@ -152,7 +152,7 @@ if (isset($_SESSION["l_id"])) {
                                 <a href="404.html" class="dropdown-item">Complaints</a>
                             </div>
                         </div>
-                        <a href="admin_report.php" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-folder me-2"></i>Reports</a>
+                        <a href="admin_report.php" class="nav-item nav-link"><i class="fa fa-folder me-2"></i>Reports</a>
 
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
