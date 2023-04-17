@@ -1,7 +1,12 @@
 {
     "require": {
         "cashfree/cashfree-pg-sdk-php": "^2.0",
-        "guzzlehttp/guzzle": "^7.5",
-        "dompdf/dompdf": "^2.0"
+        "dompdf/dompdf": "^2.0",
+        "php": "^7.3|^8.0",
+        "artesaos/seotools": "^0.22.1",
+        "fruitcake/laravel-cors": "^2.0",
+        "guzzlehttp/guzzle": "^7.0.1",
+        "laravel/framework": "^8.75",
+        "laravel/sanctum": "^2.11"
     }
 }
