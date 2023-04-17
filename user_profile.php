@@ -734,6 +734,11 @@
         });
       });
     </script>
+
+
+    <!-- Toaster -->
+    <?php include 'toast.php' ?>
+
     <!-- bootstrap 3 affix -->
     <script src="assets/vendors/bootstrap/bootstrap.affix.js"></script>
     <script src="lib/chart/chart.min.js"></script>

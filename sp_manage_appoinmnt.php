@@ -94,10 +94,10 @@ if (isset($_SESSION["l_id"])) {
             });
         </script>
         <style>
-            .form-select{
+            .form-select {
                 width: 135px;
             }
-            </style>
+        </style>
     </head>
 
     <body>
@@ -113,7 +113,7 @@ if (isset($_SESSION["l_id"])) {
 
             <!-- Sidebar Start -->
             <div class="sidebar pe-4 pb-3">
-            
+
                 <nav class="navbar bg-light navbar-light">
                     <a href="index.php" class="navbar-brand mx-4 mb-3">
                         <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>PRO HOMES</h3>
@@ -151,7 +151,7 @@ if (isset($_SESSION["l_id"])) {
 
             <!-- Content Start -->
             <div class="content">
-            <div id="output"></div>
+                <div id="output"></div>
                 <!-- Navbar Start -->
                 <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
                     <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
@@ -294,10 +294,18 @@ if (isset($_SESSION["l_id"])) {
                                             $output .= '<tr>';
                                             $output .= '<td>' . $count . '</td>';
                                             $output .= '<td > <select name="select" class="form-select" id="' . $row['Request_ID'] . '">
-                                            <option value="requested" ';if($row['Status']=="requested") $output.="selected";$output.='>Requested</option>
-                                            <option value="accepted" ';if($row['Status']=="accepted") $output.="selected";$output.='>Accept</option>
-                                            <option value="approved" ';if($row['Status']=="approved") $output.="selected";$output.='>Working</option>
-                                            <option value="completed" ';if($row['Status']=="completed") $output.="selected";$output.='>Completed</option>
+                                            <option value="requested" ';
+                                            if ($row['Status'] == "requested") $output .= "selected";
+                                            $output .= '>Requested</option>
+                                            <option value="accepted" ';
+                                            if ($row['Status'] == "accepted") $output .= "selected";
+                                            $output .= '>Accept</option>
+                                            <option value="approved" ';
+                                            if ($row['Status'] == "approved") $output .= "selected";
+                                            $output .= '>Working</option>
+                                            <option value="completed" ';
+                                            if ($row['Status'] == "completed") $output .= "selected";
+                                            $output .= '>Completed</option>
                                                             </select>
                                                 
                                                         </td>';
@@ -349,6 +357,9 @@ if (isset($_SESSION["l_id"])) {
             <!-- Back to Top -->
             <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
         </div>
+        
+        <!-- Toaster -->
+        <?php include 'toast.php' ?>
 
         <!-- JavaScript Libraries -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
