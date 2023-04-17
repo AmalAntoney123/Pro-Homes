@@ -56,9 +56,12 @@ if (isset($_SESSION["l_id"])) {
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
         <link rel="stylesheet" href="assets/css/ollie.css">
+        
     </head>
 
     <body>
+
+
         <div class="container-xxl position-relative bg-white d-flex p-0">
             <!-- Spinner Start -->
             <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -127,7 +130,7 @@ if (isset($_SESSION["l_id"])) {
                     </a>
 
                     <div class="navbar-nav align-items-center ms-auto">
-                        <div class="nav-item dropdown">
+                        <!-- <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                                 <i class="fa fa-envelope me-lg-2"></i>
                                 <span class="d-none d-lg-inline-flex">Message</span>
@@ -165,31 +168,24 @@ if (isset($_SESSION["l_id"])) {
                                 <hr class="dropdown-divider">
                                 <a href="#" class="dropdown-item text-center">See all message</a>
                             </div>
-                        </div>
-                        <div class="nav-item dropdown">
+                        </div> -->
+                        <!-- <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                                 <i class="fa fa-bell me-lg-2"></i>
                                 <span class="d-none d-lg-inline-flex">Notification</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+
                                 <a href="#" class="dropdown-item">
-                                    <h6 class="fw-normal mb-0">Profile updated</h6>
-                                    <small>15 minutes ago</small>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item">
-                                    <h6 class="fw-normal mb-0">New user added</h6>
-                                    <small>15 minutes ago</small>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item">
-                                    <h6 class="fw-normal mb-0">Password changed</h6>
-                                    <small>15 minutes ago</small>
+                                    <h6 class="fw-normal mb-0">Service Booked on 24/6/23</h6>
+                                    <small>5 mins ago</small>
                                 </a>
                                 <hr class="dropdown-divider">
                                 <a href="#" class="dropdown-item text-center">See all notifications</a>
                             </div>
-                        </div>
+                        </div> -->
+
+
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                                 <img class="rounded-circle me-lg-2" src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt="" style="width: 40px; height: 40px; object-fit:cover;">
@@ -207,14 +203,13 @@ if (isset($_SESSION["l_id"])) {
                 </nav>
                 <!-- Navbar End -->
 
-
                 <!-- Blank Start -->
                 <div class="container-fluid pt-4 px-4">
 
                     <div class="container-fluid pt-4 px-4">
                         <div class="row g-4">
                             <?php
-                            $pid=$service_p['Provider_ID'];
+                            $pid = $service_p['Provider_ID'];
                             $query = "SELECT * FROM `tbl_service_request` WHERE `Provider_ID`='$pid'";
                             $result = mysqli_query($con, $query);
                             $service_num = mysqli_num_rows($result);
@@ -222,7 +217,7 @@ if (isset($_SESSION["l_id"])) {
                             $query = "SELECT SUM(Amount) as total_amount FROM `tbl_payment` WHERE `Provider_ID`='$pid'";
                             $result = mysqli_query($con, $query);
                             $sp_payment = mysqli_fetch_assoc($result);
-                            $money=$sp_payment['total_amount'];
+                            $money = $sp_payment['total_amount'];
 
                             $query = "SELECT * FROM `tbl_service_provider_ratings` WHERE `Provider_ID`='$pid'";
                             $result = mysqli_query($con, $query);
@@ -332,6 +327,8 @@ if (isset($_SESSION["l_id"])) {
             <!-- Back to Top -->
             <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
         </div>
+
+        <?php include 'toast.php'?>
 
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

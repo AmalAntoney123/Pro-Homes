@@ -2,6 +2,7 @@
 <?php
 if (isset($_SESSION["l_id"])) {
     include("connection.php");
+    $_SESSION['new_service'] = 0;
     $lid = $_SESSION["l_id"];
     if ($lid) {
         $lid = $_SESSION["l_id"];
@@ -135,7 +136,7 @@ if (isset($_SESSION["l_id"])) {
                     </a>
 
                     <div class="navbar-nav align-items-center ms-auto">
-                        <div class="nav-item dropdown">
+                        <!-- <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                                 <i class="fa fa-envelope me-lg-2"></i>
                                 <span class="d-none d-lg-inline-flex">Message</span>
@@ -173,7 +174,7 @@ if (isset($_SESSION["l_id"])) {
                                 <hr class="dropdown-divider">
                                 <a href="#" class="dropdown-item text-center">See all message</a>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                                 <i class="fa fa-bell me-lg-2"></i>
@@ -198,6 +199,26 @@ if (isset($_SESSION["l_id"])) {
                                 <a href="#" class="dropdown-item text-center">See all notifications</a>
                             </div>
                         </div>
+                        <script>
+                            function checkServiceRequests() {
+                                $.ajax({
+                                    url: "check_service_requests.php",
+                                    type: "GET",
+                                    success: function(data) {
+                                        // Check if a new request is found
+                                        if (data == "new") {
+                                            // Display a notification
+                                            alert("New service request found!");
+                                            
+                                        }
+                                    }
+                                });
+                            }
+                            setInterval(function() {
+                                // Call the checkServiceRequests() function to check for new service requests
+                                checkServiceRequests();
+                            }, 5000); // Call every 5 seconds
+                        </script>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                                 <img class="rounded-circle me-lg-2" src="uploaded files/Profile Pictures/<?php echo $target; ?>" alt="" style="width: 40px; height: 40px; object-fit:cover;">
