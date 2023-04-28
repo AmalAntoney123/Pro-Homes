@@ -27,7 +27,11 @@
 
   <link rel="stylesheet" href="assets/css/ollie.css">
 
-
+  <?php
+    if (isset($_SESSION["l_id"])) {
+        header('Location:user_profile.php');
+    }
+  ?>
 
 </head>
 
