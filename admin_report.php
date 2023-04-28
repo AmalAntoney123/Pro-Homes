@@ -140,8 +140,7 @@ if (isset($_SESSION["l_id"])) {
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-user me-2"></i>Users</a>
                             <div class="dropdown-menu bg-transparent border-0">
                                 <a href="admin_manage_user.php" class="dropdown-item">Manage Users</a>
-                                <a href="signup.html" class="dropdown-item">Feedbacks</a>
-                                <a href="404.html" class="dropdown-item">Complaints</a>
+                                   
                             </div>
                         </div>
                         <a href="admin_report.php" class="nav-item nav-link active"><i class="fa fa-folder me-2"></i>Reports</a>
