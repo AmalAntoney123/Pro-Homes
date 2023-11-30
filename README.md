@@ -53,7 +53,7 @@ Ajax validation is implemented for enhanced user input validation without requir
 
 ## Demo
 
-Check out the [ProHomes Demo](#https://prohomesservices.000webhostapp.com/) to explore the features and functionalities of the project.
+Check out the [ProHomes Demo](https://prohomesservices.000webhostapp.com/) to explore the features and functionalities of the project.
 
 ## Getting Started
 
